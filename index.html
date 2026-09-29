@@ -21,7 +21,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow-x: hidden;
+            overflow: hidden;
             position: relative;
         }
 
@@ -52,7 +52,7 @@
             background: #ffe5b4;
             top: -60px;
             left: -60px;
-            animation: float 8s ease-in-out infinite alternate;
+            animation: float-circle 8s ease-in-out infinite alternate;
         }
 
         .circle-2 {
@@ -61,12 +61,67 @@
             background: #ffb7b2;
             bottom: -80px;
             right: -80px;
-            animation: float 10s ease-in-out infinite alternate-reverse;
+            animation: float-circle 10s ease-in-out infinite alternate-reverse;
         }
 
-        @keyframes float {
+        @keyframes float-circle {
             0% { transform: translateY(0) scale(1); }
             100% { transform: translateY(25px) scale(1.06); }
+        }
+
+        /* Floating Animation Elements (Honeybees & Petals) */
+        .floating-element {
+            position: absolute;
+            z-index: -1;
+            user-select: none;
+            pointer-events: none;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(105vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.8;
+            }
+            85% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(60px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Music Player Floating Button */
+        .music-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid #ffd166;
+            color: #d48348;
+            padding: 10px 16px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(220, 160, 130, 0.25);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .music-toggle:hover {
+            background: #f4a261;
+            color: #ffffff;
+            border-color: #f4a261;
+            transform: scale(1.05);
         }
 
         /* Container */
@@ -77,6 +132,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            z-index: 1;
         }
 
         /* Slider Card */
@@ -213,83 +269,108 @@
     <div class="ambient-circle circle-1"></div>
     <div class="ambient-circle circle-2"></div>
 
+    <!-- Background Floating Elements Generator Container -->
+    <div id="floating-container"></div>
+
+    <!-- Music Toggle Floating Button -->
+    <button class="music-toggle" id="musicBtn" onclick="toggleMusic()">
+        🎵 <span id="musicText">Putar Musik</span>
+    </button>
+
+    <!-- Hidden YouTube Audio Player -->
+    <div id="youtube-player" style="display:none;"></div>
+
     <div class="container">
         <div class="card-container">
             <!-- Slide 1 -->
             <div class="slide active" data-index="0">
-                <div class="slide-number">Bagian 01 / 11</div>
+                <div class="slide-number">Bagian 01 / 13</div>
                 <div class="slide-text">
                     Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.
                 </div>
             </div>
             <!-- Slide 2 -->
             <div class="slide" data-index="1">
-                <div class="slide-number">Bagian 02 / 11</div>
+                <div class="slide-number">Bagian 02 / 13</div>
                 <div class="slide-text">
                     Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.
                 </div>
             </div>
             <!-- Slide 3 -->
             <div class="slide" data-index="2">
-                <div class="slide-number">Bagian 03 / 11</div>
+                <div class="slide-number">Bagian 03 / 13</div>
                 <div class="slide-text">
                     Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.
                 </div>
             </div>
             <!-- Slide 4 -->
             <div class="slide" data-index="3">
-                <div class="slide-number">Bagian 04 / 11</div>
+                <div class="slide-number">Bagian 04 / 13</div>
                 <div class="slide-text">
                     So, gua memutuskan buat pamit dan fokus belajar berproses di umur yang baru ini.
                 </div>
             </div>
             <!-- Slide 5 -->
             <div class="slide" data-index="4">
-                <div class="slide-number">Bagian 05 / 11</div>
+                <div class="slide-number">Bagian 05 / 13</div>
                 <div class="slide-text">
                     Jujur, my feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.
                 </div>
             </div>
             <!-- Slide 6 -->
             <div class="slide" data-index="5">
-                <div class="slide-number">Bagian 06 / 11</div>
+                <div class="slide-number">Bagian 06 / 13</div>
                 <div class="slide-text">
                     Percakapan terakhir kita, lu jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, and i need to learn buat mulai lihat dari pov orang lain.
                 </div>
             </div>
             <!-- Slide 7 -->
             <div class="slide" data-index="6">
-                <div class="slide-number">Bagian 07 / 11</div>
+                <div class="slide-number">Bagian 07 / 13</div>
                 <div class="slide-text">
                     Jujur, until now, hati sama otak gua masih berantem. Otak gua bilang it's time to let go, banyak yang harus diperbaiki, diikhlasin, dan dimulai lagi.
                 </div>
             </div>
             <!-- Slide 8 -->
             <div class="slide" data-index="7">
-                <div class="slide-number">Bagian 08 / 11</div>
+                <div class="slide-number">Bagian 08 / 13</div>
                 <div class="slide-text">
                     Tapi my heart says otherwise....takut jadi asing, takut lu benci, takut lu akhirnya nemuin pasangan yang lu cari dan itu bukan gua, atau takut kita kehilangan jejak satu sama lain.
                 </div>
             </div>
             <!-- Slide 9 -->
             <div class="slide" data-index="8">
-                <div class="slide-number">Bagian 09 / 11</div>
+                <div class="slide-number">Bagian 09 / 13</div>
                 <div class="slide-text">
                     But at the end of the day, gua yakin kalau ikhlas itu jauh lebih indah. Kalau emang suatu hari nanti u feel the same way, lu pasti tau cara nemuin gua lagi.
                 </div>
             </div>
             <!-- Slide 10 -->
             <div class="slide" data-index="9">
-                <div class="slide-number">Bagian 10 / 11</div>
+                <div class="slide-number">Bagian 10 / 13</div>
                 <div class="slide-text">
-                    Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore. Let me say 'i love you' for the first and the last time today.
+                    Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore.
                 </div>
             </div>
             <!-- Slide 11 -->
             <div class="slide" data-index="10">
-                <div class="slide-number">Bagian 11 / 11</div>
+                <div class="slide-number">Bagian 11 / 13</div>
                 <div class="slide-text">
-                    I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u. Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block this number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri. Thanks for everything, and i wish us all the best.
+                    Let me say 'i love you' for the first and the last time today. I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u.
+                </div>
+            </div>
+            <!-- Slide 12 -->
+            <div class="slide" data-index="11">
+                <div class="slide-number">Bagian 12 / 13</div>
+                <div class="slide-text">
+                    Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block this number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri.
+                </div>
+            </div>
+            <!-- Slide 13 -->
+            <div class="slide" data-index="12">
+                <div class="slide-number">Bagian 13 / 13</div>
+                <div class="slide-text">
+                    Thanks for everything, and i wish us all the best.
                 </div>
             </div>
 
@@ -310,7 +391,67 @@
         </div>
     </div>
 
+    <!-- YouTube IFrame API script -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
+        // Generate floating bees and flower petals/honey drops
+        const icons = ['🐝', '🍯', '🌸', '✨', '🌼'];
+        const container = document.getElementById('floating-container');
+        const totalItems = 16;
+
+        for (let i = 0; i < totalItems; i++) {
+            const span = document.createElement('div');
+            span.classList.add('floating-element');
+            span.innerText = icons[Math.floor(Math.random() * icons.length)];
+            
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.animationDuration = (Math.random() * 7 + 6) + 's';
+            span.style.animationDelay = (Math.random() * 8) + 's';
+            span.style.fontSize = (Math.random() * 10 + 14) + 'px';
+            
+            container.appendChild(span);
+        }
+
+        // YouTube Audio Player Setup
+        let player;
+        let isPlaying = false;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: 'l5luP-A1nvM', // Link video honeybee / lofi honeybee dari YouTube
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 'l5luP-A1nvM'
+                },
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // Player ready
+        }
+
+        function toggleMusic() {
+            const musicText = document.getElementById('musicText');
+            if (!player || typeof player.getPlayerState !== 'function') return;
+
+            if (isPlaying) {
+                player.pauseVideo();
+                musicText.innerText = "Putar Musik";
+                isPlaying = false;
+            } else {
+                player.playVideo();
+                musicText.innerText = "Jeda Musik";
+                isPlaying = true;
+            }
+        }
+
+        // Slider logic
         let currentSlide = 0;
         const slides = document.querySelectorAll('.slide');
         const totalSlides = slides.length;
@@ -318,7 +459,6 @@
         const nextBtn = document.getElementById('nextBtn');
         const dotsContainer = document.getElementById('dotsContainer');
 
-        // Create dots
         for (let i = 0; i < totalSlides; i++) {
             const dot = document.createElement('div');
             dot.classList.add('dot');
@@ -366,7 +506,6 @@
             updateSlide();
         }
 
-        // Keyboard navigation support
         document.addEventListener('keydown', (e) => {
             if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
                 changeSlide(1);
