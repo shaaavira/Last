@@ -149,7 +149,7 @@
         .cover-subtitle {
             font-size: 1.1rem;
             color: #8c6d59;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             line-height: 1.6;
         }
 
@@ -208,12 +208,31 @@
             word-break: break-word;
         }
 
+        /* Music Widget Bar */
+        .music-widget {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: rgba(255, 243, 209, 0.6);
+            padding: 8px 16px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: #a06540;
+        }
+
+        .music-widget audio {
+            height: 30px;
+            width: 180px;
+        }
+
         /* Navigation Controls */
         .controls {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 1.5rem;
+            margin-top: 1rem;
             width: 100%;
             gap: 10px;
             padding-top: 10px;
@@ -285,7 +304,7 @@
             }
             .card-container {
                 min-height: 350px;
-                padding: 28px 20px;
+                padding: 24px 18px;
             }
             .slide-text {
                 font-size: 1.15rem;
@@ -305,11 +324,13 @@
     <div class="ambient-circle circle-1"></div>
     <div class="ambient-circle circle-2"></div>
 
-    <!-- Falling Flowers Container (Slow & Sparse, Top to Bottom) -->
+    <!-- Falling Flowers Container -->
     <div id="falling-container"></div>
 
-    <!-- Hidden YouTube Audio Player Container -->
-    <div id="youtube-player" style="display:none;"></div>
+    <!-- Audio Player Asli yang Pasti Muncul -->
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+    </audio>
 
     <div class="container">
         <!-- Cover Screen -->
@@ -322,8 +343,15 @@
             </button>
         </div>
 
-        <!-- Card Container (Hidden initially) -->
+        <!-- Card Container -->
         <div class="card-container hidden" id="mainCard">
+            <div class="music-widget">
+                <span>🎵 Lofi BGM</span>
+                <audio controls loop id="card-audio">
+                    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
+                </audio>
+            </div>
+
             <!-- Slide 1 -->
             <div class="slide active" data-index="0">
                 <div class="slide-number">Bagian 01 / 13</div>
@@ -422,9 +450,7 @@
                     ← Prev
                 </button>
                 
-                <div class="dots" id="dotsContainer">
-                    <!-- Generated via JS -->
-                </div>
+                <div class="dots" id="dotsContainer"></div>
 
                 <button class="btn" id="nextBtn" onclick="changeSlide(1)">
                     Next →
@@ -433,62 +459,40 @@
         </div>
     </div>
 
-    <!-- YouTube IFrame API Script -->
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Generate Slow & Sparse Falling Flowers (Top to Bottom)
+        // Generate Flowers
         const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
         const container = document.getElementById('falling-container');
-        const totalItems = 7;
-
-        for (let i = 0; i < totalItems; i++) {
+        for (let i = 0; i < 7; i++) {
             const span = document.createElement('div');
             span.classList.add('falling-flower');
             span.innerText = flowers[Math.floor(Math.random() * flowers.length)];
-            
             span.style.left = Math.random() * 100 + 'vw';
             span.style.animationDuration = (Math.random() * 5 + 9) + 's';
             span.style.animationDelay = (Math.random() * 6) + 's';
             span.style.fontSize = (Math.random() * 6 + 18) + 'px';
-            
             container.appendChild(span);
         }
 
-        // YouTube Audio Player Setup (Menggunakan ID trek yang terbukti stabil & lancar)
-        let player;
-        let isAppStarted = false;
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
-                videoId: 'l5luP-A1nvM', // ID trek audio stabil
-                playerVars: {
-                    'autoplay': 0,
-                    'loop': 1,
-                    'playlist': 'l5luP-A1nvM'
-                },
-                events: {
-                    'onReady': (event) => {
-                        if (isAppStarted) {
-                            event.target.playVideo();
-                        }
-                    }
-                }
-            });
-        }
-
-        // Start App & Play Music immediately on click
+        // Start App & Langsung Loncat ke detik ke-3 (melewati jeda sunyi awal)
         function startApp() {
-            isAppStarted = true;
             const coverScreen = document.getElementById('coverScreen');
             const mainCard = document.getElementById('mainCard');
+            const music = document.getElementById('bg-music');
+            const cardAudio = document.getElementById('card-audio');
 
             coverScreen.classList.add('hidden');
             mainCard.classList.remove('hidden');
 
-            if (player && typeof player.playVideo === 'function') {
-                player.playVideo();
+            if (music) {
+                music.currentTime = 3.0; // Langsung skip ke detik ke-3 agar musik langsung bunyi
+                music.volume = 0.7;
+                music.play().catch(e => console.log("Audio play error:", e));
+            }
+            if (cardAudio) {
+                cardAudio.currentTime = 3.0;
+                cardAudio.volume = 0.7;
+                cardAudio.play().catch(e => console.log("Card audio play error:", e));
             }
         }
 
@@ -513,26 +517,17 @@
         function updateSlide() {
             slides.forEach((slide, index) => {
                 slide.classList.remove('active');
-                if (index === currentSlide) {
-                    slide.classList.add('active');
-                }
+                if (index === currentSlide) slide.classList.add('active');
             });
 
             dots.forEach((dot, index) => {
                 dot.classList.remove('active');
-                if (index === currentSlide) {
-                    dot.classList.add('active');
-                }
+                if (index === currentSlide) dot.classList.add('active');
             });
 
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === totalSlides - 1;
-            
-            if (currentSlide === totalSlides - 1) {
-                nextBtn.innerHTML = 'Selesai ✓';
-            } else {
-                nextBtn.innerHTML = 'Next →';
-            }
+            nextBtn.innerHTML = (currentSlide === totalSlides - 1) ? 'Selesai ✓' : 'Next →';
         }
 
         function changeSlide(direction) {
@@ -547,7 +542,6 @@
             updateSlide();
         }
 
-        // Keyboard navigation support
         document.addEventListener('keydown', (e) => {
             const mainCard = document.getElementById('mainCard');
             if (mainCard.classList.contains('hidden')) return;
