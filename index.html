@@ -197,7 +197,7 @@
             text-transform: uppercase;
         }
 
-        /* Ukuran Teks Pesan Diperbesar agar Jelas di Layar HP */
+        /* Ukuran Teks Pesan Besar & Jelas di HP */
         .slide-text {
             font-family: 'Poppins', sans-serif;
             font-size: 1.2rem;
@@ -288,7 +288,7 @@
                 padding: 28px 20px;
             }
             .slide-text {
-                font-size: 1.13rem;
+                font-size: 1.15rem;
             }
             .cover-title {
                 font-size: 1.85rem;
@@ -308,10 +308,8 @@
     <!-- Falling Flowers Container (Slow & Sparse, Top to Bottom) -->
     <div id="falling-container"></div>
 
-    <!-- Background Music Audio Tag (Working Direct Stream) -->
-    <audio id="bg-music" loop>
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Hidden YouTube Audio Player Container -->
+    <div id="youtube-player" style="display:none;"></div>
 
     <div class="container">
         <!-- Cover Screen -->
@@ -435,6 +433,8 @@
         </div>
     </div>
 
+    <!-- YouTube IFrame API Script -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
         // Generate Slow & Sparse Falling Flowers (Top to Bottom)
         const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
@@ -447,27 +447,40 @@
             span.innerText = flowers[Math.floor(Math.random() * flowers.length)];
             
             span.style.left = Math.random() * 100 + 'vw';
-            span.style.animationDuration = (Math.random() * 5 + 9) + 's'; // 9s - 14s (lambat & tenang)
+            span.style.animationDuration = (Math.random() * 5 + 9) + 's';
             span.style.animationDelay = (Math.random() * 6) + 's';
             span.style.fontSize = (Math.random() * 6 + 18) + 'px';
             
             container.appendChild(span);
         }
 
+        // YouTube Audio Player Setup
+        let player;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: 'l5luP-A1nvM', // ID Audio / Lofi track
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 'l5luP-A1nvM'
+                }
+            });
+        }
+
         // Start App & Play Music immediately on click
         function startApp() {
             const coverScreen = document.getElementById('coverScreen');
             const mainCard = document.getElementById('mainCard');
-            const music = document.getElementById('bg-music');
 
             coverScreen.classList.add('hidden');
             mainCard.classList.remove('hidden');
 
-            if (music) {
-                music.volume = 0.6;
-                music.play().catch(error => {
-                    console.log("Audio autoplay prevented by browser:", error);
-                });
+            // Play music via YouTube API
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
             }
         }
 
