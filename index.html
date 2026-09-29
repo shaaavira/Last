@@ -456,29 +456,39 @@
 
         // YouTube Audio Player Setup
         let player;
+        let isAppStarted = false;
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
                 height: '0',
                 width: '0',
-                videoId: 'l5luP-A1nvM', // ID Audio / Lofi track
+                videoId: 'l5luP-A1nvM',
                 playerVars: {
                     'autoplay': 0,
                     'loop': 1,
                     'playlist': 'l5luP-A1nvM'
+                },
+                events: {
+                    'onReady': (event) => {
+                        // Jika tombol sudah sempat ditekan duluan sebelum API siap, langsung putar
+                        if (isAppStarted) {
+                            event.target.playVideo();
+                        }
+                    }
                 }
             });
         }
 
         // Start App & Play Music immediately on click
         function startApp() {
+            isAppStarted = true;
             const coverScreen = document.getElementById('coverScreen');
             const mainCard = document.getElementById('mainCard');
 
             coverScreen.classList.add('hidden');
             mainCard.classList.remove('hidden');
 
-            // Play music via YouTube API
+            // Langsung panggil putar lagu seketika tombol diklik
             if (player && typeof player.playVideo === 'function') {
                 player.playVideo();
             }
