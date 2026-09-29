@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>A Note For You 🍯🐝</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -14,142 +14,165 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #fff7d6 0%, #ffecd2 50%, #ffd1dc 100%);
+            background: linear-gradient(135deg, #fff3d1 0%, #ffdfba 50%, #ffc6d9 100%);
             color: #5c4033;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
+            padding: 15px;
         }
 
-        /* Honeybee & playful dotted/grid pattern overlay */
+        /* Clean Dotted Pattern Overlay */
         .pattern-bg {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: radial-gradient(rgba(244, 162, 97, 0.25) 2.5px, transparent 2.5px);
-            background-size: 32px 32px;
-            z-index: -1;
+            background-image: radial-gradient(rgba(235, 140, 90, 0.18) 2px, transparent 2px);
+            background-size: 28px 28px;
+            z-index: -2;
+            pointer-events: none;
         }
 
-        /* Ambient warm sweet glowing circles */
+        /* Ambient Soft Glow */
         .ambient-circle {
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.55;
-            z-index: -2;
+            filter: blur(80px);
+            opacity: 0.4;
+            z-index: -3;
+            pointer-events: none;
         }
 
         .circle-1 {
-            width: 380px;
-            height: 380px;
-            background: #ffe5b4;
-            top: -60px;
-            left: -60px;
-            animation: float-circle 8s ease-in-out infinite alternate;
+            width: 300px;
+            height: 300px;
+            background: #ffecb6;
+            top: -50px;
+            left: -50px;
         }
 
         .circle-2 {
-            width: 420px;
-            height: 420px;
-            background: #ffb7b2;
-            bottom: -80px;
-            right: -80px;
-            animation: float-circle 10s ease-in-out infinite alternate-reverse;
+            width: 350px;
+            height: 350px;
+            background: #ffb4b0;
+            bottom: -50px;
+            right: -50px;
         }
 
-        @keyframes float-circle {
-            0% { transform: translateY(0) scale(1); }
-            100% { transform: translateY(25px) scale(1.06); }
-        }
-
-        /* Floating Animation Elements (Honeybees & Petals) */
-        .floating-element {
-            position: absolute;
+        /* Falling Flowers Animation (Top to Bottom) */
+        #falling-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
             z-index: -1;
+            overflow: hidden;
+        }
+
+        .falling-flower {
+            position: absolute;
+            top: -10vh;
             user-select: none;
             pointer-events: none;
-            animation: floatUp linear infinite;
+            animation: fallDown linear infinite;
         }
 
-        @keyframes floatUp {
+        @keyframes fallDown {
             0% {
-                transform: translateY(105vh) translateX(0) rotate(0deg);
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
                 opacity: 0;
             }
             15% {
-                opacity: 0.8;
+                opacity: 0.85;
             }
             85% {
-                opacity: 0.8;
+                opacity: 0.85;
             }
             100% {
-                transform: translateY(-10vh) translateX(60px) rotate(360deg);
+                transform: translateY(110vh) translateX(40px) rotate(360deg);
                 opacity: 0;
             }
         }
 
-        /* Music Player Floating Button */
-        .music-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 2px solid #ffd166;
-            color: #d48348;
-            padding: 10px 16px;
-            border-radius: 50px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(220, 160, 130, 0.25);
-            z-index: 100;
-            transition: all 0.3s ease;
-        }
-
-        .music-toggle:hover {
-            background: #f4a261;
-            color: #ffffff;
-            border-color: #f4a261;
-            transform: scale(1.05);
-        }
-
-        /* Container */
+        /* Main Container */
         .container {
             width: 100%;
-            max-width: 680px;
-            padding: 20px;
+            max-width: 520px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 1;
+            z-index: 2;
         }
 
-        /* Slider Card */
+        /* Cover Screen */
+        .cover-screen {
+            width: 100%;
+            background: rgba(255, 253, 245, 0.95);
+            backdrop-filter: blur(12px);
+            border: 2px solid rgba(255, 223, 186, 0.9);
+            border-radius: 28px;
+            padding: 40px 30px;
+            box-shadow: 0 15px 35px rgba(210, 150, 120, 0.2);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.5s ease;
+        }
+
+        .cover-icon {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .cover-title {
+            font-size: 1.7rem;
+            font-weight: 600;
+            color: #4a3b32;
+            margin-bottom: 10px;
+        }
+
+        .cover-subtitle {
+            font-size: 0.95rem;
+            color: #8c6d59;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        /* Hidden Class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Card Container (Slider) */
         .card-container {
             width: 100%;
-            background: rgba(255, 253, 245, 0.94);
-            backdrop-filter: blur(16px);
+            background: rgba(255, 253, 245, 0.95);
+            backdrop-filter: blur(12px);
             border: 2px solid rgba(255, 223, 186, 0.9);
-            border-radius: 32px;
-            padding: 45px 40px;
-            box-shadow: 0 20px 45px rgba(220, 160, 130, 0.22);
+            border-radius: 28px;
+            padding: 30px 25px;
+            box-shadow: 0 15px 35px rgba(210, 150, 120, 0.2);
             position: relative;
-            min-height: 290px;
+            min-height: 280px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .slide {
@@ -157,7 +180,7 @@
             flex-direction: column;
             justify-content: center;
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.4s ease-in-out;
         }
 
         .slide.active {
@@ -166,21 +189,22 @@
         }
 
         .slide-number {
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 1.5px;
             color: #e07a5f;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1rem;
             text-transform: uppercase;
         }
 
         .slide-text {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.05rem;
-            line-height: 1.9;
+            font-size: 0.98rem;
+            line-height: 1.8;
             color: #4a3b32;
             font-weight: 400;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
+            word-break: break-word;
         }
 
         /* Navigation Controls */
@@ -188,33 +212,33 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 2rem;
+            margin-top: 1.5rem;
             width: 100%;
+            gap: 10px;
         }
 
         .btn {
             background: #ffffff;
             border: 2px solid #ffd166;
             color: #d48348;
-            padding: 12px 24px;
+            padding: 10px 20px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 500;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(255, 209, 102, 0.25);
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(255, 209, 102, 0.2);
+            white-space: nowrap;
         }
 
         .btn:hover:not(:disabled) {
             background: #f4a261;
             color: #ffffff;
             border-color: #f4a261;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(244, 162, 97, 0.4);
         }
 
         .btn:disabled {
@@ -228,16 +252,16 @@
         /* Progress Dots */
         .dots {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             align-items: center;
-            max-width: 220px;
+            max-width: 140px;
             overflow-x: auto;
-            padding: 4px 0;
+            padding: 2px 0;
         }
 
         .dot {
-            width: 7px;
-            height: 7px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: rgba(244, 162, 97, 0.3);
             transition: all 0.3s ease;
@@ -246,19 +270,26 @@
         }
 
         .dot.active {
-            width: 22px;
-            border-radius: 6px;
+            width: 18px;
+            border-radius: 4px;
             background: #f4a261;
         }
 
-        /* Responsive */
-        @media (max-width: 640px) {
-            .card-container {
-                padding: 30px 20px;
-                min-height: 320px;
+        /* Responsive Mobile Tuning */
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+            .card-container, .cover-screen {
+                padding: 25px 20px;
+                min-height: 260px;
+                border-radius: 22px;
             }
             .slide-text {
-                font-size: 0.95rem;
+                font-size: 0.92rem;
+            }
+            .cover-title {
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -269,19 +300,25 @@
     <div class="ambient-circle circle-1"></div>
     <div class="ambient-circle circle-2"></div>
 
-    <!-- Background Floating Elements Generator Container -->
-    <div id="floating-container"></div>
-
-    <!-- Music Toggle Floating Button -->
-    <button class="music-toggle" id="musicBtn" onclick="toggleMusic()">
-        🎵 <span id="musicText">Putar Musik</span>
-    </button>
+    <!-- Falling Flowers Container (Top to Bottom) -->
+    <div id="falling-container"></div>
 
     <!-- Hidden YouTube Audio Player -->
     <div id="youtube-player" style="display:none;"></div>
 
     <div class="container">
-        <div class="card-container">
+        <!-- Cover Screen -->
+        <div class="cover-screen" id="coverScreen">
+            <div class="cover-icon">🍯🐝</div>
+            <div class="cover-title">A Note For You</div>
+            <div class="cover-subtitle">Sebuah catatan kecil khusus untukmu.<br>Tekan tombol di bawah untuk membukanya.</div>
+            <button class="btn" onclick="startApp()" style="padding: 12px 28px; font-size: 0.95rem; background: #f4a261; color: #fff; border-color: #f4a261;">
+                Buka Catatan 💌
+            </button>
+        </div>
+
+        <!-- Card Container (Hidden initially) -->
+        <div class="card-container hidden" id="mainCard">
             <!-- Slide 1 -->
             <div class="slide active" data-index="0">
                 <div class="slide-number">Bagian 01 / 13</div>
@@ -314,7 +351,7 @@
             <div class="slide" data-index="4">
                 <div class="slide-number">Bagian 05 / 13</div>
                 <div class="slide-text">
-                    Jujur, my feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.
+                    Jujur, my feelings for u are still there, tapi karena itu juga gua sadار gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.
                 </div>
             </div>
             <!-- Slide 6 -->
@@ -377,7 +414,7 @@
             <!-- Controls -->
             <div class="controls">
                 <button class="btn" id="prevBtn" onclick="changeSlide(-1)" disabled>
-                    ← Sebelumnya
+                    ← Prev
                 </button>
                 
                 <div class="dots" id="dotsContainer">
@@ -385,7 +422,7 @@
                 </div>
 
                 <button class="btn" id="nextBtn" onclick="changeSlide(1)">
-                    Selanjutnya →
+                    Next →
                 </button>
             </div>
         </div>
@@ -394,60 +431,51 @@
     <!-- YouTube IFrame API script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Generate floating bees and flower petals/honey drops
-        const icons = ['🐝', '🍯', '🌸', '✨', '🌼'];
-        const container = document.getElementById('floating-container');
-        const totalItems = 16;
+        // Generate Falling Flowers (Top to Bottom)
+        const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
+        const container = document.getElementById('falling-container');
+        const totalItems = 14;
 
         for (let i = 0; i < totalItems; i++) {
             const span = document.createElement('div');
-            span.classList.add('floating-element');
-            span.innerText = icons[Math.floor(Math.random() * icons.length)];
+            span.classList.add('falling-flower');
+            span.innerText = flowers[Math.floor(Math.random() * flowers.length)];
             
             span.style.left = Math.random() * 100 + 'vw';
-            span.style.animationDuration = (Math.random() * 7 + 6) + 's';
+            span.style.animationDuration = (Math.random() * 6 + 5) + 's'; // 5s - 11s speed
             span.style.animationDelay = (Math.random() * 8) + 's';
-            span.style.fontSize = (Math.random() * 10 + 14) + 'px';
+            span.style.fontSize = (Math.random() * 8 + 14) + 'px';
             
             container.appendChild(span);
         }
 
         // YouTube Audio Player Setup
         let player;
-        let isPlaying = false;
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
                 height: '0',
                 width: '0',
-                videoId: 'l5luP-A1nvM', // Link video honeybee / lofi honeybee dari YouTube
+                videoId: 'l5luP-A1nvM', // Honeybee / Lofi audio stream ID
                 playerVars: {
                     'autoplay': 0,
                     'loop': 1,
                     'playlist': 'l5luP-A1nvM'
-                },
-                events: {
-                    'onReady': onPlayerReady
                 }
             });
         }
 
-        function onPlayerReady(event) {
-            // Player ready
-        }
+        // Start App & Play Music automatically on click
+        function startApp() {
+            const coverScreen = document.getElementById('coverScreen');
+            const mainCard = document.getElementById('mainCard');
 
-        function toggleMusic() {
-            const musicText = document.getElementById('musicText');
-            if (!player || typeof player.getPlayerState !== 'function') return;
+            coverScreen.classList.add('hidden');
+            mainCard.classList.remove('hidden');
 
-            if (isPlaying) {
-                player.pauseVideo();
-                musicText.innerText = "Putar Musik";
-                isPlaying = false;
-            } else {
+            // Play music
+            if (player && typeof player.playVideo === 'function') {
                 player.playVideo();
-                musicText.innerText = "Jeda Musik";
-                isPlaying = true;
             }
         }
 
@@ -490,7 +518,7 @@
             if (currentSlide === totalSlides - 1) {
                 nextBtn.innerHTML = 'Selesai ✓';
             } else {
-                nextBtn.innerHTML = 'Selanjutnya →';
+                nextBtn.innerHTML = 'Next →';
             }
         }
 
@@ -506,7 +534,11 @@
             updateSlide();
         }
 
+        // Keyboard navigation support
         document.addEventListener('keydown', (e) => {
+            const mainCard = document.getElementById('mainCard');
+            if (mainCard.classList.contains('hidden')) return; // Ignore if still on cover
+
             if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
                 changeSlide(1);
             } else if (e.key === 'ArrowLeft' && currentSlide > 0) {
