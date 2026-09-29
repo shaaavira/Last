@@ -457,7 +457,6 @@
         // YouTube Audio Player Setup
         let player;
         let isAppStarted = false;
-        const START_TIME = 15; // Ubah angka ini (dalam detik) jika ingin melompati intro/hening di awal lagu
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
@@ -467,13 +466,12 @@
                 playerVars: {
                     'autoplay': 0,
                     'loop': 1,
-                    'playlist': 'l5luP-A1nvM',
-                    'start': START_TIME
+                    'playlist': 'l5luP-A1nvM'
                 },
                 events: {
                     'onReady': (event) => {
+                        // Jika tombol sudah sempat ditekan duluan sebelum API siap, langsung putar
                         if (isAppStarted) {
-                            event.target.seekTo(START_TIME, true);
                             event.target.playVideo();
                         }
                     }
@@ -481,7 +479,7 @@
             });
         }
 
-        // Start App & Play Music immediately on click without delay
+        // Start App & Play Music immediately on click
         function startApp() {
             isAppStarted = true;
             const coverScreen = document.getElementById('coverScreen');
@@ -490,8 +488,8 @@
             coverScreen.classList.add('hidden');
             mainCard.classList.remove('hidden');
 
+            // Langsung panggil putar lagu seketika tombol diklik
             if (player && typeof player.playVideo === 'function') {
-                player.seekTo(START_TIME, true);
                 player.playVideo();
             }
         }
