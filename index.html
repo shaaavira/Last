@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Note For You 🍯🐝</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -24,7 +24,7 @@
             justify-content: center;
             overflow-x: hidden;
             position: relative;
-            padding: 12px;
+            padding: 16px;
         }
 
         /* Clean Dotted Pattern Overlay */
@@ -103,10 +103,10 @@
             }
         }
 
-        /* Main Container - Fit di Android */
+        /* Main Container - Lebar & Pas di HP */
         .container {
             width: 100%;
-            max-width: 480px;
+            max-width: 600px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -121,7 +121,7 @@
             -webkit-backdrop-filter: blur(12px);
             border: 2px solid rgba(255, 223, 186, 0.9);
             border-radius: 28px;
-            padding: 36px 22px;
+            padding: 40px 24px;
             box-shadow: 0 12px 30px rgba(210, 150, 120, 0.2);
             text-align: center;
             display: flex;
@@ -131,8 +131,8 @@
         }
 
         .cover-icon {
-            font-size: 3.8rem;
-            margin-bottom: 14px;
+            font-size: 4.5rem;
+            margin-bottom: 16px;
             animation: bounce 2s infinite ease-in-out;
         }
 
@@ -142,17 +142,17 @@
         }
 
         .cover-title {
-            font-size: 1.9rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: #4a3b32;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .cover-subtitle {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #8c6d59;
-            margin-bottom: 24px;
-            line-height: 1.5;
+            margin-bottom: 28px;
+            line-height: 1.6;
         }
 
         /* Hidden Class */
@@ -160,7 +160,7 @@
             display: none !important;
         }
 
-        /* Card Container - Pas & Proporsional di Android */
+        /* Card Container - Ukuran Besar & Nyaman Dibaca */
         .card-container {
             width: 100%;
             background: rgba(255, 253, 245, 0.98);
@@ -168,10 +168,10 @@
             -webkit-backdrop-filter: blur(12px);
             border: 2px solid rgba(255, 223, 186, 0.9);
             border-radius: 28px;
-            padding: 28px 20px;
+            padding: 32px 24px;
             box-shadow: 0 12px 30px rgba(210, 150, 120, 0.2);
             position: relative;
-            min-height: 360px;
+            min-height: 420px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -192,22 +192,22 @@
         }
 
         .slide-number {
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             font-weight: 700;
             letter-spacing: 1.2px;
             color: #e07a5f;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             text-transform: uppercase;
         }
 
-        /* Ukuran Teks Pesan Nyaman Dibaca di HP */
+        /* Ukuran Teks Pesan Dibuat Jelas dan Besar */
         .slide-text {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.12rem;
-            line-height: 1.7;
+            font-size: 1.25rem;
+            line-height: 1.8;
             color: #4a3b32;
             font-weight: 400;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             word-break: break-word;
         }
 
@@ -216,10 +216,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 16px;
+            margin-top: 20px;
             width: 100%;
-            gap: 8px;
-            padding-top: 12px;
+            gap: 10px;
+            padding-top: 16px;
             border-top: 1px solid rgba(255, 223, 186, 0.6);
         }
 
@@ -227,16 +227,16 @@
             background: #ffffff;
             border: 2px solid #ffd166;
             color: #d48348;
-            padding: 10px 18px;
+            padding: 12px 22px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             box-shadow: 0 3px 10px rgba(255, 209, 102, 0.2);
             white-space: nowrap;
             -webkit-tap-highlight-color: transparent;
@@ -257,21 +257,21 @@
         /* Progress Dots */
         .dots {
             display: flex;
-            gap: 5px;
+            gap: 6px;
             align-items: center;
-            max-width: 120px;
+            max-width: 140px;
             overflow-x: auto;
             padding: 2px 0;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
         }
 
         .dots::-webkit-scrollbar {
-            display: none; /* Safari & Chrome */
+            display: none;
         }
 
         .dot {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             background: rgba(244, 162, 97, 0.3);
             transition: all 0.3s ease;
@@ -280,7 +280,7 @@
         }
 
         .dot.active {
-            width: 16px;
+            width: 20px;
             border-radius: 4px;
             background: #f4a261;
         }
@@ -304,7 +304,7 @@
             <div class="cover-icon">🍯🐝</div>
             <div class="cover-title">A Note For You</div>
             <div class="cover-subtitle">Sebuah catatan kecil khusus untukmu.<br>Tekan tombol di bawah untuk membukanya.</div>
-            <button class="btn" onclick="startApp()" style="padding: 12px 28px; font-size: 1rem; background: #f4a261; color: #fff; border-color: #f4a261; width: 100%; justify-content: center;">
+            <button class="btn" onclick="startApp()" style="padding: 14px 30px; font-size: 1.1rem; background: #f4a261; color: #fff; border-color: #f4a261; width: 100%; justify-content: center;">
                 Buka Catatan 💌
             </button>
         </div>
