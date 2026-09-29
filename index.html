@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>A Note For You 🍯🐝</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -26,7 +26,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 0;
         }
 
         /* Ambient Soft Glow */
@@ -92,7 +91,7 @@
             }
         }
 
-        /* Main Wrapper - Full 100% Layar HP */
+        /* Main Wrapper - Full 100% Lebar & Tinggi Layar */
         .wrapper {
             position: relative;
             z-index: 2;
@@ -102,7 +101,7 @@
             flex-direction: column;
         }
 
-        /* Box Container Card - Full Menyesuaikan Layar */
+        /* Box Container Card - Full Lebar & Tinggi Tanpa Sisa */
         .box-container {
             width: 100%;
             height: 100%;
@@ -113,20 +112,6 @@
             flex-direction: column;
             justify-content: space-between;
             text-align: center;
-        }
-
-        @media (min-width: 600px) {
-            .box-container {
-                max-width: 480px;
-                height: 85vh;
-                border-radius: 32px;
-                border: 2px solid rgba(255, 223, 186, 0.9);
-                box-shadow: 0 15px 35px rgba(210, 150, 120, 0.22);
-            }
-            .wrapper {
-                align-items: center;
-                justify-content: center;
-            }
         }
 
         .cover-content {
@@ -148,14 +133,14 @@
         }
 
         .cover-title {
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             font-weight: 700;
             color: #4a3b32;
             margin-bottom: 12px;
         }
 
         .cover-subtitle {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             color: #8c6d59;
             margin-bottom: 30px;
             line-height: 1.6;
@@ -177,7 +162,7 @@
 
         .card-brand {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #d48348;
         }
 
@@ -201,7 +186,7 @@
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
             text-align: left;
-            padding: 0 4px;
+            padding: 0 8px;
         }
 
         .slide.active {
@@ -210,7 +195,7 @@
         }
 
         .slide-number {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             font-weight: 700;
             letter-spacing: 1.5px;
             color: #e07a5f;
@@ -219,7 +204,7 @@
         }
 
         .slide-text {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             line-height: 1.8;
             color: #4a3b32;
             font-weight: 400;
@@ -240,7 +225,7 @@
             background: #ffffff;
             border: 2px solid #ffd166;
             color: #d48348;
-            padding: 12px 20px;
+            padding: 12px 24px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
             font-size: 1rem;
@@ -278,7 +263,7 @@
             display: flex;
             gap: 6px;
             align-items: center;
-            max-width: 120px;
+            max-width: 140px;
             overflow-x: auto;
             scrollbar-width: none;
         }
