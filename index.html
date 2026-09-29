@@ -454,7 +454,7 @@
             container.appendChild(span);
         }
 
-        // YouTube Audio Player Setup
+        // YouTube Audio Player Setup (Menggunakan ID lagu yang langsung mulai tanpa jeda intro)
         let player;
         let isAppStarted = false;
 
@@ -462,15 +462,14 @@
             player = new YT.Player('youtube-player', {
                 height: '0',
                 width: '0',
-                videoId: 'l5luP-A1nvM',
+                videoId: 'jfKfPfyJRdk', // Lofi girl beat track (langsung bunyi dari detik pertama)
                 playerVars: {
                     'autoplay': 0,
                     'loop': 1,
-                    'playlist': 'l5luP-A1nvM'
+                    'playlist': 'jfKfPfyJRdk'
                 },
                 events: {
                     'onReady': (event) => {
-                        // Jika tombol sudah sempat ditekan duluan sebelum API siap, langsung putar
                         if (isAppStarted) {
                             event.target.playVideo();
                         }
@@ -488,7 +487,6 @@
             coverScreen.classList.add('hidden');
             mainCard.classList.remove('hidden');
 
-            // Langsung panggil putar lagu seketika tombol diklik
             if (player && typeof player.playVideo === 'function') {
                 player.playVideo();
             }
