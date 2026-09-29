@@ -26,7 +26,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 16px;
+            padding: 12px;
         }
 
         /* Ambient Soft Glow */
@@ -92,29 +92,29 @@
             }
         }
 
-        /* Main Wrapper */
+        /* Main Wrapper - Proporsional pas di HP */
         .wrapper {
             position: relative;
             z-index: 2;
-            width: 100%;
-            max-width: 480px;
-            height: 88vh;
-            max-height: 640px;
+            width: 92%;
+            max-width: 420px;
+            height: 82vh;
+            max-height: 580px;
             display: flex;
             flex-direction: column;
         }
 
-        /* Box Container Card - Estetik, proporsional, sudut melengkung, bayangan pas */
+        /* Box Container Card - Estetik, rounded, elegan */
         .box-container {
             width: 100%;
             height: 100%;
-            background: rgba(255, 253, 245, 0.95);
+            background: rgba(255, 253, 245, 0.97);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 2px solid rgba(255, 223, 186, 0.9);
-            border-radius: 32px;
-            padding: 28px 24px;
-            box-shadow: 0 20px 40px rgba(210, 150, 120, 0.25);
+            border-radius: 28px;
+            padding: 24px 20px;
+            box-shadow: 0 15px 35px rgba(210, 150, 120, 0.22);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -129,8 +129,8 @@
         }
 
         .cover-icon {
-            font-size: 4.5rem;
-            margin-bottom: 16px;
+            font-size: 4rem;
+            margin-bottom: 14px;
             animation: bounce 2s infinite ease-in-out;
         }
 
@@ -140,16 +140,16 @@
         }
 
         .cover-title {
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 700;
             color: #4a3b32;
             margin-bottom: 10px;
         }
 
         .cover-subtitle {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #8c6d59;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
             line-height: 1.5;
         }
 
@@ -164,12 +164,12 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid rgba(255, 223, 186, 0.7);
-            padding-bottom: 12px;
+            padding-bottom: 10px;
         }
 
         .card-brand {
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #d48348;
         }
 
@@ -181,7 +181,7 @@
             justify-content: center;
             position: relative;
             overflow: hidden;
-            margin: 12px 0;
+            margin: 10px 0;
         }
 
         .slide {
@@ -193,7 +193,7 @@
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
             text-align: left;
-            padding: 0 4px;
+            padding: 0 2px;
         }
 
         .slide.active {
@@ -202,17 +202,17 @@
         }
 
         .slide-number {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             letter-spacing: 1.5px;
             color: #e07a5f;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-transform: uppercase;
         }
 
         .slide-text {
-            font-size: 1.1rem;
-            line-height: 1.75;
+            font-size: 1.05rem;
+            line-height: 1.7;
             color: #4a3b32;
             font-weight: 400;
             word-break: break-word;
@@ -223,19 +223,19 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 14px;
+            padding-top: 12px;
             border-top: 1px solid rgba(255, 223, 186, 0.7);
-            gap: 10px;
+            gap: 8px;
         }
 
         .btn {
             background: #ffffff;
             border: 2px solid #ffd166;
             color: #d48348;
-            padding: 10px 20px;
+            padding: 9px 18px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -261,16 +261,16 @@
             color: #ffffff;
             border-color: #f4a261;
             width: 100%;
-            padding: 14px;
-            font-size: 1.1rem;
+            padding: 13px;
+            font-size: 1.05rem;
         }
 
         /* Progress Dots */
         .dots {
             display: flex;
-            gap: 6px;
+            gap: 5px;
             align-items: center;
-            max-width: 130px;
+            max-width: 110px;
             overflow-x: auto;
             scrollbar-width: none;
         }
@@ -280,8 +280,8 @@
         }
 
         .dot {
-            width: 6px;
-            height: 6px;
+            width: 5px;
+            height: 5px;
             border-radius: 50%;
             background: rgba(244, 162, 97, 0.3);
             transition: all 0.3s ease;
@@ -289,7 +289,7 @@
         }
 
         .dot.active {
-            width: 16px;
+            width: 14px;
             border-radius: 4px;
             background: #f4a261;
         }
@@ -322,7 +322,7 @@
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
                 <span class="card-brand">🍯 A Note For You</span>
-                <span id="slideCounterText" style="font-size: 0.9rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
+                <span id="slideCounterText" style="font-size: 0.85rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
             </div>
 
             <div class="slides-container">
