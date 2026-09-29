@@ -308,7 +308,7 @@
     <!-- Falling Flowers Container -->
     <div id="falling-container"></div>
 
-    <!-- Pemutar Audio Utama (Background Audio, Tanpa Widget Terlihat) -->
+    <!-- Pemutar Audio Latar Belakang -->
     <audio id="bg-music" loop preload="auto">
         <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
     </audio>
@@ -319,12 +319,13 @@
             <div class="cover-icon">🍯🐝</div>
             <div class="cover-title">A Note For You</div>
             <div class="cover-subtitle">Sebuah catatan kecil khusus untukmu.<br>Tekan tombol di bawah untuk membukanya.</div>
+            <!-- Tombol Utama yang Men-trigger Musik & Buka Catatan Sekaligus -->
             <button class="btn" onclick="startApp()" style="padding: 14px 32px; font-size: 1.05rem; background: #f4a261; color: #fff; border-color: #f4a261;">
                 Buka Catatan 💌
             </button>
         </div>
 
-        <!-- Card Container (Bersih tanpa track lagu) -->
+        <!-- Card Container (Bersih & Estetik Total) -->
         <div class="card-container hidden" id="mainCard">
             <!-- Slide 1 -->
             <div class="slide active" data-index="0">
@@ -448,7 +449,7 @@
             container.appendChild(span);
         }
 
-        // Start App & Langsung Putar Musik Tanpa Delay
+        // Start App & Trigger Audio Langsung dari Tombol "Buka Catatan"
         function startApp() {
             const coverScreen = document.getElementById('coverScreen');
             const mainCard = document.getElementById('mainCard');
@@ -458,7 +459,7 @@
             mainCard.classList.remove('hidden');
 
             if (music) {
-                music.currentTime = 3.0; // Langsung loncat ke detik ke-3 (bebas delay/hening awal)
+                music.currentTime = 3.0; // Langsung loncat ke detik ke-3 (bebas hening awal)
                 music.volume = 0.7;
                 music.play().catch(e => console.log("Audio play error:", e));
             }
