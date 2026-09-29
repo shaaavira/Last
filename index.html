@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Last - Sebuah Ucapan Perpisahan</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background ambient glow */
+        .ambient-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .ambient-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.15;
+        }
+
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background: #6366f1;
+            top: -100px;
+            left: -100px;
+            animation: float 10s ease-in-out infinite alternate;
+        }
+
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            background: #ec4899;
+            bottom: -150px;
+            right: -150px;
+            animation: float 12s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(30px) scale(1.05); }
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 700px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Header / Title */
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            letter-spacing: 2px;
+            color: #94a3b8;
+            margin-bottom: 2rem;
+            text-align: center;
+            opacity: 0.8;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Slider Card */
+        .card-container {
+            width: 100%;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 24px;
+            padding: 45px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            position: relative;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .slide {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .slide-number {
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            color: #818cf8;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .slide-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            line-height: 1.8;
+            color: #f8fafc;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Navigation Controls */
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 2rem;
+            width: 100%;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #cbd5e1;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: #6366f1;
+            color: #ffffff;
+            border-color: #6366f1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Progress Dots */
+        .dots {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            max-width: 220px;
+            overflow-x: auto;
+            padding: 4px 0;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .dot.active {
+            width: 20px;
+            border-radius: 4px;
+            background: #6366f1;
+        }
+
+        /* Footer note */
+        .footer-note {
+            margin-top: 2.5rem;
+            font-size: 0.8rem;
+            color: #64748b;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 0.8; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .card-container {
+                padding: 30px 20px;
+                min-height: 320px;
+            }
+            .slide-text {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-bg">
+        <div class="ambient-circle circle-1"></div>
+        <div class="ambient-circle circle-2"></div>
+    </div>
+
+    <div class="container">
+        <div class="header-title">— LAST —</div>
+
+        <div class="card-container">
+            <!-- Slide 1 -->
+            <div class="slide active" data-index="0">
+                <div class="slide-number">Bagian 01 / 11</div>
+                <div class="slide-text">
+                    Hai liii, thanks for ur gift and thanks udh nerima gift aku, yah walopun telat bgt but happy late b'day for your 24th bday, lu tau gua nunggu bgt moment ini karena gua mau pamit yang bener bener pamit, thanks for being my friend for half a year yahh wkwkwk, i hope someday we can be friends again
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="slide" data-index="1">
+                <div class="slide-number">Bagian 02 / 11</div>
+                <div class="slide-text">
+                    setelah gua pikir (gua jg mikir tau, ga asbun mulu) gua beneran harus pergi li, tenang gua ga minta ditahan lagi kali ini wkwk. Thanks juga udah nyadarin gua kalau ego gua selama ini terlalu tinggi, jadi sekarang gua berusaha ngalah dan berdamai dengan keadaan lewat keputusan ini.
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="slide" data-index="2">
+                <div class="slide-number">Bagian 03 / 11</div>
+                <div class="slide-text">
+                    Emmm selama 13 hari (beneran gua itung) gua mikirin kalimat lu, dmna ego gua tinggi, gua jg kasar, gua putusin buat belajar hal baru di umur yang baru yaitu move on wkwkw, jujur blm pernah sesusah ini
+                </div>
+            </div>
+            <!-- Slide 4 -->
+            <div class="slide" data-index="3">
+                <div class="slide-number">Bagian 04 / 11</div>
+                <div class="slide-text">
+                    engga engga jgn mikir gua egois lg dengan pikiran pikiran negatif gua wkwkw, gua ga berpikir negatif kali ini (atau mungkin menurut lu gua tetep egois tanpa mikir perasaan lu gmna) cuma iya balik lagi lu juga udh pernah bilang keadaan lu, skala prioritas lu, gua juga inget kalimat lu kemaren yang bilang gua ribet udah diusahain bukannya normal aja, malah begitu, pergi aja sekalian....iya gua pergi
+                </div>
+            </div>
+            <!-- Slide 5 -->
+            <div class="slide" data-index="4">
+                <div class="slide-number">Bagian 05 / 11</div>
+                <div class="slide-text">
+                    Tulisan gua selalu dr pov gua, selalu ngerasa gua yang paling berjuang, gua yang paling berusaha....yah mungkin bener, gua harus banyak belajar buat liat dr pov orang lain, gua bakal belajar terus di umur baru gua yang 24 ini yeayyyy wkwkw
+                </div>
+            </div>
+            <!-- Slide 6 -->
+            <div class="slide" data-index="5">
+                <div class="slide-number">Bagian 06 / 11</div>
+                <div class="slide-text">
+                    Btw lu ga perlu repot bales chat ini, sorry bgt gua blokir lu yahh, gua ga maksud mutus tali silaturahim, gua tau part ini 'egois' gua muncul tp please let me take my time, gua ga bisa move on klo gua masi ngeliat lu di hidup gua li
+                </div>
+            </div>
+            <!-- Slide 7 -->
+            <div class="slide" data-index="6">
+                <div class="slide-number">Bagian 07 / 11</div>
+                <div class="slide-text">
+                    Oh mungkin lu mikir gebrakan apa lagi yg runi ini buat, knp dia hobby nyakitin diri sendiri, ngapain dia repot repot move on, berteman aja sewajarnya....gua nyampe apal kalimat lu wkwkw, gua terlalu suka sama lu li tapi terlalu banyak juga yang buat gua sakit hati, ternyata ga segampang itu berteman sewajarnya sama orang yang kita suka
+                </div>
+            </div>
+            <!-- Slide 8 -->
+            <div class="slide" data-index="7">
+                <div class="slide-number">Bagian 08 / 11</div>
+                <div class="slide-text">
+                    For the last, i wanna u know....nyampe tulisan ini dibuat, hati sama otak gua masi berantem wkwkw otak gua bilang yah emng harusnya gua pergi, banyak yang harus diperbaiki, dipelajari, diikhlasin, dan dimulai lagi
+                </div>
+            </div>
+            <!-- Slide 9 -->
+            <div class="slide" data-index="8">
+                <div class="slide-number">Bagian 09 / 11</div>
+                <div class="slide-text">
+                    my heart says otherwise wkwk u know like klo gua pergi nnti kita malah makin asing, gmna klo lu malah benci sama gua, gmna kalo lu ga pernah jatuh cinta sama gua, gmna klo ntar lu ga bisa nemuin gua
+                </div>
+            </div>
+            <!-- Slide 10 -->
+            <div class="slide" data-index="9">
+                <div class="slide-number">Bagian 10 / 11</div>
+                <div class="slide-text">
+                    but yah finally i'm sure klo ikhlas itu jauh lebih indah, kalo emng someday u like me too pasti lu bisa nemuin gua lagi, dan kalo emang bukan takdirnya it's okayy ga semua cinta harus terbalas wkwkw, jadi harusnya gua ga perlu takut lagi buat pergi
+                </div>
+            </div>
+            <!-- Slide 11 -->
+            <div class="slide" data-index="10">
+                <div class="slide-number">Bagian 11 / 11</div>
+                <div class="slide-text">
+                    Let me say 'i love u' for the first and the last time, but i hope it's not the last in our life, i hope someday i can say these words again for u and maybe hear back from u.
+                </div>
+            </div>
+            <!-- Controls -->
+            <div class="controls">
+                <button class="btn" id="prevBtn" onclick="changeSlide(-1)" disabled>
+                    ← Sebelumnya
+                </button>
+                
+                <div class="dots" id="dotsContainer">
+                    <!-- Generated via JS -->
+                </div>
+
+                <button class="btn" id="nextBtn" onclick="changeSlide(1)">
+                    Selanjutnya →
+                </button>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            Dibuat khusus sebagai lembaran penutup yang tenang.
+        </div>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const dotsContainer = document.getElementById('dotsContainer');
+
+        // Create dots
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                }
+            });
+
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+            
+            if (currentSlide === totalSlides - 1) {
+                nextBtn.innerHTML = 'Selesai ✓';
+            } else {
+                nextBtn.innerHTML = 'Selanjutnya →';
+            }
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+            updateSlide();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
+        }
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' && currentSlide < totalSlides - 1) {
+                changeSlide(1);
+            } else if (e.key === 'ArrowLeft' && currentSlide > 0) {
+                changeSlide(-1);
+            }
+        });
+    </script>
+</body>
+</html>
