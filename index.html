@@ -454,7 +454,7 @@
             container.appendChild(span);
         }
 
-        // YouTube Audio Player Setup (Menggunakan ID lagu yang langsung mulai tanpa jeda intro)
+        // YouTube Audio Player Setup (Menggunakan ID trek yang terbukti stabil & lancar)
         let player;
         let isAppStarted = false;
 
@@ -462,11 +462,11 @@
             player = new YT.Player('youtube-player', {
                 height: '0',
                 width: '0',
-                videoId: 'jfKfPfyJRdk', // Lofi girl beat track (langsung bunyi dari detik pertama)
+                videoId: 'l5luP-A1nvM', // ID trek audio stabil
                 playerVars: {
                     'autoplay': 0,
                     'loop': 1,
-                    'playlist': 'jfKfPfyJRdk'
+                    'playlist': 'l5luP-A1nvM'
                 },
                 events: {
                     'onReady': (event) => {
