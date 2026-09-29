@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>A Note For You 🍯🐝</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -12,27 +12,23 @@
             padding: 0;
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            height: 100dvh;
-            overflow: hidden;
+        body {
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #fff3d1 0%, #ffdfba 50%, #ffc6d9 100%);
             color: #5c4033;
-            position: fixed;
-        }
-
-        body {
+            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 12px;
+            padding: 16px;
+            overflow-x: hidden;
+            position: relative;
         }
 
         /* Ambient Soft Glow */
         .ambient-circle {
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
             filter: blur(60px);
             opacity: 0.6;
@@ -58,7 +54,7 @@
 
         /* Falling Flowers Animation */
         #falling-container {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -93,70 +89,84 @@
             }
         }
 
-        /* Main Wrapper - Pas di layar HP */
+        /* Main Wrapper - Lebar pas di HP tanpa kelihatan kecil */
         .wrapper {
             position: relative;
             z-index: 2;
             width: 100%;
-            max-width: 400px;
-            height: 100%;
-            max-height: 680px;
+            max-width: 450px;
             display: flex;
             flex-direction: column;
         }
 
-        /* Cover & Card Shared Box Style */
+        /* Box Container Card */
         .box-container {
             width: 100%;
-            height: 100%;
             background: rgba(255, 253, 245, 0.96);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 2px solid rgba(255, 223, 186, 0.9);
-            border-radius: 28px;
-            padding: 24px 20px;
+            border-radius: 32px;
+            padding: 30px 24px;
             box-shadow: 0 15px 35px rgba(210, 150, 120, 0.22);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            text-align: center;
+            min-height: 520px;
         }
 
         .cover-content {
             margin: auto 0;
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
         .cover-icon {
-            font-size: 4rem;
-            margin-bottom: 16px;
+            font-size: 5rem;
+            margin-bottom: 20px;
             animation: bounce 2s infinite ease-in-out;
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
+            50% { transform: translateY(-10px); }
         }
 
         .cover-title {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
             font-weight: 700;
             color: #4a3b32;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
 
         .cover-subtitle {
-            font-size: 0.98rem;
+            font-size: 1.05rem;
             color: #8c6d59;
-            margin-bottom: 25px;
-            line-height: 1.5;
+            margin-bottom: 30px;
+            line-height: 1.6;
         }
 
         /* Hidden Class */
         .hidden {
             display: none !important;
+        }
+
+        /* Top Header Card */
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 223, 186, 0.7);
+            padding-bottom: 14px;
+            margin-bottom: 18px;
+        }
+
+        .card-brand {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #d48348;
         }
 
         /* Card Content Slides */
@@ -166,8 +176,8 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            overflow: hidden;
-            margin: 8px 0;
+            margin: 10px 0;
+            min-height: 280px;
         }
 
         .slide {
@@ -179,7 +189,6 @@
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
             text-align: left;
-            padding: 0 4px;
         }
 
         .slide.active {
@@ -188,35 +197,20 @@
         }
 
         .slide-number {
-            font-size: 0.75rem;
+            font-size: 0.85rem;
             font-weight: 700;
             letter-spacing: 1.5px;
             color: #e07a5f;
-            margin-bottom: 12px;
+            margin-bottom: 14px;
             text-transform: uppercase;
         }
 
         .slide-text {
-            font-size: 1.1rem;
-            line-height: 1.7;
+            font-size: 1.15rem;
+            line-height: 1.8;
             color: #4a3b32;
             font-weight: 400;
             word-break: break-word;
-        }
-
-        /* Top Header Card */
-        .card-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(255, 223, 186, 0.7);
-            padding-bottom: 10px;
-        }
-
-        .card-brand {
-            font-weight: 600;
-            font-size: 0.9rem;
-            color: #d48348;
         }
 
         /* Navigation Controls Bottom */
@@ -224,19 +218,20 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 12px;
+            padding-top: 18px;
             border-top: 1px solid rgba(255, 223, 186, 0.7);
-            gap: 8px;
+            gap: 10px;
+            margin-top: 18px;
         }
 
         .btn {
             background: #ffffff;
             border: 2px solid #ffd166;
             color: #d48348;
-            padding: 10px 16px;
+            padding: 12px 22px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
+            font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -262,16 +257,16 @@
             color: #ffffff;
             border-color: #f4a261;
             width: 100%;
-            padding: 13px;
-            font-size: 1rem;
+            padding: 16px;
+            font-size: 1.15rem;
         }
 
         /* Progress Dots */
         .dots {
             display: flex;
-            gap: 4px;
+            gap: 6px;
             align-items: center;
-            max-width: 100px;
+            max-width: 120px;
             overflow-x: auto;
             scrollbar-width: none;
         }
@@ -281,8 +276,8 @@
         }
 
         .dot {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             background: rgba(244, 162, 97, 0.3);
             transition: all 0.3s ease;
@@ -290,7 +285,7 @@
         }
 
         .dot.active {
-            width: 14px;
+            width: 16px;
             border-radius: 4px;
             background: #f4a261;
         }
@@ -306,7 +301,6 @@
     <div class="wrapper">
         <!-- Cover Screen -->
         <div class="box-container" id="coverScreen">
-            <div></div>
             <div class="cover-content">
                 <div class="cover-icon">🍯🐝</div>
                 <div class="cover-title">A Note For You</div>
@@ -321,76 +315,78 @@
 
         <!-- Main Card (Hidden initially) -->
         <div class="box-container hidden" id="mainCard">
-            <div class="card-header">
-                <span class="card-brand">🍯 A Note For You</span>
-                <span id="slideCounterText" style="font-size: 0.8rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
-            </div>
+            <div>
+                <div class="card-header">
+                    <span class="card-brand">🍯 A Note For You</span>
+                    <span id="slideCounterText" style="font-size: 0.9rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
+                </div>
 
-            <div class="slides-container">
-                <!-- Slide 1 -->
-                <div class="slide active" data-index="0">
-                    <div class="slide-number">Bagian 01</div>
-                    <div class="slide-text">Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.</div>
-                </div>
-                <!-- Slide 2 -->
-                <div class="slide" data-index="1">
-                    <div class="slide-number">Bagian 02</div>
-                    <div class="slide-text">Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.</div>
-                </div>
-                <!-- Slide 3 -->
-                <div class="slide" data-index="2">
-                    <div class="slide-number">Bagian 03</div>
-                    <div class="slide-text">Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.</div>
-                </div>
-                <!-- Slide 4 -->
-                <div class="slide" data-index="3">
-                    <div class="slide-number">Bagian 04</div>
-                    <div class="slide-text">So, gua memutuskan buat pamit dan fokus belajar berproses di umur yang baru ini.</div>
-                </div>
-                <!-- Slide 5 -->
-                <div class="slide" data-index="4">
-                    <div class="slide-number">Bagian 05</div>
-                    <div class="slide-text">Jujur, my feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.</div>
-                </div>
-                <!-- Slide 6 -->
-                <div class="slide" data-index="5">
-                    <div class="slide-number">Bagian 06</div>
-                    <div class="slide-text">Percakapan terakhir kita, lu jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, and i need to learn buat mulai lihat dari pov orang lain.</div>
-                </div>
-                <!-- Slide 7 -->
-                <div class="slide" data-index="6">
-                    <div class="slide-number">Bagian 07</div>
-                    <div class="slide-text">Jujur, until now, hati sama otak gua masih berantem. Otak gua bilang it's time to let go, banyak yang harus diperbaiki, diikhlasin, dan dimulai lagi.</div>
-                </div>
-                <!-- Slide 8 -->
-                <div class="slide" data-index="7">
-                    <div class="slide-number">Bagian 08</div>
-                    <div class="slide-text">Tapi my heart says otherwise....takut jadi asing, takut lu benci, takut lu akhirnya nemuin pasangan yang lu cari dan itu bukan gua, atau takut kita kehilangan jejak satu sama lain.</div>
-                </div>
-                <!-- Slide 9 -->
-                <div class="slide" data-index="8">
-                    <div class="slide-number">Bagian 09</div>
-                    <div class="slide-text">But at the end of the day, gua yakin kalau ikhlas itu jauh lebih indah. Kalau emang suatu hari nanti u feel the same way, lu pasti tau cara nemuin gua lagi.</div>
-                </div>
-                <!-- Slide 10 -->
-                <div class="slide" data-index="9">
-                    <div class="slide-number">Bagian 10</div>
-                    <div class="slide-text">Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore.</div>
-                </div>
-                <!-- Slide 11 -->
-                <div class="slide" data-index="10">
-                    <div class="slide-number">Bagian 11</div>
-                    <div class="slide-text">Let me say 'i love you' for the first and the last time today. I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u.</div>
-                </div>
-                <!-- Slide 12 -->
-                <div class="slide" data-index="11">
-                    <div class="slide-number">Bagian 12</div>
-                    <div class="slide-text">Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block this number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri.</div>
-                </div>
-                <!-- Slide 13 -->
-                <div class="slide" data-index="12">
-                    <div class="slide-number">Bagian 13</div>
-                    <div class="slide-text">Thanks for everything, and i wish us all the best.</div>
+                <div class="slides-container">
+                    <!-- Slide 1 -->
+                    <div class="slide active" data-index="0">
+                        <div class="slide-number">Bagian 01</div>
+                        <div class="slide-text">Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.</div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="slide" data-index="1">
+                        <div class="slide-number">Bagian 02</div>
+                        <div class="slide-text">Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.</div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="slide" data-index="2">
+                        <div class="slide-number">Bagian 03</div>
+                        <div class="slide-text">Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.</div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="slide" data-index="3">
+                        <div class="slide-number">Bagian 04</div>
+                        <div class="slide-text">So, gua memutuskan buat pamit dan fokus belajar berproses di umur yang baru ini.</div>
+                    </div>
+                    <!-- Slide 5 -->
+                    <div class="slide" data-index="4">
+                        <div class="slide-number">Bagian 05</div>
+                        <div class="slide-text">Jujur, my feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.</div>
+                    </div>
+                    <!-- Slide 6 -->
+                    <div class="slide" data-index="5">
+                        <div class="slide-number">Bagian 06</div>
+                        <div class="slide-text">Percakapan terakhir kita, lu jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, and i need to learn buat mulai lihat dari pov orang lain.</div>
+                    </div>
+                    <!-- Slide 7 -->
+                    <div class="slide" data-index="6">
+                        <div class="slide-number">Bagian 07</div>
+                        <div class="slide-text">Jujur, until now, hati sama otak gua masih berantem. Otak gua bilang it's time to let go, banyak yang harus diperbaiki, diikhlasin, dan dimulai lagi.</div>
+                    </div>
+                    <!-- Slide 8 -->
+                    <div class="slide" data-index="7">
+                        <div class="slide-number">Bagian 08</div>
+                        <div class="slide-text">Tapi my heart says otherwise....takut jadi asing, takut lu benci, takut lu akhirnya nemuin pasangan yang lu cari dan itu bukan gua, atau takut kita kehilangan jejak satu sama lain.</div>
+                    </div>
+                    <!-- Slide 9 -->
+                    <div class="slide" data-index="8">
+                        <div class="slide-number">Bagian 09</div>
+                        <div class="slide-text">But at the end of the day, gua yakin kalau ikhlas itu jauh lebih indah. Kalau emang suatu hari nanti u feel the same way, lu pasti tau cara nemuin gua lagi.</div>
+                    </div>
+                    <!-- Slide 10 -->
+                    <div class="slide" data-index="9">
+                        <div class="slide-number">Bagian 10</div>
+                        <div class="slide-text">Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore.</div>
+                    </div>
+                    <!-- Slide 11 -->
+                    <div class="slide" data-index="10">
+                        <div class="slide-number">Bagian 11</div>
+                        <div class="slide-text">Let me say 'i love you' for the first and the last time today. I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u.</div>
+                    </div>
+                    <!-- Slide 12 -->
+                    <div class="slide" data-index="11">
+                        <div class="slide-number">Bagian 12</div>
+                        <div class="slide-text">Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block this number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri.</div>
+                    </div>
+                    <!-- Slide 13 -->
+                    <div class="slide" data-index="12">
+                        <div class="slide-number">Bagian 13</div>
+                        <div class="slide-text">Thanks for everything, and i wish us all the best.</div>
+                    </div>
                 </div>
             </div>
 
@@ -428,10 +424,10 @@
             container.appendChild(span);
         }
 
-        // YouTube Player setup (Menggunakan lagu asli: l5luP-A1nvM)
+        // YouTube Player setup (Lagu asli: l5luP-A1nvM, mulai dari detik ke-0)
         let player;
         let isAppStarted = false;
-        const START_TIME = 15; // Waktu mulai lagu
+        const START_TIME = 0; // Mulai dari awal lagu
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
