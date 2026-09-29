@@ -149,7 +149,7 @@
         .cover-subtitle {
             font-size: 1.1rem;
             color: #8c6d59;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             line-height: 1.6;
         }
 
@@ -158,7 +158,7 @@
             display: none !important;
         }
 
-        /* Card Container - Bersih & Estetik */
+        /* Card Container - Dioptimalkan agar besar & pas di HP */
         .card-container {
             width: 100%;
             background: rgba(255, 253, 245, 0.97);
@@ -213,10 +213,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: 1rem;
+            margin-top: 1.5rem;
             width: 100%;
             gap: 10px;
-            padding-top: 15px;
+            padding-top: 10px;
             border-top: 1px solid rgba(255, 223, 186, 0.5);
         }
 
@@ -285,7 +285,7 @@
             }
             .card-container {
                 min-height: 350px;
-                padding: 24px 18px;
+                padding: 28px 20px;
             }
             .slide-text {
                 font-size: 1.15rem;
@@ -305,13 +305,11 @@
     <div class="ambient-circle circle-1"></div>
     <div class="ambient-circle circle-2"></div>
 
-    <!-- Falling Flowers Container -->
+    <!-- Falling Flowers Container (Slow & Sparse, Top to Bottom) -->
     <div id="falling-container"></div>
 
-    <!-- Pemutar Audio Latar Belakang -->
-    <audio id="bg-music" loop preload="auto">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf756.mp3?filename=lofi-study-112191.mp3" type="audio/mpeg">
-    </audio>
+    <!-- Hidden YouTube Audio Player Container -->
+    <div id="youtube-player" style="display:none;"></div>
 
     <div class="container">
         <!-- Cover Screen -->
@@ -319,13 +317,12 @@
             <div class="cover-icon">🍯🐝</div>
             <div class="cover-title">A Note For You</div>
             <div class="cover-subtitle">Sebuah catatan kecil khusus untukmu.<br>Tekan tombol di bawah untuk membukanya.</div>
-            <!-- Tombol Utama yang Men-trigger Musik & Buka Catatan Sekaligus -->
             <button class="btn" onclick="startApp()" style="padding: 14px 32px; font-size: 1.05rem; background: #f4a261; color: #fff; border-color: #f4a261;">
                 Buka Catatan 💌
             </button>
         </div>
 
-        <!-- Card Container (Bersih & Estetik Total) -->
+        <!-- Card Container (Hidden initially) -->
         <div class="card-container hidden" id="mainCard">
             <!-- Slide 1 -->
             <div class="slide active" data-index="0">
@@ -425,7 +422,9 @@
                     ← Prev
                 </button>
                 
-                <div class="dots" id="dotsContainer"></div>
+                <div class="dots" id="dotsContainer">
+                    <!-- Generated via JS -->
+                </div>
 
                 <button class="btn" id="nextBtn" onclick="changeSlide(1)">
                     Next →
@@ -434,34 +433,66 @@
         </div>
     </div>
 
+    <!-- YouTube IFrame API Script -->
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Generate Flowers
+        // Generate Slow & Sparse Falling Flowers (Top to Bottom)
         const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
         const container = document.getElementById('falling-container');
-        for (let i = 0; i < 7; i++) {
+        const totalItems = 7;
+
+        for (let i = 0; i < totalItems; i++) {
             const span = document.createElement('div');
             span.classList.add('falling-flower');
             span.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+            
             span.style.left = Math.random() * 100 + 'vw';
             span.style.animationDuration = (Math.random() * 5 + 9) + 's';
             span.style.animationDelay = (Math.random() * 6) + 's';
             span.style.fontSize = (Math.random() * 6 + 18) + 'px';
+            
             container.appendChild(span);
         }
 
-        // Start App & Trigger Audio Langsung dari Tombol "Buka Catatan"
+        // YouTube Audio Player Setup
+        let player;
+        let isAppStarted = false;
+        const START_TIME = 15; // Ubah angka ini (dalam detik) jika ingin melompati intro/hening di awal lagu
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: 'l5luP-A1nvM',
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 'l5luP-A1nvM',
+                    'start': START_TIME
+                },
+                events: {
+                    'onReady': (event) => {
+                        if (isAppStarted) {
+                            event.target.seekTo(START_TIME, true);
+                            event.target.playVideo();
+                        }
+                    }
+                }
+            });
+        }
+
+        // Start App & Play Music immediately on click without delay
         function startApp() {
+            isAppStarted = true;
             const coverScreen = document.getElementById('coverScreen');
             const mainCard = document.getElementById('mainCard');
-            const music = document.getElementById('bg-music');
 
             coverScreen.classList.add('hidden');
             mainCard.classList.remove('hidden');
 
-            if (music) {
-                music.currentTime = 3.0; // Langsung loncat ke detik ke-3 (bebas hening awal)
-                music.volume = 0.7;
-                music.play().catch(e => console.log("Audio play error:", e));
+            if (player && typeof player.playVideo === 'function') {
+                player.seekTo(START_TIME, true);
+                player.playVideo();
             }
         }
 
@@ -486,17 +517,26 @@
         function updateSlide() {
             slides.forEach((slide, index) => {
                 slide.classList.remove('active');
-                if (index === currentSlide) slide.classList.add('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
             });
 
             dots.forEach((dot, index) => {
                 dot.classList.remove('active');
-                if (index === currentSlide) dot.classList.add('active');
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                }
             });
 
             prevBtn.disabled = currentSlide === 0;
             nextBtn.disabled = currentSlide === totalSlides - 1;
-            nextBtn.innerHTML = (currentSlide === totalSlides - 1) ? 'Selesai ✓' : 'Next →';
+            
+            if (currentSlide === totalSlides - 1) {
+                nextBtn.innerHTML = 'Selesai ✓';
+            } else {
+                nextBtn.innerHTML = 'Next →';
+            }
         }
 
         function changeSlide(direction) {
@@ -511,6 +551,7 @@
             updateSlide();
         }
 
+        // Keyboard navigation support
         document.addEventListener('keydown', (e) => {
             const mainCard = document.getElementById('mainCard');
             if (mainCard.classList.contains('hidden')) return;
