@@ -12,12 +12,14 @@
             padding: 0;
         }
 
+        /* Background dirapikan agar menutupi seluruh layar secara penuh & stabil */
         html, body {
             width: 100%;
             min-height: 100%;
             min-height: 100dvh;
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #fff3d1 0%, #ffdfba 50%, #ffc6d9 100%);
+            background-attachment: fixed;
             color: #5c4033;
             font-size: 22px;
         }
@@ -26,38 +28,40 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2px;
+            padding: 24px 16px;
+            overflow-x: hidden;
+            position: relative;
         }
 
-        /* Ambient Soft Glow */
+        /* Ambient Soft Glow yang dirapikan posisinya */
         .ambient-circle {
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
+            filter: blur(90px);
+            opacity: 0.5;
             z-index: 0;
             pointer-events: none;
         }
 
         .circle-1 {
-            width: 350px;
-            height: 350px;
+            width: 400px;
+            height: 400px;
             background: #ffecb6;
-            top: -40px;
-            left: -40px;
+            top: -80px;
+            left: -80px;
         }
 
         .circle-2 {
-            width: 380px;
-            height: 380px;
+            width: 450px;
+            height: 450px;
             background: #ffb4b0;
-            bottom: -40px;
-            right: -40px;
+            bottom: -80px;
+            right: -80px;
         }
 
         /* Falling Flowers Animation */
         #falling-container {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -87,7 +91,7 @@
                 opacity: 0.8;
             }
             100% {
-                transform: translateY(110vh) translateX(25px) rotate(360deg);
+                transform: translateY(110vh) translateX(30px) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -95,26 +99,26 @@
         .wrapper {
             position: relative;
             z-index: 2;
-            width: 98%;
-            max-width: 720px;
+            width: 100%;
+            max-width: 760px; /* Lebar maksimal kotak diperbesar sedikit */
             display: flex;
             flex-direction: column;
         }
 
-        /* Kotak diperpanjang lebih tinggi lagi ke atas dan bawah */
+        /* Kotak dibuat jauh lebih besar, tinggi, dan lapang atas-bawahnya */
         .box-container {
             width: 100%;
-            background: rgba(255, 253, 245, 0.99);
+            background: rgba(255, 253, 245, 0.98);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 3px solid rgba(255, 223, 186, 0.95);
-            border-radius: 44px;
-            padding: 80px 40px; /* Padding atas-bawah ditambah jadi 80px */
-            box-shadow: 0 30px 60px rgba(210, 150, 120, 0.32);
+            border-radius: 48px;
+            padding: 90px 48px; /* Padding atas-bawah diperbesar drastis */
+            box-shadow: 0 35px 70px rgba(210, 150, 120, 0.3);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 960px; /* Tinggi minimum kotak ditambah sangat signifikan */
+            min-height: 1060px; /* Tinggi minimum kotak dibuat sangat besar ke atas-bawah */
         }
 
         .cover-content {
@@ -126,25 +130,25 @@
         }
 
         .cover-icon {
-            font-size: 7.8rem;
-            margin-bottom: 26px;
+            font-size: 8.5rem;
+            margin-bottom: 30px;
             animation: bounce 2s infinite ease-in-out;
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-14px); }
+            50% { transform: translateY(-16px); }
         }
 
         .cover-title {
-            font-size: 3.2rem;
+            font-size: 3.5rem;
             font-weight: 700;
             color: #4a3b32;
-            margin-bottom: 18px;
+            margin-bottom: 20px;
         }
 
         .cover-subtitle {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: #8c6d59;
             line-height: 1.8;
         }
@@ -158,23 +162,23 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 3px solid rgba(255, 223, 186, 0.8);
-            padding-bottom: 22px;
-            margin-bottom: 28px;
+            padding-bottom: 24px;
+            margin-bottom: 32px;
         }
 
         .card-brand {
             font-weight: 600;
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             color: #d48348;
         }
 
-        /* Area isi teks diperpanjang ruang vertikalnya jauh lebih luas */
+        /* Area isi teks diperbesar ruang vertikalnya agar makin lega */
         .slides-container {
             display: flex;
             position: relative;
             overflow: hidden;
-            min-height: 580px; /* Ruang vertikal isi teks dibuat jauh lebih panjang */
-            margin-bottom: 28px;
+            min-height: 640px; /* Ruang vertikal isi pesan diperpanjang maksimal */
+            margin-bottom: 32px;
             align-items: center;
         }
 
@@ -195,17 +199,17 @@
         }
 
         .slide-number {
-            font-size: 1.2rem;
+            font-size: 1.25rem;
             font-weight: 700;
             letter-spacing: 2px;
             color: #e07a5f;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             text-transform: uppercase;
         }
 
         .slide-text {
-            font-size: 1.85rem;
-            line-height: 1.95;
+            font-size: 1.95rem;
+            line-height: 2;
             color: #4a3b32;
             font-weight: 400;
             word-break: break-word;
@@ -215,7 +219,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 28px;
+            padding-top: 32px;
             border-top: 3px solid rgba(255, 223, 186, 0.8);
             gap: 16px;
         }
@@ -224,7 +228,7 @@
             background: #ffffff;
             border: 3px solid #ffd166;
             color: #d48348;
-            padding: 20px 36px;
+            padding: 20px 38px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
             font-size: 1.45rem;
@@ -252,15 +256,15 @@
             color: #ffffff;
             border-color: #f4a261;
             width: 100%;
-            padding: 22px;
-            font-size: 1.6rem;
+            padding: 24px;
+            font-size: 1.65rem;
         }
 
         .dots {
             display: flex;
             gap: 10px;
             align-items: center;
-            max-width: 160px;
+            max-width: 180px;
             overflow-x: auto;
             scrollbar-width: none;
         }
@@ -279,7 +283,7 @@
         }
 
         .dot.active {
-            width: 30px;
+            width: 32px;
             border-radius: 6px;
             background: #f4a261;
         }
@@ -312,7 +316,7 @@
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
                 <span class="card-brand">🍯 A Note For You</span>
-                <span id="slideCounterText" style="font-size: 1.3rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
+                <span id="slideCounterText" style="font-size: 1.35rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
             </div>
 
             <div class="slides-container">
@@ -339,7 +343,7 @@
                 <!-- Slide 5 -->
                 <div class="slide" data-index="4">
                     <div class="slide-number">Bagian 05</div>
-                    <div class="slide-text">Jujur, my feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.</div>
+                    <div class="slide-text">Jujur, my feelings for u are still there, tapi karena itu juga gua sadار gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.</div>
                 </div>
                 <!-- Slide 6 -->
                 <div class="slide" data-index="5">
