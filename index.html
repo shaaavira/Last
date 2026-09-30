@@ -26,7 +26,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8px;
+            padding: 12px;
         }
 
         /* Ambient Soft Glow */
@@ -92,31 +92,30 @@
             }
         }
 
-        /* Wrapper memenuhi layar penuh */
+        /* Wrapper dikunci agar tetap proporsional ala ukuran HP */
         .wrapper {
             position: relative;
             z-index: 2;
-            width: 100vw;
-            max-width: 100%;
-            padding: 0 6px;
+            width: 95%;
+            max-width: 440px; /* Lebar maksimal dibatasi agar tidak melar di tablet/laptop */
             display: flex;
             flex-direction: column;
         }
 
-        /* Box Container Card diperbesar dan dibuat longgar */
+        /* Box Container Card */
         .box-container {
             width: 100%;
             background: rgba(255, 253, 245, 0.98);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 2px solid rgba(255, 223, 186, 0.9);
-            border-radius: 26px;
-            padding: 24px 18px;
+            border-radius: 28px;
+            padding: 26px 20px;
             box-shadow: 0 15px 35px rgba(210, 150, 120, 0.22);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 500px;
+            min-height: 480px;
         }
 
         .cover-content {
@@ -177,7 +176,7 @@
             display: flex;
             position: relative;
             overflow: hidden;
-            min-height: 200px;
+            min-height: 220px;
             margin-bottom: 15px;
             align-items: center;
         }
@@ -208,7 +207,7 @@
         }
 
         .slide-text {
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             line-height: 1.75;
             color: #4a3b32;
             font-weight: 400;
@@ -229,10 +228,10 @@
             background: #ffffff;
             border: 2px solid #ffd166;
             color: #d48348;
-            padding: 12px 20px;
+            padding: 12px 18px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
-            font-size: 1rem;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 3px 10px rgba(255, 209, 102, 0.2);
@@ -266,7 +265,7 @@
             display: flex;
             gap: 5px;
             align-items: center;
-            max-width: 100px;
+            max-width: 90px;
             overflow-x: auto;
             scrollbar-width: none;
         }
