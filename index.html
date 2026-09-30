@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Note For You 🍯🐝</title>
-    <!-- Menambahkan font Google Fonts: Poppins & Dancing Script (untuk tulisan tegak bersambung estetik) -->
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>A Note For You</title>
+    <!-- Google Fonts: Great Vibes & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -59,7 +59,7 @@
             right: -80px;
         }
 
-        /* Falling Flowers Animation */
+        /* Falling Flowers Animation Container */
         #falling-container {
             position: fixed;
             top: 0;
@@ -105,7 +105,7 @@
             flex-direction: column;
         }
 
-        /* Kotak besar & lapang */
+        /* Kotak besar & lapang dengan aksen garis sudut estetik */
         .box-container {
             width: 100%;
             background: rgba(255, 253, 245, 0.98);
@@ -114,11 +114,35 @@
             border: 3px solid rgba(255, 223, 186, 0.95);
             border-radius: 48px;
             padding: 80px 48px;
-            box-shadow: 0 35px 70px rgba(210, 150, 120, 0.3);
+            box-shadow: 0 35px 70px rgba(210, 150, 120, 0.3), 0 0 50px rgba(255, 255, 255, 0.7) inset;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             min-height: 1060px;
+            position: relative;
+        }
+
+        /* Sentuhan garis sudut estetik ala surat klasik */
+        .box-container::before, .box-container::after {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-color: rgba(224, 122, 95, 0.35);
+            border-style: solid;
+            pointer-events: none;
+        }
+        .box-container::before {
+            top: 24px;
+            left: 24px;
+            border-width: 3px 0 0 3px;
+            border-top-left-radius: 16px;
+        }
+        .box-container::after {
+            bottom: 24px;
+            right: 24px;
+            border-width: 0 3px 3px 0;
+            border-bottom-right-radius: 16px;
         }
 
         .cover-content {
@@ -129,14 +153,14 @@
             align-items: center;
         }
 
-        /* Judul Cover Tegak Bersambung Estetik (Dancing Script) */
+        /* Judul Cover Tegak Bersambung Estetik (Great Vibes) */
         .cover-title {
-            font-family: 'Dancing Script', cursive;
-            font-size: 5.5rem;
-            font-weight: 700;
+            font-family: 'Great Vibes', cursive;
+            font-size: 6.8rem;
             color: #4a3b32;
-            letter-spacing: 2px;
-            line-height: 1.2;
+            line-height: 1.1;
+            font-weight: 400;
+            text-shadow: 2px 2px 4px rgba(212, 131, 72, 0.1);
         }
 
         .hidden {
@@ -152,12 +176,12 @@
             margin-bottom: 10px;
         }
 
-        /* Brand / A Note For You di pojok atas menggunakan gaya estetik juga */
+        /* Brand / A Note For You di pojok atas */
         .card-brand {
-            font-family: 'Dancing Script', cursive;
-            font-weight: 700;
-            font-size: 2.2rem;
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
             color: #d48348;
+            font-weight: 400;
         }
 
         /* Area isi teks dengan space yang lega atas-bawahnya */
@@ -186,7 +210,7 @@
             position: relative;
         }
 
-        /* Bagian / nomor slide besar */
+        /* Bagian / nomor slide */
         .slide-number {
             font-size: 1.5rem;
             font-weight: 700;
@@ -228,6 +252,7 @@
             box-shadow: 0 6px 18px rgba(255, 209, 102, 0.38);
             white-space: nowrap;
             -webkit-tap-highlight-color: transparent;
+            transition: transform 0.2s ease;
         }
 
         .btn:active:not(:disabled) {
