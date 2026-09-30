@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Note For You</title>
-    <!-- Google Fonts: Pinyon Script, Caveat, & Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Caveat:wght@400;500;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Pinyon Script & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -176,12 +176,41 @@
             margin-bottom: 10px;
         }
 
-        /* Brand / A Note For You di pojok atas menggunakan Pinyon Script */
+        /* Brand / A Note For You di pojok atas disamakan dengan gaya bagian/nomor slide */
         .card-brand {
-            font-family: 'Pinyon Script', cursive;
-            font-size: 3.2rem;
-            color: #d48348;
-            font-weight: 400;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #e07a5f;
+            text-transform: uppercase;
+        }
+
+        /* Dekorasi Gambar Madu */
+        .honey-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 243, 209, 0.7);
+            padding: 6px 16px;
+            border-radius: 30px;
+            border: 2px solid rgba(255, 209, 102, 0.5);
+            font-size: 1.1rem;
+            color: #8c6d59;
+            font-weight: 500;
+        }
+
+        .honey-img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            animation: bounceHoney 2s infinite ease-in-out;
+        }
+
+        @keyframes bounceHoney {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
         }
 
         /* Area isi teks dengan space yang lega atas-bawahnya */
@@ -189,8 +218,8 @@
             display: flex;
             position: relative;
             overflow: hidden;
-            min-height: 640px;
-            margin: 30px 0;
+            min-height: 600px;
+            margin: 20px 0;
             align-items: center;
         }
 
@@ -221,13 +250,13 @@
             text-transform: uppercase;
         }
 
-        /* Font isi pesan Menggunakan Caveat */
+        /* Font isi pesan dikembalikan ke Poppins */
         .slide-text {
-            font-family: 'Caveat', cursive;
-            font-size: 2.2rem;
-            line-height: 1.5;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.7rem;
+            line-height: 1.8;
             color: #4a3b32;
-            font-weight: 500;
+            font-weight: 400;
             word-break: break-word;
         }
 
@@ -332,7 +361,11 @@
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
                 <span class="card-brand">A Note For You</span>
-                <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
+                <div class="honey-badge">
+                    <img class="honey-img" src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Honey Jar">
+                    <span>Sweet Note</span>
+                </div>
+                <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
             </div>
 
             <div class="slides-container">
