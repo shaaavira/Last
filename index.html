@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Note For You 🍯🐝</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
         html, body {
             width: 100%;
             min-height: 100%;
@@ -5,28 +19,91 @@
             font-family: 'Poppins', sans-serif;
             background: linear-gradient(135deg, #fff3d1 0%, #ffdfba 50%, #ffc6d9 100%);
             color: #5c4033;
-            font-size: 16px; /* Memperbesar ukuran teks dasar secara keseluruhan */
+            font-size: 16px;
         }
 
         body {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 8px; /* Dibuat mepet agar ruang kartu seluas mungkin */
+            padding: 8px;
         }
 
-        /* Wrapper dipaksa selebar layar penuh bahkan sedikit lebih agar besar */
+        /* Ambient Soft Glow */
+        .ambient-circle {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.6;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .circle-1 {
+            width: 250px;
+            height: 250px;
+            background: #ffecb6;
+            top: -20px;
+            left: -20px;
+        }
+
+        .circle-2 {
+            width: 280px;
+            height: 280px;
+            background: #ffb4b0;
+            bottom: -20px;
+            right: -20px;
+        }
+
+        /* Falling Flowers Animation */
+        #falling-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .falling-flower {
+            position: absolute;
+            top: -10vh;
+            user-select: none;
+            pointer-events: none;
+            animation: fallDown linear infinite;
+        }
+
+        @keyframes fallDown {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.8;
+            }
+            85% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) translateX(15px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Wrapper memenuhi layar penuh */
         .wrapper {
             position: relative;
             z-index: 2;
-            width: 100vw;       /* Lebar penuh selebar layar HP */
+            width: 100vw;
             max-width: 100%;
-            padding: 0 6px;     /* Sedikit jarak di pinggir kiri-kanan */
+            padding: 0 6px;
             display: flex;
             flex-direction: column;
         }
 
-        /* Box Container Card dibuat sangat longgar dan besar */
+        /* Box Container Card diperbesar dan dibuat longgar */
         .box-container {
             width: 100%;
             background: rgba(255, 253, 245, 0.98);
@@ -39,26 +116,406 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 500px; /* Tinggi kotak diperbesar agar lega */
+            min-height: 500px;
         }
 
-        .slide-text {
-            font-size: 1.2rem; /* Teks jauh lebih besar dan sangat jelas dibaca */
-            line-height: 1.75;
-            color: #4a3b32;
-            font-weight: 400;
-            word-break: break-word;
+        .cover-content {
+            margin: auto 0;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .cover-icon {
+            font-size: 4.8rem;
+            margin-bottom: 14px;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
         .cover-title {
-            font-size: 2rem; /* Judul cover diperbesar */
+            font-size: 2rem;
             font-weight: 700;
             color: #4a3b32;
             margin-bottom: 10px;
         }
 
         .cover-subtitle {
-            font-size: 1.05rem; /* Subtitle cover diperbesar */
+            font-size: 1.05rem;
             color: #8c6d59;
             line-height: 1.6;
         }
+
+        /* Hidden Class */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Top Header Card */
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 223, 186, 0.7);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .card-brand {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #d48348;
+        }
+
+        /* Card Content Slides */
+        .slides-container {
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            display: none;
+            flex-direction: column;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            text-align: left;
+        }
+
+        .slide.active {
+            display: flex;
+            opacity: 1;
+            position: relative;
+        }
+
+        .slide-number {
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #e07a5f;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .slide-text {
+            font-size: 1.2rem;
+            line-height: 1.75;
+            color: #4a3b32;
+            font-weight: 400;
+            word-break: break-word;
+        }
+
+        /* Navigation Controls Bottom */
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 223, 186, 0.7);
+            gap: 8px;
+        }
+
+        .btn {
+            background: #ffffff;
+            border: 2px solid #ffd166;
+            color: #d48348;
+            padding: 12px 20px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(255, 209, 102, 0.2);
+            white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .btn:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+
+        .btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+            border-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
+        }
+
+        .btn-primary {
+            background: #f4a261;
+            color: #ffffff;
+            border-color: #f4a261;
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+        }
+
+        /* Progress Dots */
+        .dots {
+            display: flex;
+            gap: 5px;
+            align-items: center;
+            max-width: 100px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .dots::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(244, 162, 97, 0.3);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .dot.active {
+            width: 16px;
+            border-radius: 4px;
+            background: #f4a261;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ambient-circle circle-1"></div>
+    <div class="ambient-circle circle-2"></div>
+    <div id="falling-container"></div>
+    <div id="youtube-player" style="display:none;"></div>
+
+    <div class="wrapper">
+        <!-- Cover Screen -->
+        <div class="box-container" id="coverScreen">
+            <div></div>
+            <div class="cover-content">
+                <div class="cover-icon">🍯🐝</div>
+                <div class="cover-title">A Note For You</div>
+                <div class="cover-subtitle">Sebuah catatan kecil khusus untukmu.<br>Tekan tombol di bawah untuk membukanya.</div>
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="startApp()">
+                    Buka Catatan 💌
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Card (Hidden initially) -->
+        <div class="box-container hidden" id="mainCard">
+            <div class="card-header">
+                <span class="card-brand">🍯 A Note For You</span>
+                <span id="slideCounterText" style="font-size: 0.9rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
+            </div>
+
+            <div class="slides-container">
+                <!-- Slide 1 -->
+                <div class="slide active" data-index="0">
+                    <div class="slide-number">Bagian 01</div>
+                    <div class="slide-text">Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.</div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="slide" data-index="1">
+                    <div class="slide-number">Bagian 02</div>
+                    <div class="slide-text">Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.</div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="slide" data-index="2">
+                    <div class="slide-number">Bagian 03</div>
+                    <div class="slide-text">Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.</div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="slide" data-index="3">
+                    <div class="slide-number">Bagian 04</div>
+                    <div class="slide-text">So, gua memutuskan buat pamit dan fokus belajar berproses di umur yang baru ini.</div>
+                </div>
+                <!-- Slide 5 -->
+                <div class="slide" data-index="4">
+                    <div class="slide-number">Bagian 05</div>
+                    <div class="slide-text">Jujur, my feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.</div>
+                </div>
+                <!-- Slide 6 -->
+                <div class="slide" data-index="5">
+                    <div class="slide-number">Bagian 06</div>
+                    <div class="slide-text">Percakapan terakhir kita, lu jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, and i need to learn buat mulai lihat dari pov orang lain.</div>
+                </div>
+                <!-- Slide 7 -->
+                <div class="slide" data-index="6">
+                    <div class="slide-number">Bagian 07</div>
+                    <div class="slide-text">Jujur, until now, hati sama otak gua masih berantem. Otak gua bilang it's time to let go, banyak yang harus diperbaiki, diikhlasin, dan dimulai lagi.</div>
+                </div>
+                <!-- Slide 8 -->
+                <div class="slide" data-index="7">
+                    <div class="slide-number">Bagian 08</div>
+                    <div class="slide-text">Tapi my heart says otherwise....takut jadi asing, takut lu benci, takut lu akhirnya nemuin pasangan yang lu cari dan itu bukan gua, atau takut kita kehilangan jejak satu sama lain.</div>
+                </div>
+                <!-- Slide 9 -->
+                <div class="slide" data-index="8">
+                    <div class="slide-number">Bagian 09</div>
+                    <div class="slide-text">But at the end of the day, gua yakin kalau ikhlas itu jauh lebih indah. Kalau emang suatu hari nanti u feel the same way, lu pasti tau cara nemuin gua lagi.</div>
+                </div>
+                <!-- Slide 10 -->
+                <div class="slide" data-index="9">
+                    <div class="slide-number">Bagian 10</div>
+                    <div class="slide-text">Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore.</div>
+                </div>
+                <!-- Slide 11 -->
+                <div class="slide" data-index="10">
+                    <div class="slide-number">Bagian 11</div>
+                    <div class="slide-text">Let me say 'i love you' for the first and the last time today. I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u.</div>
+                </div>
+                <!-- Slide 12 -->
+                <div class="slide" data-index="11">
+                    <div class="slide-number">Bagian 12</div>
+                    <div class="slide-text">Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block this number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri.</div>
+                </div>
+                <!-- Slide 13 -->
+                <div class="slide" data-index="12">
+                    <div class="slide-number">Bagian 13</div>
+                    <div class="slide-text">Thanks for everything, and i wish us all the best.</div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls">
+                <button class="btn" id="prevBtn" onclick="changeSlide(-1)" disabled>
+                    ← Prev
+                </button>
+                
+                <div class="dots" id="dotsContainer">
+                    <!-- Generated via JS -->
+                </div>
+
+                <button class="btn" id="nextBtn" onclick="changeSlide(1)">
+                    Next →
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- YouTube IFrame API Script -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        // Falling Flowers generator
+        const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
+        const container = document.getElementById('falling-container');
+        for (let i = 0; i < 6; i++) {
+            const span = document.createElement('div');
+            span.classList.add('falling-flower');
+            span.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.animationDuration = (Math.random() * 4 + 7) + 's';
+            span.style.animationDelay = (Math.random() * 5) + 's';
+            span.style.fontSize = (Math.random() * 4 + 18) + 'px';
+            container.appendChild(span);
+        }
+
+        // YouTube Player setup
+        let player;
+        let isAppStarted = false;
+        const START_TIME = 0;
+
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtube-player', {
+                height: '0',
+                width: '0',
+                videoId: 'l5luP-A1nvM',
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 'l5luP-A1nvM',
+                    'start': START_TIME
+                },
+                events: {
+                    'onReady': (event) => {
+                        if (isAppStarted) {
+                            event.target.seekTo(START_TIME, true);
+                            event.target.playVideo();
+                        }
+                    }
+                }
+            });
+        }
+
+        function startApp() {
+            isAppStarted = true;
+            document.getElementById('coverScreen').classList.add('hidden');
+            document.getElementById('mainCard').classList.remove('hidden');
+
+            if (player && typeof player.playVideo === 'function') {
+                player.seekTo(START_TIME, true);
+                player.playVideo();
+            }
+        }
+
+        // Slider Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const slideCounterText = document.getElementById('slideCounterText');
+        const dotsContainer = document.getElementById('dotsContainer');
+
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
+        }
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
+            });
+
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                }
+            });
+
+            slideCounterText.innerText = `${currentSlide + 1} / ${totalSlides}`;
+            prevBtn.disabled = currentSlide === 0;
+            
+            if (currentSlide === totalSlides - 1) {
+                nextBtn.innerHTML = 'Selesai ✓';
+            } else {
+                nextBtn.innerHTML = 'Next →';
+            }
+        }
+
+        function changeSlide(direction) {
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+            updateSlide();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
+        }
+    </script>
+</body>
+</html>
