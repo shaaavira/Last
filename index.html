@@ -12,7 +12,6 @@
             padding: 0;
         }
 
-        /* Background dirapikan agar menutupi seluruh layar secara penuh & stabil */
         html, body {
             width: 100%;
             min-height: 100%;
@@ -33,7 +32,7 @@
             position: relative;
         }
 
-        /* Ambient Soft Glow yang dirapikan posisinya */
+        /* Ambient Soft Glow */
         .ambient-circle {
             position: fixed;
             border-radius: 50%;
@@ -100,12 +99,12 @@
             position: relative;
             z-index: 2;
             width: 100%;
-            max-width: 760px; /* Lebar maksimal kotak diperbesar sedikit */
+            max-width: 760px;
             display: flex;
             flex-direction: column;
         }
 
-        /* Kotak dibuat jauh lebih besar, tinggi, dan lapang atas-bawahnya */
+        /* Kotak besar & lapang */
         .box-container {
             width: 100%;
             background: rgba(255, 253, 245, 0.98);
@@ -113,12 +112,12 @@
             -webkit-backdrop-filter: blur(16px);
             border: 3px solid rgba(255, 223, 186, 0.95);
             border-radius: 48px;
-            padding: 90px 48px; /* Padding atas-bawah diperbesar drastis */
+            padding: 80px 48px;
             box-shadow: 0 35px 70px rgba(210, 150, 120, 0.3);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 1060px; /* Tinggi minimum kotak dibuat sangat besar ke atas-bawah */
+            min-height: 1060px;
         }
 
         .cover-content {
@@ -140,15 +139,16 @@
             50% { transform: translateY(-16px); }
         }
 
+        /* Judul cover diperbesar */
         .cover-title {
-            font-size: 3.5rem;
+            font-size: 3.8rem;
             font-weight: 700;
             color: #4a3b32;
-            margin-bottom: 20px;
+            margin-bottom: 22px;
         }
 
         .cover-subtitle {
-            font-size: 1.6rem;
+            font-size: 1.65rem;
             color: #8c6d59;
             line-height: 1.8;
         }
@@ -163,22 +163,23 @@
             justify-content: space-between;
             border-bottom: 3px solid rgba(255, 223, 186, 0.8);
             padding-bottom: 24px;
-            margin-bottom: 32px;
+            margin-bottom: 10px; /* Jarak lega ke area isi */
         }
 
+        /* Brand / A Note For You di pojok atas diperbesar */
         .card-brand {
-            font-weight: 600;
-            font-size: 1.35rem;
+            font-weight: 700;
+            font-size: 1.6rem;
             color: #d48348;
         }
 
-        /* Area isi teks diperbesar ruang vertikalnya agar makin lega */
+        /* Area isi teks dengan space yang sangat lega atas-bawahnya */
         .slides-container {
             display: flex;
             position: relative;
             overflow: hidden;
-            min-height: 640px; /* Ruang vertikal isi pesan diperpanjang maksimal */
-            margin-bottom: 32px;
+            min-height: 640px;
+            margin: 30px 0; /* Memberi jarak longgar atas dan bawah */
             align-items: center;
         }
 
@@ -198,8 +199,9 @@
             position: relative;
         }
 
+        /* Bagian / nomor slide diperbesar dan diberi jarak */
         .slide-number {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 2px;
             color: #e07a5f;
@@ -207,8 +209,9 @@
             text-transform: uppercase;
         }
 
+        /* Font isi pesan diperkecil sedikit agar pas & rapi */
         .slide-text {
-            font-size: 1.95rem;
+            font-size: 1.55rem;
             line-height: 2;
             color: #4a3b32;
             font-weight: 400;
@@ -219,8 +222,9 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 32px;
+            padding-top: 24px;
             border-top: 3px solid rgba(255, 223, 186, 0.8);
+            margin-top: 10px; /* Jarak lega dari area isi ke tombol bawah */
             gap: 16px;
         }
 
@@ -316,7 +320,7 @@
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
                 <span class="card-brand">🍯 A Note For You</span>
-                <span id="slideCounterText" style="font-size: 1.35rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
+                <span id="slideCounterText" style="font-size: 1.4rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
             </div>
 
             <div class="slides-container">
@@ -343,7 +347,7 @@
                 <!-- Slide 5 -->
                 <div class="slide" data-index="4">
                     <div class="slide-number">Bagian 05</div>
-                    <div class="slide-text">Jujur, my feelings for u are still there, tapi karena itu juga gua sadار gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.</div>
+                    <div class="slide-text">Jujur, my feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.</div>
                 </div>
                 <!-- Slide 6 -->
                 <div class="slide" data-index="5">
