@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Note For You - Runi & Ali</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>A Note For You</title>
+    <!-- Google Fonts: Pinyon Script & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -13,949 +13,508 @@
             padding: 0;
         }
 
-        :root {
-            --bg-color: #f7f3ee;
-            --card-bg: #ffffff;
-            --text-primary: #332924;
-            --text-muted: #8c7a70;
-            --accent: #b87d64;
-            --accent-light: #f5eae3;
-            --border-color: #eee4dc;
-        }
-
         html, body {
             width: 100%;
-            height: 100%;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            overflow: hidden;
+            min-height: 100%;
+            min-height: 100dvh;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff3d1 0%, #ffdfba 50%, #ffc6d9 100%);
+            background-attachment: fixed;
+            color: #5c4033;
+            font-size: 22px;
         }
 
         body {
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            padding: 30px 16px;
+            overflow-x: hidden;
             position: relative;
         }
 
-        /* Ambient Glow Background */
-        .glow {
+        /* Ambient Soft Glow */
+        .ambient-circle {
             position: fixed;
-            width: 450px;
-            height: 450px;
             border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.4;
+            filter: blur(90px);
+            opacity: 0.5;
             z-index: 0;
             pointer-events: none;
         }
-        .glow-1 { background: #fce8e0; top: -100px; left: -100px; }
-        .glow-2 { background: #faebd7; bottom: -100px; right: -100px; }
 
-        /* Master Container */
-        .container {
+        .circle-1 {
+            width: 450px;
+            height: 450px;
+            background: #ffecb6;
+            top: -80px;
+            left: -80px;
+        }
+
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            background: #ffb4b0;
+            bottom: -80px;
+            right: -80px;
+        }
+
+        /* Falling Flowers Animation Container */
+        #falling-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .falling-flower {
+            position: absolute;
+            top: -10vh;
+            user-select: none;
+            pointer-events: none;
+            animation: fallDown linear infinite;
+        }
+
+        @keyframes fallDown {
+            0% {
+                transform: translateY(-10vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            15% {
+                opacity: 0.8;
+            }
+            85% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(110vh) translateX(30px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .wrapper {
             position: relative;
             z-index: 2;
             width: 100%;
-            max-width: 600px;
-            height: 680px;
-            background: var(--card-bg);
-            border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(130, 110, 100, 0.08), 0 2px 8px rgba(130, 110, 100, 0.04);
-            border: 1px solid var(--border-color);
+            max-width: 860px;
             display: flex;
             flex-direction: column;
-            padding: 40px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .hidden {
-            display: none !important;
-        }
-
-        /* 1. Cover Screen Styles */
-        .screen-cover {
-            flex: 1;
+        .box-container {
+            width: 100%;
+            background: rgba(255, 253, 245, 0.98);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 3px solid rgba(255, 223, 186, 0.95);
+            border-radius: 52px;
+            padding: 65px 56px 55px 56px;
+            box-shadow: 0 40px 80px rgba(210, 150, 120, 0.32), 0 0 60px rgba(255, 255, 255, 0.7) inset;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: space-between;
+            min-height: 1180px;
+            position: relative;
+        }
+
+        .box-container::before {
+            content: '';
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+            border: 2px dashed rgba(224, 122, 95, 0.25);
+            border-radius: 40px;
+            pointer-events: none;
+        }
+
+        .cover-content {
+            margin: auto 0;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
-        .cover-badge {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 16px;
-            background: var(--accent-light);
-            padding: 6px 16px;
-            border-radius: 20px;
+        .cover-title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .cover-emoji {
+            font-size: 5rem;
+            animation: bounceHoney 2s infinite ease-in-out;
+            line-height: 1;
         }
 
         .cover-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3.8rem;
-            font-weight: 600;
-            line-height: 1.15;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-        }
-
-        .cover-desc {
-            font-size: 1rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            max-width: 400px;
-            margin-bottom: 40px;
-        }
-
-        /* 2. Menu Hub Styles */
-        .screen-menu {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .menu-header h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            margin-bottom: 8px;
-        }
-
-        .menu-header p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-
-        .menu-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin: 20px 0;
-        }
-
-        .menu-card-item {
-            background: #faf7f5;
-            border: 1.5px solid var(--border-color);
-            padding: 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.25s ease;
-        }
-
-        .menu-card-item:hover {
-            background: var(--accent-light);
-            border-color: var(--accent);
-            transform: translateY(-2px);
-        }
-
-        .menu-info h3 {
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 3px;
-        }
-
-        .menu-info span {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-        }
-
-        .menu-icon {
-            font-size: 1.2rem;
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* 3. Reader Screen Styles */
-        .screen-reader {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .reader-nav-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .back-btn {
-            background: none;
-            border: none;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: var(--accent);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .progress-indicator {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-        }
-
-        /* Card Content Area */
-        .slides-viewport {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            padding: 20px 0;
-        }
-
-        .card-slide {
-            position: absolute;
-            width: 100%;
-            display: none;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease-in-out;
-        }
-
-        .card-slide.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-            position: relative;
-        }
-
-        .slide-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            line-height: 1.65;
-            color: var(--text-primary);
-            font-style: italic;
-        }
-
-        /* Reader Bottom Navigation */
-        .reader-nav-bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .btn-control {
-            background: #faf7f5;
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .btn-control:hover:not(:disabled) {
-            background: var(--border-color);
-        }
-
-        .btn-control:disabled {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        .primary-btn {
-            background: var(--accent);
-            color: #ffffff;
-            width: 100%;
-            padding: 16px;
-            border-radius: 20px;
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 6px 20px rgba(184, 125, 100, 0.3);
-            transition: transform 0.1s, background 0.2s;
-        }
-
-        .primary-btn:hover {
-            background: #a36d55;
-        }
-
-        .primary-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* Dots Indicator */
-        .dots-row {
-            display: flex;
-            gap: 5px;
-            max-width: 140px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
-        .dots-row::-webkit-scrollbar { display: none; }
-
-        .dot-item {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--border-color);
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .dot-item.active {
-            width: 24px;
-            border-radius: 4px;
-            background: var(--accent);
-        }
-    </style>
-</head>
-<body>
-
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
-    <div id="youtube-player" style="display:none;"></div>
-
-    <div class="container">
-        <!-- 1. Cover Screen -->
-        <div class="screen-cover" id="coverScreen">
-            <div class="cover-badge">A Note For You</div>
-            <h1 class="cover-title">Catatan Terakhir yang Jujur</h1>
-            <p class="cover-desc">Sebuah ruang kecil berisi refleksi, kenangan, dan pesan tulus untuk Ali.</p>
-            <button class="primary-btn" onclick="openMenu()">Buka Catatan ✨</button>
-        </div>
-
-        <!-- 2. Menu Hub Screen -->
-        <div class="screen-menu hidden" id="menuScreen">
-            <div class="menu-header">
-                <h2>Pilih Bab Catatan</h2>
-                <p>Silakan pilih bagian yang ingin kamu baca terlebih dahulu:</p>
-            </div>
-            <div class="menu-grid">
-                <div class="menu-card-item" onclick="startSection(1)">
-                    <div class="menu-info">
-                        <h3>💌 Last Message from Runi</h3>
-                        <span>Pesan perpisahan dan sudut pandang terakhir</span>
-                    </div>
-                    <div class="menu-icon">→</div>
-                </div>
-                <div class="menu-card-item" onclick="startSection(2)">
-                    <div class="menu-info">
-                        <h3>👀 How Runi Sees Ali</h3>
-                        <span>Refleksi kepribadian dan cara pandang</span>
-                    </div>
-                    <div class="menu-icon">→</div>
-                </div>
-                <div class="menu-card-item" onclick="startSection(3)">
-                    <div class="menu-info">
-                        <h3>✨ Last Wish for Ali</h3>
-                        <span>Doa dan harapan tulus ke depan</span>
-                    </div>
-                    <div class="menu-icon">→</div>
-                </div>
-            </div>
-            <div style="text-align: center;">
-                <button class="btn-control" onclick="backToCover()" style="width: 100%;">← Kembali ke Depan</button>
-            </div>
-        </div>
-
-        <!-- 3. Reader / Slide Screen -->
-        <div class="screen-reader hidden" id="readerScreen">
-            <div class="reader-nav-top">
-                <button class="back-btn" onclick="backToMenu()">← Menu Utama</button>
-                <span class="progress-indicator" id="progressText">1 / 15</span>
-            </div>
-
-            <div class="slides-viewport" id="viewport">
-                <!-- Disuntikkan secara dinamis via JS -->
-            </div>
-
-            <div class="reader-nav-bottom">
-                <button class="btn-control" id="prevBtn" onclick="changeSlide(-1)" disabled>Prev</button>
-                <div class="dots-row" id="dotsRow"></div>
-                <button class="btn-control" id="nextBtn" onclick="nextAction()">Next</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- YouTube IFrame API -->
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <script>
-        let player;
-        let isStarted = false;
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('youtube-player', {
-                height: '0',
-                width: '0',
-                videoId: 'l5luP-A1nvM',
-                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'l5luP-A1nvM', 'start': 0 },
-                events: {
-                    'onReady': (event) => {
-                        if (isStarted) {
-                            event.target.playVideo();
-                        }
-                    }
-                }
-            });
-        }
-
-        function openMenu() {
-            isStarted = true;
-            document.getElementById('coverScreen').classList.add('hidden');
-            document.getElementById('menuScreen').classList.remove('hidden');
-
-            if (player && typeof player.playVideo === 'function') {
-                player.playVideo();
-            }
-        }
-
-        function backToCover() {
-            document.getElementById('menuScreen').classList.add('hidden');
-            document.getElementById('coverScreen').classList.remove('hidden');
-        }
-
-        function backToMenu() {
-            document.getElementById('readerScreen').classList.add('hidden');
-            document.getElementById('menuScreen').classList.remove('hidden');
-        }
-
-        // Kumpulan Data Teks (Bisa ditambah/dikurangi/dirubah sesukamu)
-        const sectionsContent = {
-            1: [
-                "Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.",
-                "Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.",
-                "Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.",
-                "Makasih juga udah kasih kejelasan lewat kalimat lu yang mempersilakan gua pergi kemarin, itu bener-bener ngebantu gua buat ngambil keputusan ini.",
-                "So, gua memutuskan buat pamit dan fokus belajar berproses di umur yang baru ini.",
-                "My feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.",
-                "Lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, dan i need to learn buat mulai lihat dari pov orang lain.",
-                "Jujur, dulu hati sama otak gua sering berantem. Otak gua bilang it's time to let go, banyak yang harus diperbaiki, diikhlasin, dan dimulai lagi.",
-                "Tapi my heart says otherwise....takut gabisa bikin lu suka gua, takut lu akhirnya nemuin pasangan yang lu cari dan itu bukan gua, atau takut lu bener bener hilang.",
-                "But at the end of the day, gua yakin kalau ikhlas itu jauh lebih indah. Gua sadar bentuk usaha ada banyak, ga harus selalu di sekitar lu dan berinteraksi sama lu.",
-                "Kalau emang suatu hari nanti u feel the same way, lu pasti tau cara nemuin gua lagi.",
-                "Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore.",
-                "Let me say 'i love you' for the first and the last time today. I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u.",
-                "Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block ur number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri.",
-                "Thanks for everything, and i truly wish the best for both of us."
-            ],
-            2: [
-                "Prinsip lu kuat dan cara lu defend argumen pas kita debat jujur bikin gua kagum. Seorang Ali dengan argumennya yang ga gampang goyah wkwkw.",
-                "Deep down, gua tau niat lu emang tulus pengen jadi orang baik.",
-                "Walau sering bikin gua cape dan nguras energi banget, to be fair, lu partner debat paling seru.",
-                "Lu bisa ngasih perspective yang out of the box. Ada aja sudut pandang tak terduga dari lu yang ngebuka mata gua.",
-                "Di balik niat baik lu, lu kadang tetep egois sama keputusan yang lu ambil tanpa mikir perasaan gua, sebatas buat ngelindungin diri lu sendiri.",
-                "Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pengen jadiin tempat cerita.",
-                "Lu sering ga tegas antara iya dan tidak. Seolah lu takut banget dibilang jahat, terkesan lempar batu sembunyi tangan, dan itu malah bikin gua dapet mixed signals yang bikin bingung.",
-                "Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua ga perlu repot-repot ngasih masukan di saat gua liat sikap lu lagi ga bener."
-            ],
-            3: [
-                "Ke depannya, semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals.",
-                "Semoga lu juga ga nutup diri terus, dan bisa nemuin someone who's actually a right fit buat dijadiin tempat cerita tanpa lu harus ngerasa mesti nyelesaiin semuanya sendirian.",
-                "Lastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked.",
-                "Anyway, thanks for the chaos, the debates, and everything in between. Semoga whatever u pursue next, semuanya dimudahkan. Wish u all the best, Ali."
-            ]
-        };
-
-        let currentSection = 1;
-        let currentIndex = 0;
-        let activeDataLength = 0;
-
-        const viewport = document.getElementById('viewport');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const progressText = document.getElementById('progressText');
-        const dotsRow = document.getElementById('dotsRow');
-
-        function startSection(secId) {
-            currentSection = secId;
-            currentIndex = 0;
-            const data = sectionsContent[secId];
-            activeDataLength = data.length;
-
-            // Render slides
-            viewport.innerHTML = '';
-            data.forEach((text, idx) => {
-                const slide = document.createElement('div');
-                slide.className = `card-slide ${idx === 0 ? 'active' : ''}`;
-                slide.innerHTML = `<div class="slide-text">"${text}"</div>`;
-                viewport.appendChild(slide);
-            });
-
-            // Render dots
-            dotsRow.innerHTML = '';
-            for (let i = 0; i < activeDataLength; i++) {
-                const dot = document.createElement('div');
-                dot.className = `dot-item ${i === 0 ? 'active' : ''}`;
-                dot.onclick = () => jumpToSlide(i);
-                dotsRow.appendChild(dot);
-            }
-
-            document.getElementById('menuScreen').classList.add('hidden');
-            document.getElementById('readerScreen').classList.remove('hidden');
-            refreshUI();
-        }
-
-        function refreshUI() {
-            const slides = document.querySelectorAll('.card-slide');
-            const dots = document.querySelectorAll('.dot-item');
-
-            slides.forEach((s, idx) => {
-                s.classList.toggle('active', idx === currentIndex);
-            });
-
-            dots.forEach((d, idx) => {
-                d.classList.toggle('active', idx === currentIndex);
-            });
-
-            progressText.innerText = `${currentIndex + 1} / ${activeDataLength}`;
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.innerText = (currentIndex === activeDataLength - 1) ? 'Selesai ✓' : 'Next';
-        }
-
-        function changeSlide(direction) {
-            currentIndex += direction;
-            if (currentIndex < 0) currentIndex = 0;
-            if (currentIndex >= activeDataLength) currentIndex = activeDataLength - 1;
-            refreshUI();
-        }
-
-        function jumpToSlide(index) {
-            currentIndex = index;
-            refreshUI();
-        }
-
-        function nextAction() {
-            if (currentIndex === activeDataLength - 1) {
-                backToMenu();
-            } else {
-                changeSlide(1);
-            }
-        }
-    </script>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Note For You - Runi & Ali</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-    <style>
-        * {
-            box-sizing: border-box;
+            font-family: 'Pinyon Script', cursive;
+            font-size: 8.5rem;
+            color: #4a3b32;
+            line-height: 1.1;
+            font-weight: 400;
+            text-shadow: 2px 2px 4px rgba(212, 131, 72, 0.1);
             margin: 0;
-            padding: 0;
         }
 
-        :root {
-            --bg-color: #f7f3ee;
-            --card-bg: #ffffff;
-            --text-primary: #332924;
-            --text-muted: #8c7a70;
-            --accent: #b87d64;
-            --accent-light: #f5eae3;
-            --border-color: #eee4dc;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            overflow: hidden;
-        }
-
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            position: relative;
-        }
-
-        /* Ambient Glow Background */
-        .glow {
-            position: fixed;
-            width: 450px;
-            height: 450px;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.4;
-            z-index: 0;
-            pointer-events: none;
-        }
-        .glow-1 { background: #fce8e0; top: -100px; left: -100px; }
-        .glow-2 { background: #faebd7; bottom: -100px; right: -100px; }
-
-        /* Master Container */
-        .container {
-            position: relative;
-            z-index: 2;
-            width: 100%;
-            max-width: 600px;
-            height: 680px;
-            background: var(--card-bg);
-            border-radius: 32px;
-            box-shadow: 0 20px 40px rgba(130, 110, 100, 0.08), 0 2px 8px rgba(130, 110, 100, 0.04);
-            border: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            padding: 40px;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        .cover-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #a07865;
+            letter-spacing: 0.5px;
+            max-width: 520px;
+            line-height: 1.6;
         }
 
         .hidden {
             display: none !important;
         }
 
-        /* 1. Cover Screen Styles */
-        .screen-cover {
-            flex: 1;
+        .card-header {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
-            text-align: center;
+            justify-content: space-between;
+            border-bottom: 3px solid rgba(255, 223, 186, 0.8);
+            padding-bottom: 20px;
+            margin-top: -15px;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
         }
 
-        .cover-badge {
-            font-size: 0.8rem;
+        .card-brand {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            color: #e07a5f;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--accent);
-            font-weight: 600;
-            margin-bottom: 16px;
-            background: var(--accent-light);
-            padding: 6px 16px;
-            border-radius: 20px;
         }
 
-        .cover-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 3.8rem;
-            font-weight: 600;
-            line-height: 1.15;
-            margin-bottom: 16px;
-            color: var(--text-primary);
-        }
-
-        .cover-desc {
-            font-size: 1rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            max-width: 400px;
-            margin-bottom: 40px;
-        }
-
-        /* 2. Menu Hub Styles */
-        .screen-menu {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .menu-header h2 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            margin-bottom: 8px;
-        }
-
-        .menu-header p {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-        }
-
-        .menu-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin: 20px 0;
-        }
-
-        .menu-card-item {
-            background: #faf7f5;
-            border: 1.5px solid var(--border-color);
-            padding: 20px;
-            border-radius: 20px;
-            cursor: pointer;
+        .honey-badge {
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            transition: all 0.25s ease;
+            gap: 10px;
+            background: rgba(255, 243, 209, 0.85);
+            padding: 8px 18px;
+            border-radius: 35px;
+            border: 2px solid rgba(255, 209, 102, 0.6);
         }
 
-        .menu-card-item:hover {
-            background: var(--accent-light);
-            border-color: var(--accent);
-            transform: translateY(-2px);
+        .honey-img {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            animation: bounceHoney 2s infinite ease-in-out;
         }
 
-        .menu-info h3 {
-            font-size: 1.05rem;
-            font-weight: 600;
-            margin-bottom: 3px;
+        .honey-emoji {
+            font-size: 1.6rem;
+            line-height: 1;
+            animation: bounceHoney 2s infinite ease-in-out;
         }
 
-        .menu-info span {
-            font-size: 0.82rem;
-            color: var(--text-muted);
+        @keyframes bounceHoney {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
         }
 
-        .menu-icon {
-            font-size: 1.2rem;
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* 3. Reader Screen Styles */
-        .screen-reader {
-            flex: 1;
+        .slides-container {
             display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .reader-nav-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 16px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .back-btn {
-            background: none;
-            border: none;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-size: 0.88rem;
-            font-weight: 600;
-            color: var(--accent);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .progress-indicator {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-        }
-
-        /* Card Content Area */
-        .slides-viewport {
-            flex: 1;
-            display: flex;
-            align-items: center;
             position: relative;
             overflow: hidden;
-            padding: 20px 0;
+            min-height: 720px;
+            margin: 15px 0;
+            align-items: center;
+            z-index: 2;
         }
 
-        .card-slide {
+        .slide {
             position: absolute;
             width: 100%;
             display: none;
+            flex-direction: column;
             opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease-in-out;
+            transition: opacity 0.3s ease-in-out;
+            text-align: left;
         }
 
-        .card-slide.active {
-            display: block;
+        .slide.active {
+            display: flex;
             opacity: 1;
-            transform: translateY(0);
             position: relative;
         }
 
-        .slide-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.6rem;
-            line-height: 1.65;
-            color: var(--text-primary);
-            font-style: italic;
+        .slide-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #e07a5f;
+            margin-bottom: 28px;
+            text-transform: uppercase;
         }
 
-        /* Reader Bottom Navigation */
-        .reader-nav-bottom {
+        .slide-text {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.85rem;
+            line-height: 1.9;
+            color: #4a3b32;
+            font-weight: 400;
+            word-break: break-word;
+        }
+
+        .controls {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-color);
+            padding-top: 25px;
+            padding-bottom: 5px;
+            border-top: 3px solid rgba(255, 223, 186, 0.8);
+            margin-bottom: -15px;
+            gap: 16px;
+            position: relative;
+            z-index: 2;
         }
 
-        .btn-control {
-            background: #faf7f5;
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 10px 20px;
-            border-radius: 30px;
-            font-size: 0.9rem;
+        .btn {
+            background: #ffffff;
+            border: 3px solid #ffd166;
+            color: #d48348;
+            padding: 22px 42px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.2s;
+            box-shadow: 0 6px 18px rgba(255, 209, 102, 0.38);
+            white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+            transition: transform 0.2s ease;
         }
 
-        .btn-control:hover:not(:disabled) {
-            background: var(--border-color);
+        .btn:active:not(:disabled) {
+            transform: scale(0.95);
         }
 
-        .btn-control:disabled {
+        .btn:disabled {
             opacity: 0.3;
             cursor: not-allowed;
+            border-color: #e2e8f0;
+            color: #94a3b8;
+            box-shadow: none;
         }
 
-        .primary-btn {
-            background: var(--accent);
+        .btn-primary {
+            background: #f4a261;
             color: #ffffff;
+            border-color: #f4a261;
             width: 100%;
-            padding: 16px;
-            border-radius: 20px;
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 6px 20px rgba(184, 125, 100, 0.3);
-            transition: transform 0.1s, background 0.2s;
+            padding: 26px;
+            font-size: 1.75rem;
+            box-shadow: 0 8px 25px rgba(244, 162, 97, 0.4);
         }
 
-        .primary-btn:hover {
-            background: #a36d55;
-        }
-
-        .primary-btn:active {
-            transform: scale(0.98);
-        }
-
-        /* Dots Indicator */
-        .dots-row {
+        .dots {
             display: flex;
-            gap: 5px;
-            max-width: 140px;
+            gap: 10px;
+            align-items: center;
+            max-width: 200px;
             overflow-x: auto;
             scrollbar-width: none;
         }
-        .dots-row::-webkit-scrollbar { display: none; }
 
-        .dot-item {
-            width: 6px;
-            height: 6px;
+        .dots::-webkit-scrollbar {
+            display: none;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: var(--border-color);
+            background: rgba(244, 162, 97, 0.3);
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
 
-        .dot-item.active {
-            width: 24px;
-            border-radius: 4px;
-            background: var(--accent);
+        .dot.active {
+            width: 36px;
+            border-radius: 6px;
+            background: #f4a261;
         }
     </style>
 </head>
 <body>
 
-    <div class="glow glow-1"></div>
-    <div class="glow glow-2"></div>
+    <div class="ambient-circle circle-1"></div>
+    <div class="ambient-circle circle-2"></div>
+    <div id="falling-container"></div>
     <div id="youtube-player" style="display:none;"></div>
 
-    <div class="container">
-        <!-- 1. Cover Screen -->
-        <div class="screen-cover" id="coverScreen">
-            <div class="cover-badge">A Note For You</div>
-            <h1 class="cover-title">Catatan Terakhir yang Jujur</h1>
-            <p class="cover-desc">Sebuah ruang kecil berisi refleksi, kenangan, dan pesan tulus untuk Ali.</p>
-            <button class="primary-btn" onclick="openMenu()">Buka Catatan ✨</button>
-        </div>
-
-        <!-- 2. Menu Hub Screen -->
-        <div class="screen-menu hidden" id="menuScreen">
-            <div class="menu-header">
-                <h2>Pilih Bab Catatan</h2>
-                <p>Silakan pilih bagian yang ingin kamu baca terlebih dahulu:</p>
+    <div class="wrapper">
+        <!-- Cover Screen -->
+        <div class="box-container" id="coverScreen">
+            <div></div>
+            <div class="cover-content">
+                <div class="cover-title-wrapper">
+                    <span class="cover-emoji">🍯</span>
+                    <div class="cover-title">A Note For You</div>
+                </div>
+                <div class="cover-subtitle">Catatan terakhir paling jujur untuk kamu</div>
             </div>
-            <div class="menu-grid">
-                <div class="menu-card-item" onclick="startSection(1)">
-                    <div class="menu-info">
-                        <h3>💌 Last Message from Runi</h3>
-                        <span>Pesan perpisahan dan sudut pandang terakhir</span>
-                    </div>
-                    <div class="menu-icon">→</div>
-                </div>
-                <div class="menu-card-item" onclick="startSection(2)">
-                    <div class="menu-info">
-                        <h3>👀 How Runi Sees Ali</h3>
-                        <span>Refleksi kepribadian dan cara pandang</span>
-                    </div>
-                    <div class="menu-icon">→</div>
-                </div>
-                <div class="menu-card-item" onclick="startSection(3)">
-                    <div class="menu-info">
-                        <h3>✨ Last Wish for Ali</h3>
-                        <span>Doa dan harapan tulus ke depan</span>
-                    </div>
-                    <div class="menu-icon">→</div>
-                </div>
-            </div>
-            <div style="text-align: center;">
-                <button class="btn-control" onclick="backToCover()" style="width: 100%;">← Kembali ke Depan</button>
+            <div>
+                <button class="btn btn-primary" onclick="startApp()">
+                    Buka Catatan ✨
+                </button>
             </div>
         </div>
 
-        <!-- 3. Reader / Slide Screen -->
-        <div class="screen-reader hidden" id="readerScreen">
-            <div class="reader-nav-top">
-                <button class="back-btn" onclick="backToMenu()">← Menu Utama</button>
-                <span class="progress-indicator" id="progressText">1 / 15</span>
+        <!-- Main Card (Hidden initially) -->
+        <div class="box-container hidden" id="mainCard">
+            <div class="card-header">
+                <span class="card-brand">A Note For You</span>
+                <div class="honey-badge">
+                    <img class="honey-img" src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Honey Jar">
+                    <span class="honey-emoji">🍯</span>
+                </div>
+                <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
             </div>
 
-            <div class="slides-viewport" id="viewport">
-                <!-- Disuntikkan secara dinamis via JS -->
+            <div class="slides-container">
+                <!-- Slide 1 -->
+                <div class="slide active" data-index="0">
+                    <div class="slide-number">Bagian 01</div>
+                    <div class="slide-text">Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.</div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="slide" data-index="1">
+                    <div class="slide-number">Bagian 02</div>
+                    <div class="slide-text">Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.</div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="slide" data-index="2">
+                    <div class="slide-number">Bagian 03</div>
+                    <div class="slide-text">Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.</div>
+                </div>
+                <!-- Slide 4 -->
+                <div class="slide" data-index="3">
+                    <div class="slide-number">Bagian 04</div>
+                    <div class="slide-text">So, gua memutuskan buat pamit dan fokus belajar berproses di umur yang baru ini.</div>
+                </div>
+                <!-- Slide 5 -->
+                <div class="slide" data-index="4">
+                    <div class="slide-number">Bagian 05</div>
+                    <div class="slide-text">Jujur, my feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.</div>
+                </div>
+                <!-- Slide 6 -->
+                <div class="slide" data-index="5">
+                    <div class="slide-number">Bagian 06</div>
+                    <div class="slide-text">Percakapan terakhir kita, lu jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, and i need to learn buat mulai lihat dari pov orang lain.</div>
+                </div>
+                <!-- Slide 7 -->
+                <div class="slide" data-index="6">
+                    <div class="slide-number">Bagian 07</div>
+                    <div class="slide-text">Jujur, until now, hati sama otak gua masih berantem. Otak gua bilang it's time to let go, banyak yang harus diperbaiki, diikhlasin, dan dimulai lagi.</div>
+                </div>
+                <!-- Slide 8 -->
+                <div class="slide" data-index="7">
+                    <div class="slide-number">Bagian 08</div>
+                    <div class="slide-text">Tapi my heart says otherwise....takut jadi asing, takut lu benci, takut lu akhirnya nemuin pasangan yang lu cari dan itu bukan gua, atau takut kita kehilangan jejak satu sama lain.</div>
+                </div>
+                <!-- Slide 9 -->
+                <div class="slide" data-index="8">
+                    <div class="slide-number">Bagian 09</div>
+                    <div class="slide-text">But at the end of the day, gua yakin kalau ikhlas itu jauh lebih indah. Kalau emang suatu hari nanti u feel the same way, lu pasti tau cara nemuin gua lagi.</div>
+                </div>
+                <!-- Slide 10 -->
+                <div class="slide" data-index="9">
+                    <div class="slide-number">Bagian 10</div>
+                    <div class="slide-text">Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore.</div>
+                </div>
+                <!-- Slide 11 -->
+                <div class="slide" data-index="10">
+                    <div class="slide-number">Bagian 11</div>
+                    <div class="slide-text">Let me say 'i love you' for the first and the last time today. I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u.</div>
+                </div>
+                <!-- Slide 12 -->
+                <div class="slide" data-index="11">
+                    <div class="slide-number">Bagian 12</div>
+                    <div class="slide-text">Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block this number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri.</div>
+                </div>
+                <!-- Slide 13 -->
+                <div class="slide" data-index="12">
+                    <div class="slide-number">Bagian 13</div>
+                    <div class="slide-text">Thanks for everything, and i wish us all the best.</div>
+                </div>
             </div>
 
-            <div class="reader-nav-bottom">
-                <button class="btn-control" id="prevBtn" onclick="changeSlide(-1)" disabled>Prev</button>
-                <div class="dots-row" id="dotsRow"></div>
-                <button class="btn-control" id="nextBtn" onclick="nextAction()">Next</button>
+            <!-- Controls -->
+            <div class="controls">
+                <button class="btn" id="prevBtn" onclick="changeSlide(-1)" disabled>
+                    ← Prev
+                </button>
+                
+                <div class="dots" id="dotsContainer">
+                    <!-- Generated via JS -->
+                </div>
+
+                <button class="btn" id="nextBtn" onclick="changeSlide(1)">
+                    Next →
+                </button>
             </div>
         </div>
     </div>
 
-    <!-- YouTube IFrame API -->
+    <!-- YouTube IFrame API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
+        // Falling Flowers generator
+        const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
+        const container = document.getElementById('falling-container');
+        for (let i = 0; i < 6; i++) {
+            const span = document.createElement('div');
+            span.classList.add('falling-flower');
+            span.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+            span.style.left = Math.random() * 100 + 'vw';
+            span.style.animationDuration = (Math.random() * 4 + 7) + 's';
+            span.style.animationDelay = (Math.random() * 5) + 's';
+            span.style.fontSize = (Math.random() * 4 + 22) + 'px';
+            container.appendChild(span);
+        }
+
+        // YouTube Player setup
         let player;
-        let isStarted = false;
+        let isAppStarted = false;
+        const START_TIME = 0;
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('youtube-player', {
                 height: '0',
                 width: '0',
                 videoId: 'l5luP-A1nvM',
-                playerVars: { 'autoplay': 0, 'loop': 1, 'playlist': 'l5luP-A1nvM', 'start': 0 },
+                playerVars: {
+                    'autoplay': 0,
+                    'loop': 1,
+                    'playlist': 'l5luP-A1nvM',
+                    'start': START_TIME
+                },
                 events: {
                     'onReady': (event) => {
-                        if (isStarted) {
+                        if (isAppStarted) {
+                            event.target.seekTo(START_TIME, true);
                             event.target.playVideo();
                         }
                     }
@@ -963,137 +522,71 @@
             });
         }
 
-        function openMenu() {
-            isStarted = true;
+        function startApp() {
+            isAppStarted = true;
             document.getElementById('coverScreen').classList.add('hidden');
-            document.getElementById('menuScreen').classList.remove('hidden');
+            document.getElementById('mainCard').classList.remove('hidden');
 
             if (player && typeof player.playVideo === 'function') {
+                player.seekTo(START_TIME, true);
                 player.playVideo();
             }
         }
 
-        function backToCover() {
-            document.getElementById('menuScreen').classList.add('hidden');
-            document.getElementById('coverScreen').classList.remove('hidden');
-        }
-
-        function backToMenu() {
-            document.getElementById('readerScreen').classList.add('hidden');
-            document.getElementById('menuScreen').classList.remove('hidden');
-        }
-
-        // Kumpulan Data Teks (Bisa ditambah/dikurangi/dirubah sesukamu)
-        const sectionsContent = {
-            1: [
-                "Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.",
-                "Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.",
-                "Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.",
-                "Makasih juga udah kasih kejelasan lewat kalimat lu yang mempersilakan gua pergi kemarin, itu bener-bener ngebantu gua buat ngambil keputusan ini.",
-                "So, gua memutuskan buat pamit dan fokus belajar berproses di umur yang baru ini.",
-                "My feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.",
-                "Lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, dan i need to learn buat mulai lihat dari pov orang lain.",
-                "Jujur, dulu hati sama otak gua sering berantem. Otak gua bilang it's time to let go, banyak yang harus diperbaiki, diikhlasin, dan dimulai lagi.",
-                "Tapi my heart says otherwise....takut gabisa bikin lu suka gua, takut lu akhirnya nemuin pasangan yang lu cari dan itu bukan gua, atau takut lu bener bener hilang.",
-                "But at the end of the day, gua yakin kalau ikhlas itu jauh lebih indah. Gua sadar bentuk usaha ada banyak, ga harus selalu di sekitar lu dan berinteraksi sama lu.",
-                "Kalau emang suatu hari nanti u feel the same way, lu pasti tau cara nemuin gua lagi.",
-                "Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore.",
-                "Let me say 'i love you' for the first and the last time today. I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u.",
-                "Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block ur number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri.",
-                "Thanks for everything, and i truly wish the best for both of us."
-            ],
-            2: [
-                "Prinsip lu kuat dan cara lu defend argumen pas kita debat jujur bikin gua kagum. Seorang Ali dengan argumennya yang ga gampang goyah wkwkw.",
-                "Deep down, gua tau niat lu emang tulus pengen jadi orang baik.",
-                "Walau sering bikin gua cape dan nguras energi banget, to be fair, lu partner debat paling seru.",
-                "Lu bisa ngasih perspective yang out of the box. Ada aja sudut pandang tak terduga dari lu yang ngebuka mata gua.",
-                "Di balik niat baik lu, lu kadang tetep egois sama keputusan yang lu ambil tanpa mikir perasaan gua, sebatas buat ngelindungin diri lu sendiri.",
-                "Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pengen jadiin tempat cerita.",
-                "Lu sering ga tegas antara iya dan tidak. Seolah lu takut banget dibilang jahat, terkesan lempar batu sembunyi tangan, dan itu malah bikin gua dapet mixed signals yang bikin bingung.",
-                "Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua ga perlu repot-repot ngasih masukan di saat gua liat sikap lu lagi ga bener."
-            ],
-            3: [
-                "Ke depannya, semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals.",
-                "Semoga lu juga ga nutup diri terus, dan bisa nemuin someone who's actually a right fit buat dijadiin tempat cerita tanpa lu harus ngerasa mesti nyelesaiin semuanya sendirian.",
-                "Lastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked.",
-                "Anyway, thanks for the chaos, the debates, and everything in between. Semoga whatever u pursue next, semuanya dimudahkan. Wish u all the best, Ali."
-            ]
-        };
-
-        let currentSection = 1;
-        let currentIndex = 0;
-        let activeDataLength = 0;
-
-        const viewport = document.getElementById('viewport');
+        // Slider Logic
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
-        const progressText = document.getElementById('progressText');
-        const dotsRow = document.getElementById('dotsRow');
+        const slideCounterText = document.getElementById('slideCounterText');
+        const dotsContainer = document.getElementById('dotsContainer');
 
-        function startSection(secId) {
-            currentSection = secId;
-            currentIndex = 0;
-            const data = sectionsContent[secId];
-            activeDataLength = data.length;
-
-            // Render slides
-            viewport.innerHTML = '';
-            data.forEach((text, idx) => {
-                const slide = document.createElement('div');
-                slide.className = `card-slide ${idx === 0 ? 'active' : ''}`;
-                slide.innerHTML = `<div class="slide-text">"${text}"</div>`;
-                viewport.appendChild(slide);
-            });
-
-            // Render dots
-            dotsRow.innerHTML = '';
-            for (let i = 0; i < activeDataLength; i++) {
-                const dot = document.createElement('div');
-                dot.className = `dot-item ${i === 0 ? 'active' : ''}`;
-                dot.onclick = () => jumpToSlide(i);
-                dotsRow.appendChild(dot);
-            }
-
-            document.getElementById('menuScreen').classList.add('hidden');
-            document.getElementById('readerScreen').classList.remove('hidden');
-            refreshUI();
+        for (let i = 0; i < totalSlides; i++) {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (i === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => goToSlide(i));
+            dotsContainer.appendChild(dot);
         }
 
-        function refreshUI() {
-            const slides = document.querySelectorAll('.card-slide');
-            const dots = document.querySelectorAll('.dot-item');
+        const dots = document.querySelectorAll('.dot');
 
-            slides.forEach((s, idx) => {
-                s.classList.toggle('active', idx === currentIndex);
+        function updateSlide() {
+            slides.forEach((slide, index) => {
+                slide.classList.remove('active');
+                if (index === currentSlide) {
+                    slide.classList.add('active');
+                }
             });
 
-            dots.forEach((d, idx) => {
-                d.classList.toggle('active', idx === currentIndex);
+            dots.forEach((dot, index) => {
+                dot.classList.remove('active');
+                if (index === currentSlide) {
+                    dot.classList.add('active');
+                }
             });
 
-            progressText.innerText = `${currentIndex + 1} / ${activeDataLength}`;
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.innerText = (currentIndex === activeDataLength - 1) ? 'Selesai ✓' : 'Next';
+            slideCounterText.innerText = `${currentSlide + 1} / ${totalSlides}`;
+            prevBtn.disabled = currentSlide === 0;
+            
+            if (currentSlide === totalSlides - 1) {
+                nextBtn.innerHTML = 'Selesai ✓';
+            } else {
+                nextBtn.innerHTML = 'Next →';
+            }
         }
 
         function changeSlide(direction) {
-            currentIndex += direction;
-            if (currentIndex < 0) currentIndex = 0;
-            if (currentIndex >= activeDataLength) currentIndex = activeDataLength - 1;
-            refreshUI();
+            currentSlide += direction;
+            if (currentSlide < 0) currentSlide = 0;
+            if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
+            updateSlide();
         }
 
-        function jumpToSlide(index) {
-            currentIndex = index;
-            refreshUI();
-        }
-
-        function nextAction() {
-            if (currentIndex === activeDataLength - 1) {
-                backToMenu();
-            } else {
-                changeSlide(1);
-            }
+        function goToSlide(index) {
+            currentSlide = index;
+            updateSlide();
         }
     </script>
 </body>
