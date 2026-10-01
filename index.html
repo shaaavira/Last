@@ -168,56 +168,84 @@
         }
 
         /* Menu Pilihan Section */
-        .menu-title {
+        .menu-instruction {
             font-family: 'Poppins', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #4a3b32;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #8c6d59;
             text-align: center;
-            margin-bottom: 8px;
-        }
-
-        .menu-subtitle {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.15rem;
-            color: #a07865;
-            text-align: center;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+            background: rgba(255, 239, 213, 0.6);
+            padding: 18px 24px;
+            border-radius: 20px;
+            border: 2px solid rgba(244, 162, 97, 0.2);
         }
 
         .menu-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 18px;
             margin: auto 0;
         }
 
-        .menu-btn {
+        .menu-card-btn {
             background: #ffffff;
-            border: 3px solid #ffd166;
+            border: 2px solid rgba(244, 162, 97, 0.35);
             color: #5c4033;
-            padding: 24px 30px;
+            padding: 24px 28px;
             border-radius: 24px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.4rem;
-            font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 6px 18px rgba(255, 209, 102, 0.25);
+            box-shadow: 0 6px 20px rgba(210, 150, 120, 0.12);
             text-align: left;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: all 0.2s ease;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .menu-btn:hover {
-            background: #fff9ed;
+        .menu-card-btn:hover {
+            background: #fff9f0;
             border-color: #f4a261;
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(244, 162, 97, 0.22);
         }
 
-        .menu-btn:active {
+        .menu-card-btn:active {
             transform: scale(0.98);
+        }
+
+        .menu-text-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .menu-card-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #4a3b32;
+        }
+
+        .menu-card-desc {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.95rem;
+            color: #a07865;
+            font-weight: 400;
+        }
+
+        .menu-arrow {
+            font-size: 1.4rem;
+            color: #f4a261;
+            font-weight: 600;
+            transition: transform 0.2s ease;
+        }
+
+        .menu-card-btn:hover .menu-arrow {
+            transform: translateX(4px);
         }
 
         .card-header {
@@ -396,20 +424,30 @@
                 <span class="card-brand">🍯 A Note For You</span>
             </div>
             <div class="menu-content" style="margin: auto 0;">
-                <div class="menu-title">Pilih Bagian</div>
-                <div class="menu-subtitle">Silakan pilih halaman yang ingin kamu baca</div>
+                <div class="menu-instruction">
+                    Catatan ini dibagi menjadi 3 sesi. Silakan pilih salah satu bagian di bawah untuk mulai membaca:
+                </div>
                 <div class="menu-list">
-                    <button class="menu-btn" onclick="openSection(1)">
-                        <span>💌 Last Message from Runi</span>
-                        <span>→</span>
+                    <button class="menu-card-btn" onclick="openSection(1)">
+                        <div class="menu-text-group">
+                            <span class="menu-card-title">💌 Last Message from Runi</span>
+                            <span class="menu-card-desc">Pesan dan kata-kata perpisahan terakhir</span>
+                        </div>
+                        <span class="menu-arrow">→</span>
                     </button>
-                    <button class="menu-btn" onclick="openSection(2)">
-                        <span>👀 How Runi Sees Ali</span>
-                        <span>→</span>
+                    <button class="menu-card-btn" onclick="openSection(2)">
+                        <div class="menu-text-group">
+                            <span class="menu-card-title">👀 How Runi Sees Ali</span>
+                            <span class="menu-card-desc">Refleksi setengah tahun pandangan terhadap Ali</span>
+                        </div>
+                        <span class="menu-arrow">→</span>
                     </button>
-                    <button class="menu-btn" onclick="openSection(3)">
-                        <span>✨ Last Wish for Ali</span>
-                        <span>→</span>
+                    <button class="menu-card-btn" onclick="openSection(3)">
+                        <div class="menu-text-group">
+                            <span class="menu-card-title">✨ Last Wish for Ali</span>
+                            <span class="menu-card-desc">Harapan dan doa tulus untuk ke depannya</span>
+                        </div>
+                        <span class="menu-arrow">→</span>
                     </button>
                 </div>
             </div>
@@ -504,7 +542,7 @@
             document.getElementById('menuScreen').classList.remove('hidden');
         }
 
-        // Data Slide untuk Masing-masing Section
+        // Data Slide untuk Masing-masing Section (Tanpa judul bagian dalam teks)
         const sectionsData = {
             1: [
                 "Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.",
@@ -524,13 +562,20 @@
                 "Thanks for everything, and i truly wish the best for both of us."
             ],
             2: [
-                "How Runi Sees Ali: A Half-Year Reflection\n\nPositive:\n• Prinsip lu kuat dan cara lu defend argumen pas kita debat jujur bikin gua kagum. Seorang Ali dengan argumennya yang ga gampang goyah wkwkw.\n• Deep down, gua tau niat lu emang tulus pengen jadi orang baik.\n• Walau sering bikin gua cape dan nguras energi banget, to be fair, lu partner debat paling seru.\n• Lu bisa ngasih perspective yang out of the box. Ada aja sudut pandang tak terduga dari lu yang ngebuka mata gua.",
-                "How Runi Sees Ali: A Half-Year Reflection\n\nNegative:\n• Di balik niat baik lu, lu kadang tetep egois sama keputusan yang lu ambil tanpa mikir perasaan gua, sebatas buat ngelindungin diri lu sendiri.\n• Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pengen jadiin tempat cerita.\n• Lu sering ga tegas antara iya dan tidak. Seolah lu takut banget dibilang jahat, terkesan lempar batu sembunyi tangan, dan itu malah bikin gua dapet mixed signals yang bikin bingung.\n• Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua ga perlu repot-repot ngasih masukan di saat gua liat sikap lu lagi ga bener."
+                "Prinsip lu kuat dan cara lu defend argumen pas kita debat jujur bikin gua kagum. Seorang Ali dengan argumennya yang ga gampang goyah wkwkw.",
+                "Deep down, gua tau niat lu emang tulus pengen jadi orang baik.",
+                "Walau sering bikin gua cape dan nguras energi banget, to be fair, lu partner debat paling seru.",
+                "Lu bisa ngasih perspective yang out of the box. Ada aja sudut pandang tak terduga dari lu yang ngebuka mata gua.",
+                "Di balik niat baik lu, lu kadang tetep egois sama keputusan yang lu ambil tanpa mikir perasaan gua, sebatas buat ngelindungin diri lu sendiri.",
+                "Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pengen jadiin tempat cerita.",
+                "Lu sering ga tegas antara iya dan tidak. Seolah lu takut banget dibilang jahat, terkesan lempar batu sembunyi tangan, dan itu malah bikin gua dapet mixed signals yang bikin bingung.",
+                "Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua ga perlu repot-repot ngasih masukan di saat gua liat sikap lu lagi ga bener."
             ],
             3: [
-                "Wish for You:\n\nKe depannya, semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals." ,
-                "Wish for You:\n\nSemoga lu juga ga nutup diri terus, dan bisa nemuin someone who's actually a right fit buat dijadiin tempat cerita tanpa lu harus ngerasa mesti nyelesaiin semuanya sendirian.",
-                "Wish for You:\n\nLastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked. Anyway, thanks for the chaos, the debates, and everything in between. Semoga whatever u pursue next, semuanya dimudahkan. Wish u all the best, Ali."
+                "Ke depannya, semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals.",
+                "Semoga lu juga ga nutup diri terus, dan bisa nemuin someone who's actually a right fit buat dijadiin tempat cerita tanpa lu harus ngerasa mesti nyelesaiin semuanya sendirian.",
+                "Lastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked.",
+                "Anyway, thanks for the chaos, the debates, and everything in between. Semoga whatever u pursue next, semuanya dimudahkan. Wish u all the best, Ali."
             ]
         };
 
@@ -551,7 +596,6 @@
             const data = sectionsData[sectionId];
             totalSlides = data.length;
 
-            // Update judul brand kecil di atas
             const titles = {
                 1: "💌 Last Message",
                 2: "👀 How Runi Sees Ali",
@@ -572,7 +616,6 @@
                 
                 const textDiv = document.createElement('div');
                 textDiv.className = 'slide-text';
-                // Gunakan innerHTML agar tag <br> atau baris baru terbaca rapi jika ada
                 textDiv.innerHTML = text.replace(/\n/g, '<br>');
                 
                 slideDiv.appendChild(numDiv);
@@ -640,7 +683,6 @@
 
         function nextAction() {
             if (currentSlide === totalSlides - 1) {
-                // Selesai di slide terakhir, kembali ke menu pilihan
                 backToMenu();
             } else {
                 changeSlide(1);
