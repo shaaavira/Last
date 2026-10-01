@@ -28,7 +28,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 24px 16px;
+            padding: 30px 16px;
             overflow-x: hidden;
             position: relative;
         }
@@ -44,16 +44,16 @@
         }
 
         .circle-1 {
-            width: 400px;
-            height: 400px;
+            width: 450px;
+            height: 450px;
             background: #ffecb6;
             top: -80px;
             left: -80px;
         }
 
         .circle-2 {
-            width: 450px;
-            height: 450px;
+            width: 500px;
+            height: 500px;
             background: #ffb4b0;
             bottom: -80px;
             right: -80px;
@@ -100,49 +100,37 @@
             position: relative;
             z-index: 2;
             width: 100%;
-            max-width: 760px;
+            max-width: 860px;
             display: flex;
             flex-direction: column;
         }
 
-        /* Kotak besar & lapang dengan aksen garis sudut estetik */
         .box-container {
             width: 100%;
             background: rgba(255, 253, 245, 0.98);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 3px solid rgba(255, 223, 186, 0.95);
-            border-radius: 48px;
-            padding: 80px 48px;
-            box-shadow: 0 35px 70px rgba(210, 150, 120, 0.3), 0 0 50px rgba(255, 255, 255, 0.7) inset;
+            border-radius: 52px;
+            padding: 95px 56px;
+            box-shadow: 0 40px 80px rgba(210, 150, 120, 0.32), 0 0 60px rgba(255, 255, 255, 0.7) inset;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 1060px;
+            min-height: 1180px;
             position: relative;
         }
 
-        /* Sentuhan garis sudut estetik ala surat klasik */
-        .box-container::before, .box-container::after {
+        .box-container::before {
             content: '';
             position: absolute;
-            width: 30px;
-            height: 30px;
-            border-color: rgba(224, 122, 95, 0.35);
-            border-style: solid;
+            top: 18px;
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+            border: 2px dashed rgba(224, 122, 95, 0.25);
+            border-radius: 40px;
             pointer-events: none;
-        }
-        .box-container::before {
-            top: 24px;
-            left: 24px;
-            border-width: 3px 0 0 3px;
-            border-top-left-radius: 16px;
-        }
-        .box-container::after {
-            bottom: 24px;
-            right: 24px;
-            border-width: 0 3px 3px 0;
-            border-bottom-right-radius: 16px;
         }
 
         .cover-content {
@@ -151,16 +139,52 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Judul Cover Menggunakan Pinyon Script */
+        .cover-icon-badge {
+            width: 88px;
+            height: 88px;
+            background: rgba(255, 243, 209, 0.9);
+            border: 2px solid rgba(255, 209, 102, 0.6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 28px;
+            box-shadow: 0 8px 20px rgba(212, 131, 72, 0.15);
+            animation: bounceIcon 2s infinite ease-in-out;
+        }
+
+        .cover-icon-badge img {
+            width: 48px;
+            height: 48px;
+            object-fit: contain;
+        }
+
+        @keyframes bounceIcon {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
         .cover-title {
             font-family: 'Pinyon Script', cursive;
-            font-size: 7.5rem;
+            font-size: 8.5rem;
             color: #4a3b32;
             line-height: 1.1;
             font-weight: 400;
             text-shadow: 2px 2px 4px rgba(212, 131, 72, 0.1);
+            margin-bottom: 16px;
+        }
+
+        .cover-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #a07865;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
         }
 
         .hidden {
@@ -172,37 +196,40 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 3px solid rgba(255, 223, 186, 0.8);
-            padding-bottom: 24px;
+            padding-bottom: 28px;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 2;
         }
 
-        /* Brand / A Note For You di pojok atas disamakan dengan gaya bagian/nomor slide */
+        /* Judul A Note For You di dalam menggunakan font Poppins yang rapi dan elegan */
         .card-brand {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             color: #e07a5f;
             text-transform: uppercase;
         }
 
-        /* Dekorasi Gambar Madu */
+        /* Badge Madu di Header Isi */
         .honey-badge {
             display: flex;
             align-items: center;
             gap: 10px;
-            background: rgba(255, 243, 209, 0.7);
-            padding: 6px 16px;
-            border-radius: 30px;
-            border: 2px solid rgba(255, 209, 102, 0.5);
+            background: rgba(255, 243, 209, 0.85);
+            padding: 8px 18px;
+            border-radius: 35px;
+            border: 2px solid rgba(255, 209, 102, 0.6);
+            font-family: 'Poppins', sans-serif;
             font-size: 1.1rem;
             color: #8c6d59;
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .honey-img {
-            width: 32px;
-            height: 32px;
+            width: 34px;
+            height: 34px;
             object-fit: contain;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
             animation: bounceHoney 2s infinite ease-in-out;
@@ -213,14 +240,14 @@
             50% { transform: translateY(-4px); }
         }
 
-        /* Area isi teks dengan space yang lega atas-bawahnya */
         .slides-container {
             display: flex;
             position: relative;
             overflow: hidden;
-            min-height: 600px;
-            margin: 20px 0;
+            min-height: 680px;
+            margin: 25px 0;
             align-items: center;
+            z-index: 2;
         }
 
         .slide {
@@ -239,22 +266,20 @@
             position: relative;
         }
 
-        /* Bagian / nomor slide */
         .slide-number {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 2px;
             color: #e07a5f;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
             text-transform: uppercase;
         }
 
-        /* Font isi pesan dikembalikan ke Poppins */
         .slide-text {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.7rem;
-            line-height: 1.8;
+            font-size: 1.85rem;
+            line-height: 1.9;
             color: #4a3b32;
             font-weight: 400;
             word-break: break-word;
@@ -264,20 +289,22 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 24px;
+            padding-top: 28px;
             border-top: 3px solid rgba(255, 223, 186, 0.8);
             margin-top: 10px;
             gap: 16px;
+            position: relative;
+            z-index: 2;
         }
 
         .btn {
             background: #ffffff;
             border: 3px solid #ffd166;
             color: #d48348;
-            padding: 20px 38px;
+            padding: 22px 42px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
-            font-size: 1.45rem;
+            font-size: 1.5rem;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 6px 18px rgba(255, 209, 102, 0.38);
@@ -303,15 +330,16 @@
             color: #ffffff;
             border-color: #f4a261;
             width: 100%;
-            padding: 24px;
-            font-size: 1.65rem;
+            padding: 26px;
+            font-size: 1.75rem;
+            box-shadow: 0 8px 25px rgba(244, 162, 97, 0.4);
         }
 
         .dots {
             display: flex;
             gap: 10px;
             align-items: center;
-            max-width: 180px;
+            max-width: 200px;
             overflow-x: auto;
             scrollbar-width: none;
         }
@@ -321,8 +349,8 @@
         }
 
         .dot {
-            width: 11px;
-            height: 11px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: rgba(244, 162, 97, 0.3);
             transition: all 0.3s ease;
@@ -330,7 +358,7 @@
         }
 
         .dot.active {
-            width: 32px;
+            width: 36px;
             border-radius: 6px;
             background: #f4a261;
         }
@@ -348,11 +376,15 @@
         <div class="box-container" id="coverScreen">
             <div></div>
             <div class="cover-content">
+                <div class="cover-icon-badge">
+                    <img src="https://cdn-icons-png.flaticon.com/512/813/813445.png" alt="Love Letter">
+                </div>
                 <div class="cover-title">A Note For You</div>
+                <div class="cover-subtitle">Special Message Inside 💌</div>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="startApp()">
-                    Buka Catatan 💌
+                    Buka Catatan ✨
                 </button>
             </div>
         </div>
@@ -365,7 +397,7 @@
                     <img class="honey-img" src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Honey Jar">
                     <span>Sweet Note</span>
                 </div>
-                <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
+                <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
             </div>
 
             <div class="slides-container">
