@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Note For You - Quest Mode</title>
-    <!-- Google Fonts: Pinyon Script & Poppins -->
-    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>A Note For Ali - Quest Mode</title>
+    <!-- Google Fonts: Playfair Display & Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -17,11 +17,11 @@
             width: 100%;
             min-height: 100%;
             min-height: 100dvh;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #fff3d1 0%, #ffdfba 50%, #ffc6d9 100%);
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #1a1714 0%, #2c251f 50%, #3d3127 100%);
             background-attachment: fixed;
-            color: #5c4033;
-            font-size: 22px;
+            color: #f3efe6;
+            font-size: 20px;
         }
 
         body {
@@ -33,33 +33,33 @@
             position: relative;
         }
 
-        /* Ambient Soft Glow */
+        /* Honeybee & Elegant Ambient Glow */
         .ambient-circle {
             position: fixed;
             border-radius: 50%;
-            filter: blur(90px);
-            opacity: 0.5;
+            filter: blur(120px);
+            opacity: 0.35;
             z-index: 0;
             pointer-events: none;
         }
 
         .circle-1 {
-            width: 450px;
-            height: 450px;
-            background: #ffecb6;
-            top: -80px;
-            left: -80px;
+            width: 500px;
+            height: 500px;
+            background: #e9b339; /* Golden Honey */
+            top: -100px;
+            left: -100px;
         }
 
         .circle-2 {
-            width: 500px;
-            height: 500px;
-            background: #ffb4b0;
-            bottom: -80px;
-            right: -80px;
+            width: 550px;
+            height: 550px;
+            background: #8c6239; /* Warm Amber */
+            bottom: -100px;
+            right: -100px;
         }
 
-        /* Falling Flowers Animation Container */
+        /* Falling Honeybee / Sparkles Container */
         #falling-container {
             position: fixed;
             top: 0;
@@ -71,7 +71,7 @@
             overflow: hidden;
         }
 
-        .falling-flower {
+        .falling-element {
             position: absolute;
             top: -10vh;
             user-select: none;
@@ -85,13 +85,13 @@
                 opacity: 0;
             }
             15% {
-                opacity: 0.8;
+                opacity: 0.7;
             }
             85% {
-                opacity: 0.8;
+                opacity: 0.7;
             }
             100% {
-                transform: translateY(110vh) translateX(30px) rotate(360deg);
+                transform: translateY(110vh) translateX(40px) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -105,32 +105,32 @@
             flex-direction: column;
         }
 
-        /* Style Kotak Besar Asli */
+        /* Kotak Elegan & Honeybee Style */
         .box-container {
             width: 100%;
-            background: rgba(255, 253, 245, 0.98);
+            background: rgba(30, 26, 22, 0.95);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 3px solid rgba(255, 223, 186, 0.95);
-            border-radius: 52px;
+            border: 2px solid rgba(233, 179, 57, 0.4);
+            border-radius: 40px;
             padding: 65px 56px 55px 56px;
-            box-shadow: 0 40px 80px rgba(210, 150, 120, 0.32), 0 0 60px rgba(255, 255, 255, 0.7) inset;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(233, 179, 57, 0.1) inset;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 1180px;
+            min-height: 1100px;
             position: relative;
         }
 
         .box-container::before {
             content: '';
             position: absolute;
-            top: 18px;
-            left: 18px;
-            right: 18px;
-            bottom: 18px;
-            border: 2px dashed rgba(224, 122, 95, 0.25);
-            border-radius: 40px;
+            top: 16px;
+            left: 16px;
+            right: 16px;
+            bottom: 16px;
+            border: 1px dashed rgba(233, 179, 57, 0.25);
+            border-radius: 32px;
             pointer-events: none;
         }
 
@@ -150,122 +150,103 @@
         }
 
         .cover-title {
-            font-family: 'Pinyon Script', cursive;
-            font-size: 8.5rem;
-            color: #4a3b32;
+            font-family: 'Playfair Display', serif;
+            font-size: 6.5rem;
+            color: #f7e1b5;
             line-height: 1.1;
-            font-weight: 400;
-            text-shadow: 2px 2px 4px rgba(212, 131, 72, 0.1);
-            margin-bottom: 24px;
+            font-weight: 700;
+            text-shadow: 0 4px 15px rgba(233, 179, 57, 0.2);
+            margin-bottom: 20px;
         }
 
         .cover-subtitle {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             font-size: 1.25rem;
             font-weight: 500;
-            color: #a07865;
+            color: #d1bfa7;
             letter-spacing: 0.5px;
             max-width: 520px;
             line-height: 1.6;
         }
 
         /* --- 2. MENU / QUEST LOG LAYOUT --- */
-        .menu-top-label {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #e07a5f;
-            margin-bottom: 10px;
-        }
-
         .menu-main-title {
-            font-family: 'Pinyon Script', cursive;
-            font-size: 5rem;
-            color: #4a3b32;
-            margin-bottom: 24px;
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: #f7e1b5;
+            margin-bottom: 28px;
             line-height: 1.1;
         }
 
         .menu-stack {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
             margin: 15px 0;
         }
 
         .menu-item-card {
-            background: #ffffff;
-            border: 3px solid rgba(244, 162, 97, 0.35);
-            padding: 24px 28px;
-            border-radius: 24px;
+            background: rgba(44, 37, 31, 0.8);
+            border: 2px solid rgba(233, 179, 57, 0.3);
+            padding: 22px 26px;
+            border-radius: 20px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
             transition: all 0.25s ease;
-            box-shadow: 0 6px 20px rgba(210, 150, 120, 0.08);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .menu-item-card:hover:not(.locked) {
-            background: #fff9f0;
-            border-color: #f4a261;
+            background: rgba(58, 48, 40, 0.95);
+            border-color: #e9b339;
             transform: translateX(6px);
-            box-shadow: 0 8px 24px rgba(244, 162, 97, 0.2);
+            box-shadow: 0 6px 20px rgba(233, 179, 57, 0.25);
         }
 
         .menu-item-card.locked {
-            background: #f7f3ee;
-            border-color: #e6dfdb;
+            background: rgba(25, 22, 19, 0.6);
+            border-color: rgba(255, 255, 255, 0.08);
             cursor: not-allowed;
-            opacity: 0.7;
+            opacity: 0.6;
             box-shadow: none;
         }
 
         .menu-item-info h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: #4a3b32;
-            margin-bottom: 6px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #f3efe6;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
-        .menu-item-card.locked .menu-item-info h3,
-        .menu-item-card.locked .menu-item-info p {
-            color: #a39993;
-        }
-
-        .menu-item-info p {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.05rem;
-            color: #a07865;
-            font-weight: 400;
+        .menu-item-card.locked .menu-item-info h3 {
+            color: #8c8275;
         }
 
         .quest-status-badge {
             font-size: 0.75rem;
             font-weight: 700;
             padding: 4px 12px;
-            border-radius: 10px;
+            border-radius: 8px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .badge-available { background: #e6f4ea; color: #137333; }
-        .badge-completed { background: #e8f0fe; color: #1967d2; }
-        .badge-locked { background: #f1f3f4; color: #5f6368; }
+        .badge-available { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .badge-completed { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-locked { background: rgba(255, 255, 255, 0.05); color: #9ca3af; border: 1px solid rgba(255, 255, 255, 0.1); }
 
         .menu-item-action {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.3rem;
-            color: #f4a261;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.2rem;
+            color: #e9b339;
             font-weight: 600;
         }
         .menu-item-card.locked .menu-item-action {
-            color: #bcb2ac;
+            color: #6b6357;
         }
 
         /* --- 3. READER / SLIDE LAYOUT --- */
@@ -273,7 +254,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 3px solid rgba(255, 223, 186, 0.8);
+            border-bottom: 2px solid rgba(233, 179, 57, 0.3);
             padding-bottom: 20px;
             margin-top: -15px;
             margin-bottom: 10px;
@@ -282,21 +263,21 @@
         }
 
         .card-brand {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.85rem;
-            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.75rem;
+            font-weight: 600;
             letter-spacing: 0.5px;
-            color: #e07a5f;
+            color: #f7e1b5;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .slides-container {
             display: flex;
             position: relative;
             overflow: hidden;
-            min-height: 720px;
+            min-height: 680px;
             margin: 15px 0;
             align-items: center;
             z-index: 2;
@@ -319,10 +300,10 @@
         }
 
         .slide-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.85rem;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.7rem;
             line-height: 1.9;
-            color: #4a3b32;
+            color: #f3efe6;
             font-weight: 400;
             word-break: break-word;
         }
@@ -334,7 +315,7 @@
             justify-content: space-between;
             padding-top: 25px;
             padding-bottom: 5px;
-            border-top: 3px solid rgba(255, 223, 186, 0.8);
+            border-top: 2px solid rgba(233, 179, 57, 0.3);
             margin-bottom: -15px;
             gap: 16px;
             position: relative;
@@ -342,19 +323,24 @@
         }
 
         .btn {
-            background: #ffffff;
-            border: 3px solid #ffd166;
-            color: #d48348;
-            padding: 22px 36px;
-            border-radius: 50px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.4rem;
+            background: rgba(44, 37, 31, 0.9);
+            border: 2px solid rgba(233, 179, 57, 0.5);
+            color: #f7e1b5;
+            padding: 20px 32px;
+            border-radius: 40px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 6px 18px rgba(255, 209, 102, 0.38);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             white-space: nowrap;
             -webkit-tap-highlight-color: transparent;
-            transition: transform 0.2s ease;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: rgba(60, 50, 42, 1);
+            border-color: #e9b339;
         }
 
         .btn:active:not(:disabled) {
@@ -364,27 +350,36 @@
         .btn:disabled {
             opacity: 0.3;
             cursor: not-allowed;
-            border-color: #e2e8f0;
-            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.1);
+            color: #6b6357;
             box-shadow: none;
         }
 
         .back-menu-btn {
-            background: #fff0ed;
-            border-color: #fca5a5;
-            color: #dc2626;
-            padding: 22px 28px;
+            background: rgba(60, 30, 30, 0.8);
+            border-color: rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 20px 24px;
+        }
+        .back-menu-btn:hover:not(:disabled) {
+            background: rgba(80, 35, 35, 0.9);
+            border-color: #ef4444;
         }
 
         .btn-primary {
-            background: #f4a261;
-            color: #ffffff;
-            border-color: #f4a261;
+            background: linear-gradient(135deg, #e9b339 0%, #c68a25 100%);
+            color: #1a1714;
+            border-color: #f7e1b5;
             width: 100%;
-            padding: 26px;
-            font-size: 1.75rem;
-            box-shadow: 0 8px 25px rgba(244, 162, 97, 0.4);
-            border-radius: 50px;
+            padding: 24px;
+            font-size: 1.6rem;
+            font-weight: 700;
+            box-shadow: 0 6px 20px rgba(233, 179, 57, 0.35);
+            border-radius: 40px;
+        }
+        .btn-primary:hover:not(:disabled) {
+            background: linear-gradient(135deg, #f3c2525 0%, #d99a2d 100%);
+            color: #1a1714;
         }
 
         .dots {
@@ -404,7 +399,7 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(244, 162, 97, 0.3);
+            background: rgba(233, 179, 57, 0.25);
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
@@ -412,7 +407,7 @@
         .dot.active {
             width: 36px;
             border-radius: 6px;
-            background: #f4a261;
+            background: #e9b339;
         }
 
         /* --- QUEST COMPLETE SCREEN --- */
@@ -445,12 +440,12 @@
         <div class="box-container" id="coverScreen">
             <div></div>
             <div class="cover-content">
-                <div class="cover-title">A Note For You</div>
-                <div class="cover-subtitle">Catatan terakhir paling jujur yang disiapkan khusus untuk kamu. Selesaikan semua misi cerita untuk menuntaskannya.</div>
+                <div class="cover-title">A Note For Ali</div>
+                <div class="cover-subtitle">Sebuah catatan khusus yang disiapkan untuk Ali</div>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="goToMenu()">
-                    Mulai Perjalanan ✨
+                    Buka Catatan 🍯✨
                 </button>
             </div>
         </div>
@@ -458,25 +453,24 @@
         <!-- 2. Menu / Quest Log Screen -->
         <div class="box-container hidden" id="menuScreen">
             <div>
-                <div class="menu-top-label">Daftar Misi</div>
                 <div class="menu-main-title">Pilih Sesi Catatan</div>
             </div>
             <div class="menu-stack" id="menuListContainer">
                 <!-- Disuntikkan via JS -->
             </div>
             <div>
-                <div style="font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: #a07865; text-align: center; margin-bottom: 16px;" id="questProgressText">
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600; color: #d1bfa7; text-align: center; margin-bottom: 16px;" id="questProgressText">
                     Progress: 0 / 3 Misi Selesai
                 </div>
-                <button class="btn" onclick="backToCover()" style="width: 100%; border-radius: 50px;">← Kembali ke Cover</button>
+                <button class="btn" onclick="backToCover()" style="width: 100%; border-radius: 40px;">← Kembali ke Cover</button>
             </div>
         </div>
 
         <!-- 3. Reader Screen (Slides / Quest Mode) -->
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
-                <span class="card-brand">🍯 A Note For You</span>
-                <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 600; color: #8c6d59;">1 / 15</span>
+                <span class="card-brand">🐝 A Note For Ali</span>
+                <span id="slideCounterText" style="font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 600; color: #d1bfa7;">1 / 15</span>
             </div>
 
             <div class="slides-container" id="slidesWrapper">
@@ -506,9 +500,9 @@
         <div class="box-container hidden" id="questCompleteScreen">
             <div></div>
             <div class="quest-complete-content">
-                <div style="font-size: 5rem; margin-bottom: 16px;">🎉</div>
-                <div style="font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #e07a5f; margin-bottom: 10px;">Misi Berhasil Dituntaskan!</div>
-                <div class="cover-title" style="font-size: 5rem; margin-bottom: 20px;" id="completedQuestTitle">Chapter Selesai</div>
+                <div style="font-size: 5rem; margin-bottom: 16px;">🍯</div>
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #e9b339; margin-bottom: 10px;">Misi Berhasil Dituntaskan, Ali!</div>
+                <div class="cover-title" style="font-size: 4rem; margin-bottom: 20px;" id="completedQuestTitle">Chapter Selesai</div>
                 <div class="cover-subtitle" id="completedQuestDesc">Kamu berhasil membaca seluruh pesan di bagian ini dengan sangat baik.</div>
             </div>
             <div>
@@ -522,25 +516,25 @@
     <!-- YouTube IFrame API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Falling Flowers generator
-        const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
+        // Falling Honeybee & Sparkles generator
+        const elements = ['🐝', '✨', '🍯', '⭐'];
         const container = document.getElementById('falling-container');
         for (let i = 0; i < 6; i++) {
             const span = document.createElement('div');
-            span.classList.add('falling-flower');
-            span.innerText = flowers[Math.floor(Math.random() * flowers.length)];
+            span.classList.add('falling-element');
+            span.innerText = elements[Math.floor(Math.random() * elements.length)];
             span.style.left = Math.random() * 100 + 'vw';
-            span.style.animationDuration = (Math.random() * 4 + 7) + 's';
+            span.style.animationDuration = (Math.random() * 5 + 7) + 's';
             span.style.animationDelay = (Math.random() * 5) + 's';
-            span.style.fontSize = (Math.random() * 4 + 22) + 'px';
+            span.style.fontSize = (Math.random() * 4 + 20) + 'px';
             container.appendChild(span);
         }
 
-        // Quest Progress Status (Bagian 1 terbuka, 2 & 3 terkunci di awal)
+        // Quest Progress Status
         let questStatus = {
-            1: { completed: false, unlocked: true, title: "💌 Last Message from Runi", subtitle: "Pesan dan kata-kata perpisahan terakhir" },
-            2: { completed: false, unlocked: false, title: "👀 How Runi Sees Ali", subtitle: "Refleksi sudut pandang selama setengah tahun" },
-            3: { completed: false, unlocked: false, title: "✨ Last Wish for Ali", subtitle: "Harapan dan doa tulus untuk ke depannya" }
+            1: { completed: false, unlocked: true, title: "Last Message for Ali" },
+            2: { completed: false, unlocked: false, title: "How Runi Sees Ali" },
+            3: { completed: false, unlocked: false, title: "Last Wish for Ali" }
         };
 
         // YouTube Player setup
@@ -617,7 +611,6 @@
                 itemCard.innerHTML = `
                     <div class="menu-item-info">
                         <h3>${quest.title} ${badgeHtml}</h3>
-                        <p>${quest.subtitle}</p>
                     </div>
                     <div class="menu-item-action">${actionText}</div>
                 `;
@@ -625,7 +618,7 @@
                 if (quest.unlocked) {
                     itemCard.onclick = () => openSection(id);
                 } else {
-                    itemCard.onclick = () => alert("Selesaikan misi sebelumnya terlebih dahulu untuk membuka chapter ini! 🛡️");
+                    itemCard.onclick = () => alert("Selesaikan misi sebelumnya terlebih dahulu untuk membuka chapter ini, Ali! 🛡");
                 }
 
                 container.appendChild(itemCard);
@@ -635,7 +628,7 @@
         }
 
         function confirmBackToMenu() {
-            if (confirm("Keluar dari misi ini? Progress membaca di chapter ini akan direset.")) {
+            if (confirm("Keluar dari misi ini, Ali? Progress membaca di chapter ini akan direset.")) {
                 backToMenu();
             }
         }
@@ -647,7 +640,7 @@
             document.getElementById('menuScreen').classList.remove('hidden');
         }
 
-        // Data Slide Masing-masing Section (Tanpa keterangan bawah)
+        // Data Slide Masing-masing Section (Disesuaikan untuk Ali)
         const sectionsData = {
             1: [
                 "Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.",
@@ -700,7 +693,7 @@
             const data = sectionsData[sectionId];
             totalSlides = data.length;
 
-            // Render slides (tanpa keterangan bawah)
+            // Render slides
             slidesWrapper.innerHTML = '';
             data.forEach((text, index) => {
                 const slideDiv = document.createElement('div');
@@ -790,8 +783,8 @@
 
         function showQuestCompleteScreen() {
             const quest = questStatus[currentSection];
-            document.getElementById('completedQuestTitle').innerText = "Misi Selesai!";
-            document.getElementById('completedQuestDesc').innerText = `Kamu berhasil menuntaskan misi "${quest.title}" dengan membaca seluruh bagian pesannya dengan baik.`;
+            document.getElementById('completedQuestTitle').innerText = "Misi Selesai, Ali!";
+            document.getElementById('completedQuestDesc').innerText = `Kamu berhasil menuntaskan misi "${quest.title}" dengan membaca seluruh bagian pesannya dengan sangat baik.`;
 
             document.getElementById('mainCard').classList.add('hidden');
             document.getElementById('questCompleteScreen').classList.remove('hidden');
