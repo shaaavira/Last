@@ -112,7 +112,7 @@
             -webkit-backdrop-filter: blur(16px);
             border: 3px solid rgba(255, 223, 186, 0.95);
             border-radius: 52px;
-            padding: 95px 56px;
+            padding: 65px 56px 55px 56px;
             box-shadow: 0 40px 80px rgba(210, 150, 120, 0.32), 0 0 60px rgba(255, 255, 255, 0.7) inset;
             display: flex;
             flex-direction: column;
@@ -143,31 +143,6 @@
             z-index: 2;
         }
 
-        .cover-icon-badge {
-            width: 88px;
-            height: 88px;
-            background: rgba(255, 243, 209, 0.9);
-            border: 2px solid rgba(255, 209, 102, 0.6);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 28px;
-            box-shadow: 0 8px 20px rgba(212, 131, 72, 0.15);
-            animation: bounceIcon 2s infinite ease-in-out;
-        }
-
-        .cover-icon-badge img {
-            width: 48px;
-            height: 48px;
-            object-fit: contain;
-        }
-
-        @keyframes bounceIcon {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-
         .cover-title {
             font-family: 'Pinyon Script', cursive;
             font-size: 8.5rem;
@@ -175,7 +150,7 @@
             line-height: 1.1;
             font-weight: 400;
             text-shadow: 2px 2px 4px rgba(212, 131, 72, 0.1);
-            margin-bottom: 16px;
+            margin-bottom: 24px;
         }
 
         .cover-subtitle {
@@ -183,8 +158,9 @@
             font-size: 1.25rem;
             font-weight: 500;
             color: #a07865;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            max-width: 520px;
+            line-height: 1.6;
         }
 
         .hidden {
@@ -196,13 +172,13 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 3px solid rgba(255, 223, 186, 0.8);
-            padding-bottom: 28px;
+            padding-bottom: 20px;
+            margin-top: -15px;
             margin-bottom: 10px;
             position: relative;
             z-index: 2;
         }
 
-        /* Judul A Note For You di dalam menggunakan font Poppins yang rapi dan elegan */
         .card-brand {
             font-family: 'Poppins', sans-serif;
             font-size: 1.5rem;
@@ -212,7 +188,7 @@
             text-transform: uppercase;
         }
 
-        /* Badge Madu di Header Isi */
+        /* Badge Madu di Header Isi dengan Gambar & Emoji Madu */
         .honey-badge {
             display: flex;
             align-items: center;
@@ -221,17 +197,19 @@
             padding: 8px 18px;
             border-radius: 35px;
             border: 2px solid rgba(255, 209, 102, 0.6);
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.1rem;
-            color: #8c6d59;
-            font-weight: 600;
         }
 
         .honey-img {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             object-fit: contain;
             filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+            animation: bounceHoney 2s infinite ease-in-out;
+        }
+
+        .honey-emoji {
+            font-size: 1.6rem;
+            line-height: 1;
             animation: bounceHoney 2s infinite ease-in-out;
         }
 
@@ -244,8 +222,8 @@
             display: flex;
             position: relative;
             overflow: hidden;
-            min-height: 680px;
-            margin: 25px 0;
+            min-height: 720px;
+            margin: 15px 0;
             align-items: center;
             z-index: 2;
         }
@@ -289,9 +267,10 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 28px;
+            padding-top: 25px;
+            padding-bottom: 5px;
             border-top: 3px solid rgba(255, 223, 186, 0.8);
-            margin-top: 10px;
+            margin-bottom: -15px;
             gap: 16px;
             position: relative;
             z-index: 2;
@@ -376,11 +355,8 @@
         <div class="box-container" id="coverScreen">
             <div></div>
             <div class="cover-content">
-                <div class="cover-icon-badge">
-                    <img src="https://cdn-icons-png.flaticon.com/512/813/813445.png" alt="Love Letter">
-                </div>
                 <div class="cover-title">A Note For You</div>
-                <div class="cover-subtitle">Special Message Inside 💌</div>
+                <div class="cover-subtitle">Catatan terakhir paling jujur untuk kamu</div>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="startApp()">
@@ -395,7 +371,7 @@
                 <span class="card-brand">A Note For You</span>
                 <div class="honey-badge">
                     <img class="honey-img" src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Honey Jar">
-                    <span>Sweet Note</span>
+                    <span class="honey-emoji">🍯</span>
                 </div>
                 <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 600; color: #8c6d59;">1 / 13</span>
             </div>
