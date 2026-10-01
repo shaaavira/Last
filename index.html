@@ -167,6 +167,59 @@
             display: none !important;
         }
 
+        /* Menu Pilihan Section */
+        .menu-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4a3b32;
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .menu-subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.15rem;
+            color: #a07865;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: auto 0;
+        }
+
+        .menu-btn {
+            background: #ffffff;
+            border: 3px solid #ffd166;
+            color: #5c4033;
+            padding: 24px 30px;
+            border-radius: 24px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 6px 18px rgba(255, 209, 102, 0.25);
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.2s ease;
+        }
+
+        .menu-btn:hover {
+            background: #fff9ed;
+            border-color: #f4a261;
+            transform: translateY(-2px);
+        }
+
+        .menu-btn:active {
+            transform: scale(0.98);
+        }
+
         .card-header {
             display: flex;
             align-items: center;
@@ -188,11 +241,6 @@
             display: flex;
             align-items: center;
             gap: 12px;
-        }
-
-        @keyframes bounceHoney {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
         }
 
         .slides-container {
@@ -336,95 +384,47 @@
                 <div class="cover-subtitle">Catatan terakhir paling jujur untuk kamu</div>
             </div>
             <div>
-                <button class="btn btn-primary" onclick="startApp()">
+                <button class="btn btn-primary" onclick="goToMenu()">
                     Buka Catatan ✨
                 </button>
             </div>
         </div>
 
-        <!-- Main Card (Hidden initially) -->
-        <div class="box-container hidden" id="mainCard">
+        <!-- Menu Choices Screen -->
+        <div class="box-container hidden" id="menuScreen">
             <div class="card-header">
                 <span class="card-brand">🍯 A Note For You</span>
+            </div>
+            <div class="menu-content" style="margin: auto 0;">
+                <div class="menu-title">Pilih Bagian</div>
+                <div class="menu-subtitle">Silakan pilih halaman yang ingin kamu baca</div>
+                <div class="menu-list">
+                    <button class="menu-btn" onclick="openSection(1)">
+                        <span>💌 Last Message from Runi</span>
+                        <span>→</span>
+                    </button>
+                    <button class="menu-btn" onclick="openSection(2)">
+                        <span>👀 How Runi Sees Ali</span>
+                        <span>→</span>
+                    </button>
+                    <button class="menu-btn" onclick="openSection(3)">
+                        <span>✨ Last Wish for Ali</span>
+                        <span>→</span>
+                    </button>
+                </div>
+            </div>
+            <div></div>
+        </div>
+
+        <!-- Main Card (Slides) -->
+        <div class="box-container hidden" id="mainCard">
+            <div class="card-header">
+                <span class="card-brand" id="sectionBrand" style="cursor: pointer;" onclick="backToMenu()" title="Kembali ke Menu">🍯 A Note For You</span>
                 <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 600; color: #8c6d59;">1 / 15</span>
             </div>
 
-            <div class="slides-container">
-                <!-- Slide 1 -->
-                <div class="slide active" data-index="0">
-                    <div class="slide-number">Bagian 01</div>
-                    <div class="slide-text">Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.</div>
-                </div>
-                <!-- Slide 2 -->
-                <div class="slide" data-index="1">
-                    <div class="slide-number">Bagian 02</div>
-                    <div class="slide-text">Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.</div>
-                </div>
-                <!-- Slide 3 -->
-                <div class="slide" data-index="2">
-                    <div class="slide-number">Bagian 03</div>
-                    <div class="slide-text">Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.</div>
-                </div>
-                <!-- Slide 4 -->
-                <div class="slide" data-index="3">
-                    <div class="slide-number">Bagian 04</div>
-                    <div class="slide-text">Makasih juga udah kasih kejelasan lewat kalimat lu yang mempersilakan gua pergi kemarin, itu bener-bener ngebantu gua buat ngambil keputusan ini.</div>
-                </div>
-                <!-- Slide 5 -->
-                <div class="slide" data-index="4">
-                    <div class="slide-number">Bagian 05</div>
-                    <div class="slide-text">So, gua memutuskan buat pamit dan fokus belajar berproses di umur yang baru ini.</div>
-                </div>
-                <!-- Slide 6 -->
-                <div class="slide" data-index="5">
-                    <div class="slide-number">Bagian 06</div>
-                    <div class="slide-text">My feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.</div>
-                </div>
-                <!-- Slide 7 -->
-                <div class="slide" data-index="6">
-                    <div class="slide-number">Bagian 07</div>
-                    <div class="slide-text">Lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, dan i need to learn buat mulai lihat dari pov orang lain.</div>
-                </div>
-                <!-- Slide 8 -->
-                <div class="slide" data-index="7">
-                    <div class="slide-number">Bagian 08</div>
-                    <div class="slide-text">Jujur, dulu hati sama otak gua sering berantem. Otak gua bilang it's time to let go, banyak yang harus diperbaiki, diikhlasin, dan dimulai lagi.</div>
-                </div>
-                <!-- Slide 9 -->
-                <div class="slide" data-index="8">
-                    <div class="slide-number">Bagian 09</div>
-                    <div class="slide-text">Tapi my heart says otherwise....takut gabisa bikin lu suka gua, takut lu akhirnya nemuin pasangan yang lu cari dan itu bukan gua, atau takut lu bener bener hilang.</div>
-                </div>
-                <!-- Slide 10 -->
-                <div class="slide" data-index="9">
-                    <div class="slide-number">Bagian 10</div>
-                    <div class="slide-text">But at the end of the day, gua yakin kalau ikhlas itu jauh lebih indah. Gua sadar bentuk usaha ada banyak, ga harus selalu di sekitar lu dan berinteraksi sama lu.</div>
-                </div>
-                <!-- Slide 11 -->
-                <div class="slide" data-index="10">
-                    <div class="slide-number">Bagian 11</div>
-                    <div class="slide-text">Kalau emang suatu hari nanti u feel the same way, lu pasti tau cara nemuin gua lagi.</div>
-                </div>
-                <!-- Slide 12 -->
-                <div class="slide" data-index="11">
-                    <div class="slide-number">Bagian 12</div>
-                    <div class="slide-text">Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore.</div>
-                </div>
-                <!-- Slide 13 -->
-                <div class="slide" data-index="12">
-                    <div class="slide-number">Bagian 13</div>
-                    <div class="slide-text">Let me say 'i love you' for the first and the last time today. I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u.</div>
-                </div>
-                <!-- Slide 14 -->
-                <div class="slide" data-index="13">
-                    <div class="slide-number">Bagian 14</div>
-                    <div class="slide-text">Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block ur number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri.</div>
-                </div>
-                <!-- Slide 15 -->
-                <div class="slide" data-index="14">
-                    <div class="slide-number">Bagian 15</div>
-                    <div class="slide-text">Thanks for everything, and i truly wish the best for both of us.</div>
-                </div>
+            <div class="slides-container" id="slidesWrapper">
+                <!-- Slides will be injected dynamically based on section -->
             </div>
 
             <!-- Controls -->
@@ -437,7 +437,7 @@
                     <!-- Generated via JS -->
                 </div>
 
-                <button class="btn" id="nextBtn" onclick="changeSlide(1)">
+                <button class="btn" id="nextBtn" onclick="nextAction()">
                     Next →
                 </button>
             </div>
@@ -488,10 +488,10 @@
             });
         }
 
-        function startApp() {
+        function goToMenu() {
             isAppStarted = true;
             document.getElementById('coverScreen').classList.add('hidden');
-            document.getElementById('mainCard').classList.remove('hidden');
+            document.getElementById('menuScreen').classList.remove('hidden');
 
             if (player && typeof player.playVideo === 'function') {
                 player.seekTo(START_TIME, true);
@@ -499,34 +499,117 @@
             }
         }
 
-        // Slider Logic
+        function backToMenu() {
+            document.getElementById('mainCard').classList.add('hidden');
+            document.getElementById('menuScreen').classList.remove('hidden');
+        }
+
+        // Data Slide untuk Masing-masing Section
+        const sectionsData = {
+            1: [
+                "Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.",
+                "Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.",
+                "Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.",
+                "Makasih juga udah kasih kejelasan lewat kalimat lu yang mempersilakan gua pergi kemarin, itu bener-bener ngebantu gua buat ngambil keputusan ini.",
+                "So, gua memutuskan buat pamit dan fokus belajar berproses di umur yang baru ini.",
+                "My feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.",
+                "Lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, dan i need to learn buat mulai lihat dari pov orang lain.",
+                "Jujur, dulu hati sama otak gua sering berantem. Otak gua bilang it's time to let go, banyak yang harus diperbaiki, diikhlasin, dan dimulai lagi.",
+                "Tapi my heart says otherwise....takut gabisa bikin lu suka gua, takut lu akhirnya nemuin pasangan yang lu cari dan itu bukan gua, atau takut lu bener bener hilang.",
+                "But at the end of the day, gua yakin kalau ikhlas itu jauh lebih indah. Gua sadar bentuk usaha ada banyak, ga harus selalu di sekitar lu dan berinteraksi sama lu.",
+                "Kalau emang suatu hari nanti u feel the same way, lu pasti tau cara nemuin gua lagi.",
+                "Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore.",
+                "Let me say 'i love you' for the first and the last time today. I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u.",
+                "Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block ur number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri.",
+                "Thanks for everything, and i truly wish the best for both of us."
+            ],
+            2: [
+                "How Runi Sees Ali: A Half-Year Reflection\n\nPositive:\n• Prinsip lu kuat dan cara lu defend argumen pas kita debat jujur bikin gua kagum. Seorang Ali dengan argumennya yang ga gampang goyah wkwkw.\n• Deep down, gua tau niat lu emang tulus pengen jadi orang baik.\n• Walau sering bikin gua cape dan nguras energi banget, to be fair, lu partner debat paling seru.\n• Lu bisa ngasih perspective yang out of the box. Ada aja sudut pandang tak terduga dari lu yang ngebuka mata gua.",
+                "How Runi Sees Ali: A Half-Year Reflection\n\nNegative:\n• Di balik niat baik lu, lu kadang tetep egois sama keputusan yang lu ambil tanpa mikir perasaan gua, sebatas buat ngelindungin diri lu sendiri.\n• Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pengen jadiin tempat cerita.\n• Lu sering ga tegas antara iya dan tidak. Seolah lu takut banget dibilang jahat, terkesan lempar batu sembunyi tangan, dan itu malah bikin gua dapet mixed signals yang bikin bingung.\n• Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua ga perlu repot-repot ngasih masukan di saat gua liat sikap lu lagi ga bener."
+            ],
+            3: [
+                "Wish for You:\n\nKe depannya, semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals." ,
+                "Wish for You:\n\nSemoga lu juga ga nutup diri terus, dan bisa nemuin someone who's actually a right fit buat dijadiin tempat cerita tanpa lu harus ngerasa mesti nyelesaiin semuanya sendirian.",
+                "Wish for You:\n\nLastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked. Anyway, thanks for the chaos, the debates, and everything in between. Semoga whatever u pursue next, semuanya dimudahkan. Wish u all the best, Ali."
+            ]
+        };
+
+        let currentSection = 1;
         let currentSlide = 0;
-        const slides = document.querySelectorAll('.slide');
-        const totalSlides = slides.length;
+        let totalSlides = 0;
+        
+        const slidesWrapper = document.getElementById('slidesWrapper');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
         const slideCounterText = document.getElementById('slideCounterText');
         const dotsContainer = document.getElementById('dotsContainer');
+        const sectionBrand = document.getElementById('sectionBrand');
 
-        for (let i = 0; i < totalSlides; i++) {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            if (i === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(i));
-            dotsContainer.appendChild(dot);
+        function openSection(sectionId) {
+            currentSection = sectionId;
+            currentSlide = 0;
+            const data = sectionsData[sectionId];
+            totalSlides = data.length;
+
+            // Update judul brand kecil di atas
+            const titles = {
+                1: "💌 Last Message",
+                2: "👀 How Runi Sees Ali",
+                3: "✨ Last Wish"
+            };
+            sectionBrand.innerText = `🍯 ${titles[sectionId]} (Klik kembali ke menu)`;
+
+            // Render slides
+            slidesWrapper.innerHTML = '';
+            data.forEach((text, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
+                slideDiv.setAttribute('data-index', index);
+                
+                const numDiv = document.createElement('div');
+                numDiv.className = 'slide-number';
+                numDiv.innerText = `Bagian ${String(index + 1).padStart(2, '0')}`;
+                
+                const textDiv = document.createElement('div');
+                textDiv.className = 'slide-text';
+                // Gunakan innerHTML agar tag <br> atau baris baru terbaca rapi jika ada
+                textDiv.innerHTML = text.replace(/\n/g, '<br>');
+                
+                slideDiv.appendChild(numDiv);
+                slideDiv.appendChild(textDiv);
+                slidesWrapper.appendChild(slideDiv);
+            });
+
+            // Render dots
+            dotsContainer.innerHTML = '';
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('div');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active');
+                dot.addEventListener('click', () => goToSlide(i));
+                dotsContainer.appendChild(dot);
+            }
+
+            document.getElementById('menuScreen').classList.add('hidden');
+            document.getElementById('mainCard').classList.remove('hidden');
+            updateSlideUI();
         }
 
-        const dots = document.querySelectorAll('.dot');
+        const slides = () => document.querySelectorAll('.slide');
+        const dots = () => document.querySelectorAll('.dot');
 
-        function updateSlide() {
-            slides.forEach((slide, index) => {
+        function updateSlideUI() {
+            const currentSlides = slides();
+            const currentDots = dots();
+
+            currentSlides.forEach((slide, index) => {
                 slide.classList.remove('active');
                 if (index === currentSlide) {
                     slide.classList.add('active');
                 }
             });
 
-            dots.forEach((dot, index) => {
+            currentDots.forEach((dot, index) => {
                 dot.classList.remove('active');
                 if (index === currentSlide) {
                     dot.classList.add('active');
@@ -547,12 +630,21 @@
             currentSlide += direction;
             if (currentSlide < 0) currentSlide = 0;
             if (currentSlide >= totalSlides) currentSlide = totalSlides - 1;
-            updateSlide();
+            updateSlideUI();
         }
 
         function goToSlide(index) {
             currentSlide = index;
-            updateSlide();
+            updateSlideUI();
+        }
+
+        function nextAction() {
+            if (currentSlide === totalSlides - 1) {
+                // Selesai di slide terakhir, kembali ke menu pilihan
+                backToMenu();
+            } else {
+                changeSlide(1);
+            }
         }
     </script>
 </body>
