@@ -422,6 +422,17 @@
             from { opacity: 0; transform: scale(0.95); }
             to { opacity: 1; transform: scale(1); }
         }
+
+        .closing-quote {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.15rem;
+            font-style: italic;
+            color: #a07865;
+            max-width: 580px;
+            line-height: 1.7;
+            margin-top: 18px;
+            padding: 0 10px;
+        }
     </style>
 </head>
 <body>
@@ -458,7 +469,10 @@
                 <div style="font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: #a07865; text-align: center; margin-bottom: 18px;" id="questProgressText">
                     Progress: 0 / 3 Chapter Selesai
                 </div>
-                <button class="btn" onclick="backToCover()" style="width: 100%; border-radius: 50px;">← Kembali ke Cover</button>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="backToCover()" style="flex: 1; border-radius: 50px;">← Kembali ke Cover</button>
+                    <button class="btn" onclick="resetProgress()" style="background: #fff1f2; border-color: #fca5a5; color: #e11d48; border-radius: 50px;" title="Reset Progress">Reset ↺</button>
+                </div>
             </div>
         </div>
 
@@ -496,8 +510,11 @@
         <div class="box-container hidden" id="questCompleteScreen">
             <div></div>
             <div class="quest-complete-content">
-                <div class="cover-title" style="font-size: 6.5rem; margin-bottom: 25px;">Terima Kasih</div>
+                <div class="cover-title" style="font-size: 6.5rem; margin-bottom: 20px;">Terima Kasih</div>
                 <div style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 500; color: #a07865;" id="completedQuestDesc">sudah membaca chapter ini dengan baik, Ali</div>
+                <div class="closing-quote">
+                    "Some chapters are meant to be read once, closed gently, and put back on the shelf without ever needing to be reopened."
+                </div>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="returnToMenuFromComplete()">
@@ -524,12 +541,27 @@
             container.appendChild(span);
         }
 
-        // Quest Progress Status
-        let questStatus = {
+        // Default Quest Status
+        let defaultQuestStatus = {
             1: { completed: false, unlocked: true, title: "The Root Cause" },
             2: { completed: false, unlocked: false, title: "How Runi Sees Ali" },
             3: { completed: false, unlocked: false, title: "Last Message for Ali" }
         };
+
+        // Load Quest Status from localStorage if available
+        let questStatus = JSON.parse(localStorage.getItem('notesOnClosureProgress')) || defaultQuestStatus;
+
+        function saveProgress() {
+            localStorage.setItem('notesOnClosureProgress', JSON.stringify(questStatus));
+        }
+
+        function resetProgress() {
+            if (confirm("Reset semua progress chapter yang sudah terbuka/selesai, Ali?")) {
+                localStorage.removeItem('notesOnClosureProgress');
+                questStatus = JSON.parse(JSON.stringify(defaultQuestStatus));
+                renderMenuList();
+            }
+        }
 
         // YouTube Player setup
         let player;
@@ -693,10 +725,8 @@
             const data = sectionsData[sectionId];
             totalSlides = data.length;
 
-            // Set pojok kiri atas menyesuaikan judul chapter
             cardBrandTitle.innerText = `🍯 ${questStatus[sectionId].title}`;
 
-            // Render slides
             slidesWrapper.innerHTML = '';
             data.forEach((text, index) => {
                 const slideDiv = document.createElement('div');
@@ -715,7 +745,6 @@
                 slidesWrapper.appendChild(slideDiv);
             });
 
-            // Render dots
             dotsContainer.innerHTML = '';
             for (let i = 0; i < totalSlides; i++) {
                 const dot = document.createElement('div');
@@ -775,13 +804,14 @@
 
         function nextAction() {
             if (currentSlide === totalSlides - 1) {
-                // Tandai chapter selesai
                 questStatus[currentSection].completed = true;
                 
-                // Buka chapter berikutnya secara otomatis jika ada
                 if (currentSection < 3) {
                     questStatus[currentSection + 1].unlocked = true;
                 }
+
+                // Simpan otomatis ke memori browser (localStorage)
+                saveProgress();
 
                 showQuestCompleteScreen();
             } else {
