@@ -18,9 +18,9 @@
             min-height: 100%;
             min-height: 100dvh;
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #1a1714 0%, #2c251f 50%, #3d3127 100%);
+            background: linear-gradient(135deg, #fff9e6 0%, #fff1cc 50%, #ffe6b3 100%);
             background-attachment: fixed;
-            color: #f3efe6;
+            color: #3b2e1e;
             font-size: 20px;
         }
 
@@ -33,12 +33,12 @@
             position: relative;
         }
 
-        /* Honeybee & Elegant Ambient Glow */
+        /* Bright Honeybee Ambient Glow */
         .ambient-circle {
             position: fixed;
             border-radius: 50%;
-            filter: blur(120px);
-            opacity: 0.35;
+            filter: blur(100px);
+            opacity: 0.5;
             z-index: 0;
             pointer-events: none;
         }
@@ -46,7 +46,7 @@
         .circle-1 {
             width: 500px;
             height: 500px;
-            background: #e9b339; /* Golden Honey */
+            background: #ffdb4d; /* Bright Golden Honey */
             top: -100px;
             left: -100px;
         }
@@ -54,12 +54,12 @@
         .circle-2 {
             width: 550px;
             height: 550px;
-            background: #8c6239; /* Warm Amber */
+            background: #ffca3a; /* Warm Amber Glow */
             bottom: -100px;
             right: -100px;
         }
 
-        /* Falling Honeybee / Sparkles Container */
+        /* Falling Flower Petals Container */
         #falling-container {
             position: fixed;
             top: 0;
@@ -85,13 +85,13 @@
                 opacity: 0;
             }
             15% {
-                opacity: 0.7;
+                opacity: 0.9;
             }
             85% {
-                opacity: 0.7;
+                opacity: 0.9;
             }
             100% {
-                transform: translateY(110vh) translateX(40px) rotate(360deg);
+                transform: translateY(110vh) translateX(70px) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -105,16 +105,16 @@
             flex-direction: column;
         }
 
-        /* Kotak Elegan & Honeybee Style */
+        /* Kotak Cerah Elegan */
         .box-container {
             width: 100%;
-            background: rgba(30, 26, 22, 0.95);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 2px solid rgba(233, 179, 57, 0.4);
+            border: 2px solid rgba(233, 179, 57, 0.5);
             border-radius: 40px;
             padding: 65px 56px 55px 56px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 40px rgba(233, 179, 57, 0.1) inset;
+            box-shadow: 0 30px 60px rgba(212, 160, 23, 0.15), 0 0 30px rgba(255, 243, 205, 0.5) inset;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -129,7 +129,7 @@
             left: 16px;
             right: 16px;
             bottom: 16px;
-            border: 1px dashed rgba(233, 179, 57, 0.25);
+            border: 1px dashed rgba(212, 160, 23, 0.35);
             border-radius: 32px;
             pointer-events: none;
         }
@@ -152,10 +152,10 @@
         .cover-title {
             font-family: 'Playfair Display', serif;
             font-size: 6.5rem;
-            color: #f7e1b5;
+            color: #735100;
             line-height: 1.1;
             font-weight: 700;
-            text-shadow: 0 4px 15px rgba(233, 179, 57, 0.2);
+            text-shadow: 0 4px 15px rgba(233, 179, 57, 0.25);
             margin-bottom: 20px;
         }
 
@@ -163,7 +163,7 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 1.25rem;
             font-weight: 500;
-            color: #d1bfa7;
+            color: #8c6a39;
             letter-spacing: 0.5px;
             max-width: 520px;
             line-height: 1.6;
@@ -173,7 +173,7 @@
         .menu-main-title {
             font-family: 'Playfair Display', serif;
             font-size: 4rem;
-            color: #f7e1b5;
+            color: #735100;
             margin-bottom: 28px;
             line-height: 1.1;
         }
@@ -186,8 +186,8 @@
         }
 
         .menu-item-card {
-            background: rgba(44, 37, 31, 0.8);
-            border: 2px solid rgba(233, 179, 57, 0.3);
+            background: #fffdf5;
+            border: 2px solid rgba(233, 179, 57, 0.4);
             padding: 22px 26px;
             border-radius: 20px;
             cursor: pointer;
@@ -195,19 +195,19 @@
             align-items: center;
             justify-content: space-between;
             transition: all 0.25s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(212, 160, 23, 0.08);
         }
 
         .menu-item-card:hover:not(.locked) {
-            background: rgba(58, 48, 40, 0.95);
-            border-color: #e9b339;
+            background: #fff8e1;
+            border-color: #d49811;
             transform: translateX(6px);
-            box-shadow: 0 6px 20px rgba(233, 179, 57, 0.25);
+            box-shadow: 0 6px 20px rgba(212, 160, 23, 0.2);
         }
 
         .menu-item-card.locked {
-            background: rgba(25, 22, 19, 0.6);
-            border-color: rgba(255, 255, 255, 0.08);
+            background: #f5f3ef;
+            border-color: rgba(0, 0, 0, 0.06);
             cursor: not-allowed;
             opacity: 0.6;
             box-shadow: none;
@@ -217,14 +217,14 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 1.3rem;
             font-weight: 600;
-            color: #f3efe6;
+            color: #3b2e1e;
             display: flex;
             align-items: center;
             gap: 12px;
         }
 
         .menu-item-card.locked .menu-item-info h3 {
-            color: #8c8275;
+            color: #9e968c;
         }
 
         .quest-status-badge {
@@ -235,18 +235,18 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .badge-available { background: rgba(34, 197, 94, 0.2); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); }
-        .badge-completed { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.3); }
-        .badge-locked { background: rgba(255, 255, 255, 0.05); color: #9ca3af; border: 1px solid rgba(255, 255, 255, 0.1); }
+        .badge-available { background: rgba(34, 197, 94, 0.15); color: #15803d; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .badge-completed { background: rgba(59, 130, 246, 0.15); color: #1d4ed8; border: 1px solid rgba(59, 130, 246, 0.3); }
+        .badge-locked { background: rgba(0, 0, 0, 0.05); color: #6b7280; border: 1px solid rgba(0, 0, 0, 0.1); }
 
         .menu-item-action {
             font-family: 'Montserrat', sans-serif;
             font-size: 1.2rem;
-            color: #e9b339;
+            color: #b38200;
             font-weight: 600;
         }
         .menu-item-card.locked .menu-item-action {
-            color: #6b6357;
+            color: #9e968c;
         }
 
         /* --- 3. READER / SLIDE LAYOUT --- */
@@ -267,7 +267,7 @@
             font-size: 1.75rem;
             font-weight: 600;
             letter-spacing: 0.5px;
-            color: #f7e1b5;
+            color: #735100;
             display: flex;
             align-items: center;
             gap: 10px;
@@ -303,7 +303,7 @@
             font-family: 'Montserrat', sans-serif;
             font-size: 1.7rem;
             line-height: 1.9;
-            color: #f3efe6;
+            color: #3b2e1e;
             font-weight: 400;
             word-break: break-word;
         }
@@ -323,24 +323,24 @@
         }
 
         .btn {
-            background: rgba(44, 37, 31, 0.9);
-            border: 2px solid rgba(233, 179, 57, 0.5);
-            color: #f7e1b5;
+            background: #fffdf5;
+            border: 2px solid rgba(233, 179, 57, 0.6);
+            color: #735100;
             padding: 20px 32px;
             border-radius: 40px;
             font-family: 'Montserrat', sans-serif;
             font-size: 1.3rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 15px rgba(212, 160, 23, 0.1);
             white-space: nowrap;
             -webkit-tap-highlight-color: transparent;
             transition: all 0.2s ease;
         }
 
         .btn:hover:not(:disabled) {
-            background: rgba(60, 50, 42, 1);
-            border-color: #e9b339;
+            background: #fff8e1;
+            border-color: #d49811;
         }
 
         .btn:active:not(:disabled) {
@@ -348,38 +348,38 @@
         }
 
         .btn:disabled {
-            opacity: 0.3;
+            opacity: 0.35;
             cursor: not-allowed;
-            border-color: rgba(255, 255, 255, 0.1);
-            color: #6b6357;
+            border-color: rgba(0, 0, 0, 0.1);
+            color: #9e968c;
             box-shadow: none;
         }
 
         .back-menu-btn {
-            background: rgba(60, 30, 30, 0.8);
+            background: rgba(254, 226, 226, 0.8);
             border-color: rgba(239, 68, 68, 0.4);
-            color: #fca5a5;
+            color: #b91c1c;
             padding: 20px 24px;
         }
         .back-menu-btn:hover:not(:disabled) {
-            background: rgba(80, 35, 35, 0.9);
-            border-color: #ef4444;
+            background: rgba(254, 202, 202, 0.9);
+            border-color: #dc2626;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #e9b339 0%, #c68a25 100%);
-            color: #1a1714;
-            border-color: #f7e1b5;
+            background: linear-gradient(135deg, #ffc107 0%, #e09f00 100%);
+            color: #3b2e1e;
+            border-color: #ffda73;
             width: 100%;
             padding: 24px;
             font-size: 1.6rem;
             font-weight: 700;
-            box-shadow: 0 6px 20px rgba(233, 179, 57, 0.35);
+            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.35);
             border-radius: 40px;
         }
         .btn-primary:hover:not(:disabled) {
-            background: linear-gradient(135deg, #f3c2525 0%, #d99a2d 100%);
-            color: #1a1714;
+            background: linear-gradient(135deg, #ffca2c 0%, #d19300 100%);
+            color: #261d13;
         }
 
         .dots {
@@ -399,7 +399,7 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(233, 179, 57, 0.25);
+            background: rgba(233, 179, 57, 0.3);
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
@@ -407,7 +407,7 @@
         .dot.active {
             width: 36px;
             border-radius: 6px;
-            background: #e9b339;
+            background: #d49811;
         }
 
         /* --- QUEST COMPLETE SCREEN --- */
@@ -445,7 +445,7 @@
             </div>
             <div>
                 <button class="btn btn-primary" onclick="goToMenu()">
-                    Buka Catatan 🍯✨
+                    Buka Catatan 🌸🌼
                 </button>
             </div>
         </div>
@@ -459,7 +459,7 @@
                 <!-- Disuntikkan via JS -->
             </div>
             <div>
-                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600; color: #d1bfa7; text-align: center; margin-bottom: 16px;" id="questProgressText">
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600; color: #8c6a39; text-align: center; margin-bottom: 16px;" id="questProgressText">
                     Progress: 0 / 3 Misi Selesai
                 </div>
                 <button class="btn" onclick="backToCover()" style="width: 100%; border-radius: 40px;">← Kembali ke Cover</button>
@@ -469,8 +469,8 @@
         <!-- 3. Reader Screen (Slides / Quest Mode) -->
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
-                <span class="card-brand">🐝 A Note For Ali</span>
-                <span id="slideCounterText" style="font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 600; color: #d1bfa7;">1 / 15</span>
+                <span class="card-brand">🌺 A Note For Ali</span>
+                <span id="slideCounterText" style="font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 600; color: #8c6a39;">1 / 15</span>
             </div>
 
             <div class="slides-container" id="slidesWrapper">
@@ -500,8 +500,8 @@
         <div class="box-container hidden" id="questCompleteScreen">
             <div></div>
             <div class="quest-complete-content">
-                <div style="font-size: 5rem; margin-bottom: 16px;">🍯</div>
-                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #e9b339; margin-bottom: 10px;">Misi Berhasil Dituntaskan, Ali!</div>
+                <div style="font-size: 5rem; margin-bottom: 16px;">💮</div>
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #b38200; margin-bottom: 10px;">Misi Berhasil Dituntaskan, Ali!</div>
                 <div class="cover-title" style="font-size: 4rem; margin-bottom: 20px;" id="completedQuestTitle">Chapter Selesai</div>
                 <div class="cover-subtitle" id="completedQuestDesc">Kamu berhasil membaca seluruh pesan di bagian ini dengan sangat baik.</div>
             </div>
@@ -516,17 +516,17 @@
     <!-- YouTube IFrame API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Falling Honeybee & Sparkles generator
-        const elements = ['🐝', '✨', '🍯', '⭐'];
+        // Falling Flowers generator (Sesuai pilihanmu: 🌼💮🌸🏵🍁☘️🌺)
+        const elements = ['🌼', '💮', '🌸', '🏵', '🍁', '☘️', '🌺'];
         const container = document.getElementById('falling-container');
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 8; i++) {
             const span = document.createElement('div');
             span.classList.add('falling-element');
             span.innerText = elements[Math.floor(Math.random() * elements.length)];
             span.style.left = Math.random() * 100 + 'vw';
-            span.style.animationDuration = (Math.random() * 5 + 7) + 's';
+            span.style.animationDuration = (Math.random() * 6 + 6) + 's';
             span.style.animationDelay = (Math.random() * 5) + 's';
-            span.style.fontSize = (Math.random() * 4 + 20) + 'px';
+            span.style.fontSize = (Math.random() * 6 + 18) + 'px';
             container.appendChild(span);
         }
 
