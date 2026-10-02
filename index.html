@@ -155,11 +155,11 @@
 
         .cover-subtitle {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.15rem;
+            font-size: 1.6rem; /* Diperbesar agar match dengan judul */
             font-weight: 500;
             color: #a07865;
             letter-spacing: 0.3px;
-            max-width: 560px;
+            max-width: 640px;
             line-height: 1.6;
         }
 
@@ -298,16 +298,6 @@
             position: relative;
         }
 
-        .slide-number {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            color: #e07a5f;
-            margin-bottom: 28px;
-            text-transform: uppercase;
-        }
-
         .slide-text {
             font-family: 'Poppins', sans-serif;
             font-size: 1.85rem;
@@ -425,12 +415,12 @@
 
         .closing-quote {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.15rem;
+            font-size: 1.4rem; /* Diperbesar juga agar serasi */
             font-style: italic;
             color: #a07865;
-            max-width: 580px;
-            line-height: 1.7;
-            margin-top: 18px;
+            max-width: 640px;
+            line-height: 1.8;
+            margin-top: 20px;
             padding: 0 10px;
         }
     </style>
@@ -466,7 +456,7 @@
                 <!-- Disuntikkan via JS -->
             </div>
             <div>
-                <div style="font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: #a07865; text-align: center; margin-bottom: 18px;" id="questProgressText">
+                <div style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 600; color: #a07865; text-align: center; margin-bottom: 18px;" id="questProgressText">
                     Progress: 0 / 3 Chapter Selesai
                 </div>
                 <div style="display: flex; gap: 10px;">
@@ -506,19 +496,33 @@
             </div>
         </div>
 
-        <!-- 4. Quest Complete Screen -->
+        <!-- 4. Normal Quest Complete Screen (Untuk Chapter 1 & 2) -->
         <div class="box-container hidden" id="questCompleteScreen">
             <div></div>
             <div class="quest-complete-content">
-                <div class="cover-title" style="font-size: 6.5rem; margin-bottom: 20px;">Terima Kasih</div>
-                <div style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 500; color: #a07865;" id="completedQuestDesc">sudah membaca chapter ini dengan baik, Ali</div>
+                <div class="cover-title" style="font-size: 6.5rem; margin-bottom: 20px;">Selesai</div>
+                <div style="font-family: 'Poppins', sans-serif; font-size: 1.4rem; font-weight: 500; color: #a07865;" id="completedQuestDesc">Chapter berhasil diselesaikan dengan baik, Ali ✨</div>
+            </div>
+            <div>
+                <button class="btn btn-primary" onclick="returnToMenuFromComplete()">
+                    Kembali ke Daftar Chapter ✨
+                </button>
+            </div>
+        </div>
+
+        <!-- 5. Grand Finale Screen (Khusus Penutup Chapter 3) -->
+        <div class="box-container hidden" id="grandFinaleScreen">
+            <div></div>
+            <div class="quest-complete-content">
+                <div class="cover-title" style="font-size: 5.5rem; margin-bottom: 15px;">The Final Chapter</div>
+                <div style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 500; color: #a07865; margin-bottom: 12px;">Semua perjalanan telah ditutup, Ali.</div>
                 <div class="closing-quote">
                     "Some chapters are meant to be read once, closed gently, and put back on the shelf without ever needing to be reopened."
                 </div>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="returnToMenuFromComplete()">
-                    Kembali ke Daftar Chapter ✨
+                    Tutup Buku & Kembali ke Menu 🕊️
                 </button>
             </div>
         </div>
@@ -662,32 +666,41 @@
         function backToMenu() {
             document.getElementById('mainCard').classList.add('hidden');
             document.getElementById('questCompleteScreen').classList.add('hidden');
+            document.getElementById('grandFinaleScreen').classList.add('hidden');
             renderMenuList();
             document.getElementById('menuScreen').classList.remove('hidden');
         }
 
-        // 3 Chapters Content Data
+        // Chapters Content Data
         const sectionsData = {
             1: [
                 "Hai Li, mungkin lu agak kaget nerima tulisan ini, tapi gua rasa ini cara yang paling clear buat nutup semuanya.",
-                "Sebenarnya waktu gua tanya kenapa kita berantem mulu, gua udah tau jawabannya, Li. Waktu itu sengaja gua jawab ga tau karena penasaran sama pov lu, dan ya menurut lu gua satu-satunya subjek masalah. So, let me give you the actual picture of what was really happening.",
-                "Gua udah dari lama sadar, interaksi kita selama setengah tahun ini ga sejalan. Tiap ada masalah, reaksi kita selalu kontras. Dimana lu tipikal orang yang lebih milih withdraw, mendem sendiri, atau ambil keputusan diem-diem dan itu yang buat gua nerima mixed signals. Sementara gua tipe yang outspoken, maunya langsung dibahas, dikejar kejelasannya, dan diberesin saat itu juga dan itu yang buat lu ngerasa tertekan.",
-                "Not to mention, pas masuk ranah perasaan, kita juga saling tabrakan. Gua butuh transparansi, tapi lu lebih nyaman megang kendali sendiri. Dari awal udah berasa ko Li semakin gua buka diri seluas-luasnya, semakin tinggi juga boundary lu. Alhasil kita sama-sama cape, gua cape nebak-nebak dan lu mungkin cape karena ngerasa ditekan.",
+                "Sebenarnya waktu gua tanya kenapa kita berantem mulu, gua udah tau jawabannya, Li.",
+                "Waktu itu sengaja gua jawab ga tau karena penasaran sama pov lu, dan ya menurut lu gua satu-satunya subjek masalah.",
+                "So, let me give u the actual picture of what was really happening.",
+                "Gua udah dari lama sadar, interaksi kita selama setengah tahun ini ga sejalan. Tiap ada masalah, reaksi kita selalu kontras.",
+                "Dimana lu tipikal orang yang lebih milih withdraw, mendem sendiri, atau ambil keputusan diem-diem dan itu yang buat gua nerima mixed signals.",
+                "Sementara gua tipe yang outspoken, maunya langsung dibahas, dikejar kejelasannya, dan diberesin saat itu juga dan itu yang buat lu ngerasa tertekan.",
+                "Not to mention, pas masuk ranah perasaan, kita juga saling tabrakan. Gua butuh transparansi, tapi lu lebih nyaman megang kendali sendiri.",
+                "Dari awal udah berasa ko Li dimana semakin gua buka diri seluas-luasnya, semakin tinggi juga boundary lu.",
+                "Alhasil kita sama-sama cape, gua cape nebak-nebak dan lu mungkin cape karena ngerasa ditekan.",
                 "Fun fact, kita berdua emang sama-sama egois. Lu punya prinsip sendiri, dan gua punya standar sendiri. Ujungnya kita cuma saling nyakitin.",
                 "Intinya, masih banyak yang harus kita pelajarin. Semoga tulisan gua ini bisa bikin kita lebih kenal sama diri masing-masing. Sukses buat kedepannya."
             ],
             2: [
-                "Ngomongin soal interaksi kita kemarin, ini murni cara gua melihat sosok lu selama setengah tahun kita bareng. Pasti bakal beda sama cara lu memandang diri lu sendiri, tapi ini yang bener-bener gua tangkep dari sosok lu. Kalau lu mau, lu juga bebas banget buat ngasi feedback gimana gua selama ini.",
+                "Ngomongin soal interaksi kita kemarin, ini murni cara gua melihat sosok lu selama setengah tahun kita bareng.",
+                "Pasti bakal beda sama cara lu memandang diri lu sendiri, tapi ini yang bener-bener gua tangkep dari how u carried yourself around me.",
+                "Kalau lu mau, lu juga bebas banget buat ngasi feedback gimana gua selama ini.",
                 "Dimata gua lu punya prinsip kuat buat defend argumen lu yang jujur itu buat gua kagum. Seorang Ali dengan argumennya yang ga gampang goyah.",
                 "Deep down, gua tau niat lu emang tulus pengen jadi orang baik.",
                 "Walau sering bikin gua cape dan nguras energi banget, to be fair, lu partner debat paling seru.",
                 "Lu bisa ngasih perspective yang out of the box. Ada aja sudut pandang tak terduga dari lu yang ngebuka mata gua.",
                 "Di balik niat baik lu, lu kadang tetep egois sama keputusan yang lu ambil tanpa mikir perasaan gua, terkesan buat ngelindungin diri lu sendiri.",
-                "Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pengen jadiin tempat cerita.",
+                "Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pen gen jadiin tempat cerita.",
                 "Lu sering ga tegas antara iya dan tidak. Seolah lu takut banget dibilang jahat, terkesan lempar batu sembunyi tangan, dan itu malah bikin gua dapet mixed signals yang bikin bingung.",
-                "Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua ga perlu repot-repot ngasih masukan di saat gua liat sikap lu yang menurut gua kurang pas.",
+                "Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua lu ga perlu repot-repot ngasih masukan di saat gua liat sikap lu yang menurut gua kurang pas.",
                 "Semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals.",
-                "Semoga ke depannya lu bisa lebih berani komunikasiin apa yang lu rasain secara langsung, nggak nutup diri terus, dan nggak ngerasa harus nyelesaiin semuanya sendirian.",
+                "Semoga ke depannya lu bisa lebih berani komunikasiin apa yang lu rasain secara langsung, ga nutup diri terus, dan ga ngerasa harus nyelesaiin semuanya sendirian.",
                 "Lastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked.",
                 "Anyway, thanks for the chaos, the debates, and everything in between. Semoga whatever u pursue next, semuanya dimudahkan."
             ],
@@ -700,8 +713,8 @@
                 "Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.",
                 "Lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, dan i need to learn buat mulai lihat dari pov orang lain.",
                 "At the end of the day, gua yakin kalau ikhlas itu jauh lebih indah.",
-                "If we're truly meant to cross paths again, we'll know how to find our way back to each other.",
-                "Kalaupun bukan takdirnya, it's okay, maybe we only met to learn from each other. Jadi, i don't need to be afraid to walk away anymore.",
+                "If we're truly meant to cross paths again, we'll find our way back to each other.",
+                "Kalaupun bukan takdirnya, it's okay, maybe we only met to learn from each other. So, i don't need to be afraid to walk away anymore.",
                 "Maybe when u finish reading this note, I've already blocked u. I'm so sorry. Aku ga bermaksud untuk mutus silaturahim, but i need to take my own time dan fokus ke diri sendiri.",
                 "Tapi, kalau ada hal penting or feedback yang pengen lu sampein, u can send it to my email at karuniashavira@gmail.com.",
                 "Thanks for everything, and i truly wish the best for both of us."
@@ -731,16 +744,11 @@
             data.forEach((text, index) => {
                 const slideDiv = document.createElement('div');
                 slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
-                
-                const numberDiv = document.createElement('div');
-                numberDiv.className = 'slide-number';
-                numberDiv.innerText = `Bagian ${String(index + 1).padStart(2, '0')}`;
 
                 const textDiv = document.createElement('div');
                 textDiv.className = 'slide-text';
                 textDiv.innerHTML = text.replace(/\n/g, '<br>');
                 
-                slideDiv.appendChild(numberDiv);
                 slideDiv.appendChild(textDiv);
                 slidesWrapper.appendChild(slideDiv);
             });
@@ -810,10 +818,13 @@
                     questStatus[currentSection + 1].unlocked = true;
                 }
 
-                // Simpan otomatis ke memori browser (localStorage)
                 saveProgress();
 
-                showQuestCompleteScreen();
+                if (currentSection === 3) {
+                    showGrandFinaleScreen();
+                } else {
+                    showQuestCompleteScreen();
+                }
             } else {
                 changeSlide(1);
             }
@@ -824,8 +835,14 @@
             document.getElementById('questCompleteScreen').classList.remove('hidden');
         }
 
+        function showGrandFinaleScreen() {
+            document.getElementById('mainCard').classList.add('hidden');
+            document.getElementById('grandFinaleScreen').classList.remove('hidden');
+        }
+
         function returnToMenuFromComplete() {
             document.getElementById('questCompleteScreen').classList.add('hidden');
+            document.getElementById('grandFinaleScreen').classList.add('hidden');
             renderMenuList();
             document.getElementById('menuScreen').classList.remove('hidden');
         }
