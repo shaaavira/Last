@@ -103,7 +103,7 @@
             max-width: 860px;
             display: flex;
             flex-direction: column;
-            perspective: 1200px; /* Tambahan untuk efek 3D buku */
+            perspective: 1200px;
         }
 
         .box-container {
@@ -282,7 +282,7 @@
             gap: 10px;
         }
 
-        /* Slides Container dengan Efek Geser */
+        /* Slides Container dengan Efek Fade Lembut */
         .slides-container {
             display: flex;
             position: relative;
@@ -296,25 +296,17 @@
         .slide {
             position: absolute;
             width: 100%;
-            display: flex;
+            display: none;
             flex-direction: column;
             opacity: 0;
-            transform: translateX(60px);
-            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: opacity 0.3s ease-in-out;
             text-align: left;
-            pointer-events: none;
         }
 
         .slide.active {
+            display: flex;
             opacity: 1;
-            transform: translateX(0);
             position: relative;
-            pointer-events: auto;
-        }
-
-        .slide.prev-slide {
-            transform: translateX(-60px);
-            opacity: 0;
         }
 
         .slide-text {
@@ -740,7 +732,7 @@
                 "Semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals.",
                 "Semoga ke depannya lu bisa lebih berani komunikasiin apa yang lu rasain secara langsung, ga nutup diri terus, dan ga ngerasa harus nyelesaiin semuanya sendirian.",
                 "Lastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked.",
-                "Terima kasih atas segala dinamika, perdebatan, dan semua hal di dalamnya. Semoga whatever u pursue next, semuanya dimudahkan."
+                "Terima kasih atas segala dinamika, perdebatan, dan semua hal di dalamnya. Terima kasih."
             ],
             3: [
                 "Dari semua evaluasi dan caramu bersikap itu, akhirnya gua sampai pada kesimpulan buat nulis pesan ini.",
@@ -818,11 +810,9 @@
             const currentDots = dots();
 
             currentSlides.forEach((slide, index) => {
-                slide.classList.remove('active', 'prev-slide');
+                slide.classList.remove('active');
                 if (index === currentSlide) {
                     slide.classList.add('active');
-                } else if (index < currentSlide) {
-                    slide.classList.add('prev-slide');
                 }
             });
 
