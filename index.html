@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A Note For Ali - Quest Mode</title>
-    <!-- Google Fonts: Playfair Display & Montserrat -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts: Pinyon Script & Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
             box-sizing: border-box;
@@ -17,12 +17,11 @@
             width: 100%;
             min-height: 100%;
             min-height: 100dvh;
-            font-family: 'Montserrat', sans-serif;
-            /* Gradasi Kuning agak Pink yang Manis & Hangat */
-            background: linear-gradient(135deg, #fff2e6 0%, #ffdfd3 50%, #fcd5e5 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fff3d1 0%, #ffdfba 50%, #ffc6d9 100%);
             background-attachment: fixed;
-            color: #3b2e1e;
-            font-size: 20px;
+            color: #5c4033;
+            font-size: 22px;
         }
 
         body {
@@ -34,33 +33,33 @@
             position: relative;
         }
 
-        /* Ambient Glow (Kuning & Pink Lembut) */
+        /* Ambient Soft Glow */
         .ambient-circle {
             position: fixed;
             border-radius: 50%;
-            filter: blur(100px);
+            filter: blur(90px);
             opacity: 0.5;
             z-index: 0;
             pointer-events: none;
         }
 
         .circle-1 {
-            width: 500px;
-            height: 500px;
-            background: #ffcc6f; /* Warm Golden Yellow */
-            top: -100px;
-            left: -100px;
+            width: 450px;
+            height: 450px;
+            background: #ffecb6;
+            top: -80px;
+            left: -80px;
         }
 
         .circle-2 {
-            width: 550px;
-            height: 550px;
-            background: #ffb3c6; /* Soft Rose Pink */
-            bottom: -100px;
-            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: #ffb4b0;
+            bottom: -80px;
+            right: -80px;
         }
 
-        /* Falling Elements Container */
+        /* Falling Flowers Animation Container */
         #falling-container {
             position: fixed;
             top: 0;
@@ -72,7 +71,7 @@
             overflow: hidden;
         }
 
-        .falling-element {
+        .falling-flower {
             position: absolute;
             top: -10vh;
             user-select: none;
@@ -86,13 +85,13 @@
                 opacity: 0;
             }
             15% {
-                opacity: 0.9;
+                opacity: 0.8;
             }
             85% {
-                opacity: 0.9;
+                opacity: 0.8;
             }
             100% {
-                transform: translateY(110vh) translateX(70px) rotate(360deg);
+                transform: translateY(110vh) translateX(30px) rotate(360deg);
                 opacity: 0;
             }
         }
@@ -106,40 +105,34 @@
             flex-direction: column;
         }
 
-        /* Kotak Cerah Elegan */
         .box-container {
             width: 100%;
-            background: rgba(255, 255, 255, 0.92);
+            background: rgba(255, 253, 245, 0.98);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 2px solid rgba(233, 179, 57, 0.5);
-            border-radius: 40px;
+            border: 3px solid rgba(255, 223, 186, 0.95);
+            border-radius: 52px;
             padding: 65px 56px 55px 56px;
-            box-shadow: 0 30px 60px rgba(212, 160, 23, 0.15), 0 0 30px rgba(255, 243, 205, 0.5) inset;
+            box-shadow: 0 40px 80px rgba(210, 150, 120, 0.32), 0 0 60px rgba(255, 255, 255, 0.7) inset;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 1100px;
+            min-height: 1180px;
             position: relative;
         }
 
         .box-container::before {
             content: '';
             position: absolute;
-            top: 16px;
-            left: 16px;
-            right: 16px;
-            bottom: 16px;
-            border: 1px dashed rgba(212, 160, 23, 0.35);
-            border-radius: 32px;
+            top: 18px;
+            left: 18px;
+            right: 18px;
+            bottom: 18px;
+            border: 2px dashed rgba(224, 122, 95, 0.25);
+            border-radius: 40px;
             pointer-events: none;
         }
 
-        .hidden {
-            display: none !important;
-        }
-
-        /* --- 1. COVER LAYOUT --- */
         .cover-content {
             margin: auto 0;
             text-align: center;
@@ -151,63 +144,68 @@
         }
 
         .cover-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 6.5rem;
-            color: #735100;
+            font-family: 'Pinyon Script', cursive;
+            font-size: 8.5rem;
+            color: #4a3b32;
             line-height: 1.1;
-            font-weight: 700;
-            text-shadow: 0 4px 15px rgba(233, 179, 57, 0.25);
-            margin-bottom: 20px;
+            font-weight: 400;
+            text-shadow: 2px 2px 4px rgba(212, 131, 72, 0.1);
+            margin-bottom: 24px;
         }
 
         .cover-subtitle {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Poppins', sans-serif;
             font-size: 1.25rem;
             font-weight: 500;
-            color: #8c6a39;
+            color: #a07865;
             letter-spacing: 0.5px;
             max-width: 520px;
             line-height: 1.6;
         }
 
-        /* --- 2. MENU / QUEST LOG LAYOUT --- */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Menu / Quest Log Styles */
         .menu-main-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 4rem;
-            color: #735100;
-            margin-bottom: 28px;
+            font-family: 'Pinyon Script', cursive;
+            font-size: 5.5rem;
+            color: #4a3b32;
+            margin-bottom: 24px;
             line-height: 1.1;
+            text-align: center;
         }
 
         .menu-stack {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
             margin: 15px 0;
         }
 
         .menu-item-card {
-            background: #fffdf5;
-            border: 2px solid rgba(233, 179, 57, 0.4);
-            padding: 22px 26px;
-            border-radius: 20px;
+            background: #ffffff;
+            border: 3px solid rgba(255, 209, 102, 0.6);
+            padding: 24px 28px;
+            border-radius: 24px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: space-between;
             transition: all 0.25s ease;
-            box-shadow: 0 4px 15px rgba(212, 160, 23, 0.08);
+            box-shadow: 0 6px 18px rgba(255, 209, 102, 0.2);
         }
 
         .menu-item-card:hover:not(.locked) {
-            background: #fff8e1;
-            border-color: #d49811;
+            background: #fffbf0;
+            border-color: #f4a261;
             transform: translateX(6px);
-            box-shadow: 0 6px 20px rgba(212, 160, 23, 0.2);
+            box-shadow: 0 8px 24px rgba(244, 162, 97, 0.25);
         }
 
         .menu-item-card.locked {
-            background: #f5f3ef;
+            background: #f7f5f0;
             border-color: rgba(0, 0, 0, 0.06);
             cursor: not-allowed;
             opacity: 0.6;
@@ -215,17 +213,18 @@
         }
 
         .menu-item-info h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
             font-weight: 600;
-            color: #3b2e1e;
+            color: #4a3b32;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+            flex-wrap: wrap;
         }
 
         .menu-item-card.locked .menu-item-info h3 {
-            color: #9e968c;
+            color: #94a3b8;
         }
 
         .quest-status-badge {
@@ -241,21 +240,20 @@
         .badge-locked { background: rgba(0, 0, 0, 0.05); color: #6b7280; border: 1px solid rgba(0, 0, 0, 0.1); }
 
         .menu-item-action {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.2rem;
-            color: #b38200;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.25rem;
+            color: #f4a261;
             font-weight: 600;
         }
         .menu-item-card.locked .menu-item-action {
-            color: #9e968c;
+            color: #94a3b8;
         }
 
-        /* --- 3. READER / SLIDE LAYOUT --- */
         .card-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 2px solid rgba(233, 179, 57, 0.3);
+            border-bottom: 3px solid rgba(255, 223, 186, 0.8);
             padding-bottom: 20px;
             margin-top: -15px;
             margin-bottom: 10px;
@@ -264,21 +262,21 @@
         }
 
         .card-brand {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.75rem;
-            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 700;
             letter-spacing: 0.5px;
-            color: #735100;
+            color: #e07a5f;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .slides-container {
             display: flex;
             position: relative;
             overflow: hidden;
-            min-height: 680px;
+            min-height: 720px;
             margin: 15px 0;
             align-items: center;
             z-index: 2;
@@ -300,23 +298,32 @@
             position: relative;
         }
 
+        .slide-number {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #e07a5f;
+            margin-bottom: 28px;
+            text-transform: uppercase;
+        }
+
         .slide-text {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.7rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.85rem;
             line-height: 1.9;
-            color: #3b2e1e;
+            color: #4a3b32;
             font-weight: 400;
             word-break: break-word;
         }
 
-        /* --- CONTROLS & FOOTER --- */
         .controls {
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding-top: 25px;
             padding-bottom: 5px;
-            border-top: 2px solid rgba(233, 179, 57, 0.3);
+            border-top: 3px solid rgba(255, 223, 186, 0.8);
             margin-bottom: -15px;
             gap: 16px;
             position: relative;
@@ -324,24 +331,19 @@
         }
 
         .btn {
-            background: #fffdf5;
-            border: 2px solid rgba(233, 179, 57, 0.6);
-            color: #735100;
-            padding: 20px 32px;
-            border-radius: 40px;
-            font-family: 'Montserrat', sans-serif;
-            font-size: 1.3rem;
+            background: #ffffff;
+            border: 3px solid #ffd166;
+            color: #d48348;
+            padding: 22px 32px;
+            border-radius: 50px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
             font-weight: 600;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(212, 160, 23, 0.1);
+            box-shadow: 0 6px 18px rgba(255, 209, 102, 0.38);
             white-space: nowrap;
             -webkit-tap-highlight-color: transparent;
-            transition: all 0.2s ease;
-        }
-
-        .btn:hover:not(:disabled) {
-            background: #fff8e1;
-            border-color: #d49811;
+            transition: transform 0.2s ease;
         }
 
         .btn:active:not(:disabled) {
@@ -349,38 +351,31 @@
         }
 
         .btn:disabled {
-            opacity: 0.35;
+            opacity: 0.3;
             cursor: not-allowed;
-            border-color: rgba(0, 0, 0, 0.1);
-            color: #9e968c;
+            border-color: #e2e8f0;
+            color: #94a3b8;
             box-shadow: none;
         }
 
         .back-menu-btn {
-            background: rgba(254, 226, 226, 0.8);
-            border-color: rgba(239, 68, 68, 0.4);
-            color: #b91c1c;
-            padding: 20px 24px;
+            background: #fff1f2;
+            border-color: #fca5a5;
+            color: #e11d48;
+            padding: 22px 24px;
         }
         .back-menu-btn:hover:not(:disabled) {
-            background: rgba(254, 202, 202, 0.9);
-            border-color: #dc2626;
+            background: #ffe4e6;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, #ffc107 0%, #e09f00 100%);
-            color: #3b2e1e;
-            border-color: #ffda73;
+            background: #f4a261;
+            color: #ffffff;
+            border-color: #f4a261;
             width: 100%;
-            padding: 24px;
-            font-size: 1.6rem;
-            font-weight: 700;
-            box-shadow: 0 6px 20px rgba(255, 193, 7, 0.35);
-            border-radius: 40px;
-        }
-        .btn-primary:hover:not(:disabled) {
-            background: linear-gradient(135deg, #ffca2c 0%, #d19300 100%);
-            color: #261d13;
+            padding: 26px;
+            font-size: 1.75rem;
+            box-shadow: 0 8px 25px rgba(244, 162, 97, 0.4);
         }
 
         .dots {
@@ -400,7 +395,7 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(233, 179, 57, 0.3);
+            background: rgba(244, 162, 97, 0.3);
             transition: all 0.3s ease;
             flex-shrink: 0;
         }
@@ -408,10 +403,10 @@
         .dot.active {
             width: 36px;
             border-radius: 6px;
-            background: #d49811;
+            background: #f4a261;
         }
 
-        /* --- QUEST COMPLETE SCREEN --- */
+        /* Quest Complete Screen */
         .quest-complete-content {
             margin: auto 0;
             text-align: center;
@@ -442,11 +437,11 @@
             <div></div>
             <div class="cover-content">
                 <div class="cover-title">A Note For Ali</div>
-                <div class="cover-subtitle">Sebuah catatan khusus yang disiapkan untuk Ali</div>
+                <div class="cover-subtitle">Catatan khusus yang disiapkan untuk Ali</div>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="goToMenu()">
-                    Buka Catatan 🐝🌼
+                    Buka Catatan ✨
                 </button>
             </div>
         </div>
@@ -460,18 +455,18 @@
                 <!-- Disuntikkan via JS -->
             </div>
             <div>
-                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600; color: #8c6a39; text-align: center; margin-bottom: 16px;" id="questProgressText">
+                <div style="font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: #a07865; text-align: center; margin-bottom: 18px;" id="questProgressText">
                     Progress: 0 / 3 Misi Selesai
                 </div>
-                <button class="btn" onclick="backToCover()" style="width: 100%; border-radius: 40px;">← Kembali ke Cover</button>
+                <button class="btn" onclick="backToCover()" style="width: 100%; border-radius: 50px;">← Kembali ke Cover</button>
             </div>
         </div>
 
-        <!-- 3. Reader Screen (Slides / Quest Mode) -->
+        <!-- 3. Reader Screen (Slides) -->
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
-                <span class="card-brand">🐝 A Note For Ali</span>
-                <span id="slideCounterText" style="font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 600; color: #8c6a39;">1 / 15</span>
+                <span class="card-brand">🍯 A Note For Ali</span>
+                <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 600; color: #8c6d59;">1 / 15</span>
             </div>
 
             <div class="slides-container" id="slidesWrapper">
@@ -501,13 +496,13 @@
         <div class="box-container hidden" id="questCompleteScreen">
             <div></div>
             <div class="quest-complete-content">
-                <div style="font-size: 5rem; margin-bottom: 16px;">🍯</div>
-                <div class="cover-title" style="font-size: 4rem; margin-bottom: 15px;">Terima kasih Ali</div>
-                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600; color: #8c6a39;" id="completedQuestDesc">sudah membaca pesannya dengan sangat baik</div>
+                <div style="font-size: 5rem; margin-bottom: 16px;">💛</div>
+                <div class="cover-title" style="font-size: 6.5rem; margin-bottom: 15px;">Terima Kasih</div>
+                <div style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 500; color: #a07865;" id="completedQuestDesc">sudah membaca chapter ini dengan sangat baik, Ali</div>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="returnToMenuFromComplete()">
-                    Kembali ke Daftar Misi 🐝
+                    Kembali ke Daftar Chapter ✨
                 </button>
             </div>
         </div>
@@ -516,25 +511,25 @@
     <!-- YouTube IFrame API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Falling Elements generator (🌼🌸💮🍁)
-        const elements = ['🌼', '🌸', '💮', '🍁'];
+        // Falling Flowers generator
+        const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
         const container = document.getElementById('falling-container');
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 6; i++) {
             const span = document.createElement('div');
-            span.classList.add('falling-element');
-            span.innerText = elements[Math.floor(Math.random() * elements.length)];
+            span.classList.add('falling-flower');
+            span.innerText = flowers[Math.floor(Math.random() * flowers.length)];
             span.style.left = Math.random() * 100 + 'vw';
-            span.style.animationDuration = (Math.random() * 6 + 6) + 's';
+            span.style.animationDuration = (Math.random() * 4 + 7) + 's';
             span.style.animationDelay = (Math.random() * 5) + 's';
-            span.style.fontSize = (Math.random() * 6 + 18) + 'px';
+            span.style.fontSize = (Math.random() * 4 + 22) + 'px';
             container.appendChild(span);
         }
 
         // Quest Progress Status
         let questStatus = {
-            1: { completed: false, unlocked: true, title: "Last Message for Ali" },
-            2: { completed: false, unlocked: false, title: "How Runi Sees Ali" },
-            3: { completed: false, unlocked: false, title: "Last Wish for Ali" }
+            1: { completed: false, unlocked: true, title: "Chapter 1: The Root Cause" },
+            2: { completed: false, unlocked: false, title: "Chapter 2: How Runi Sees Ali" },
+            3: { completed: false, unlocked: false, title: "Chapter 3: Last Message for Ali" }
         };
 
         // YouTube Player setup
@@ -618,17 +613,17 @@
                 if (quest.unlocked) {
                     itemCard.onclick = () => openSection(id);
                 } else {
-                    itemCard.onclick = () => alert("Selesaikan misi sebelumnya terlebih dahulu untuk membuka chapter ini, Ali! 🛡");
+                    itemCard.onclick = () => alert("Selesaikan chapter sebelumnya terlebih dahulu ya, Ali! ✨");
                 }
 
                 container.appendChild(itemCard);
             }
 
-            document.getElementById('questProgressText').innerText = `Progress: ${completedCount} / 3 Misi Selesai`;
+            document.getElementById('questProgressText').innerText = `Progress: ${completedCount} / 3 Chapter Selesai`;
         }
 
         function confirmBackToMenu() {
-            if (confirm("Keluar dari misi ini, Ali? Progress membaca di chapter ini akan direset.")) {
+            if (confirm("Keluar dari chapter ini, Ali? Progress membaca di chapter ini akan direset.")) {
                 backToMenu();
             }
         }
@@ -640,40 +635,45 @@
             document.getElementById('menuScreen').classList.remove('hidden');
         }
 
-        // Data Slide Masing-masing Section (Disesuaikan untuk Ali)
+        // 3 Chapters Content Data
         const sectionsData = {
             1: [
-                "Hai, Li. Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.",
-                "Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.",
-                "Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.",
-                "Makasih juga udah kasih kejelasan lewat kalimat lu yang mempersilakan gua pergi kemarin, itu bener-bener ngebantu gua buat ngambil keputusan ini.",
-                "So, gua memutuskan buat pamit dan fokus belajar berproses di umur yang baru ini.",
-                "My feelings for u are still there, tapi karena itu juga gua sadar gua ga bisa memaksakan diri buat berteman secara wajar sama lu tanpa merasa tersakiti.",
-                "Lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, dan i need to learn buat mulai lihat dari pov orang lain.",
-                "Jujur, dulu hati sama otak gua sering berantem. Otak gua bilang it's time to let go, banyak yang harus diperbaiki, diikhlasin, dan dimulai lagi.",
-                "Tapi my heart says otherwise....takut gabisa bikin lu suka gua, takut lu akhirnya nemuin pasangan yang lu cari dan itu bukan gua, atau takut lu bener bener hilang.",
-                "But at the end of the day, gua yakin kalau ikhlas itu jauh lebih indah. Gua sadar bentuk usaha ada banyak, ga harus selalu di sekitar lu dan berinteraksi sama lu.",
-                "Kalau emang suatu hari nanti u feel the same way, lu pasti tau cara nemuin gua lagi.",
-                "Kalaupun bukan takdirnya, it's okay, not all love needs to be reciprocated. Jadi, i don't need to be afraid to walk away anymore.",
-                "Let me say 'i love you' for the first and the last time today. I hope this isn't the last chapter for us, i hope someday i can say these words to u again, and maybe hear it back from u.",
-                "Please don't reply to this message, Li. Supaya gua bisa bener-bener move on, i will block ur number for a while....bukan buat putus silaturahim, tapi supaya gua bisa take my own time dan fokus ke diri sendiri.",
-                "Thanks for everything, and i truly wish the best for both of us."
+                "Hai Li, mungkin lu agak kaget nerima tulisan ini, tapi gua rasa ini cara yang paling clear buat nutup semuanya.",
+                "Sebenarnya waktu gua tanya kenapa kita berantem mulu, gua udah tau jawabannya, Li. Waktu itu sengaja gua jawab ga tau karena penasaran sama pov lu, dan ya menurut lu gua satu-satunya subjek masalah. So, let me give you the actual picture of what was really happening.",
+                "Gua udah dari lama sadar, interaksi kita selama setengah tahun ini ga sejalan. Tiap ada masalah, reaksi kita selalu kontras. Dimana lu tipikal orang yang lebih milih withdraw, mendem sendiri, atau ambil keputusan diem-diem dan itu yang buat gua nerima mixed signals. Sementara gua tipe yang outspoken, maunya langsung dibahas, dikejar kejelasannya, dan diberesin saat itu juga dan itu yang buat lu ngerasa tertekan.",
+                "Not to mention, pas masuk ranah perasaan, kita juga saling tabrakan. Gua butuh transparansi, tapi lu lebih nyaman megang kendali sendiri. Dari awal udah berasa ko Li dimana semakin gua buka diri seluas-luasnya, semakin tinggi juga boundary lu. Alhasil kita sama-sama cape, gua cape nebak-nebak dan lu mungkin cape karena ngerasa ditekan.",
+                "Fun fact, kita berdua emang sama-sama egois. Lu punya prinsip sendiri, dan gua punya standar sendiri. Ujungnya kita cuma saling nyakitin.",
+                "Intinya, masih banyak yang harus kita pelajarin. Semoga tulisan gua ini bisa bikin kita lebih kenal sama diri masing-masing. Sukses buat kedepannya."
             ],
             2: [
-                "Prinsip lu kuat dan cara lu defend argumen pas kita debat jujur bikin gua kagum. Seorang Ali dengan argumennya yang ga gampang goyah wkwkw.",
+                "Ngomongin soal interaksi kita kemarin, ini murni cara gua melihat sosok lu selama setengah tahun kita bareng. Pasti bakal beda sama cara lu memandang diri lu sendiri, tapi ini yang bener-bener gua tangkep dari sosok lu. Kalau lu mau, lu juga bebas banget buat ngasi feedback gimana gua selama ini.",
+                "Dimata gua lu punya prinsip kuat buat defend argumen lu yang jujur itu buat gua kagum. Seorang Ali dengan argumennya yang ga gampang goyah.",
                 "Deep down, gua tau niat lu emang tulus pengen jadi orang baik.",
                 "Walau sering bikin gua cape dan nguras energi banget, to be fair, lu partner debat paling seru.",
                 "Lu bisa ngasih perspective yang out of the box. Ada aja sudut pandang tak terduga dari lu yang ngebuka mata gua.",
-                "Di balik niat baik lu, lu kadang tetep egois sama keputusan yang lu ambil tanpa mikir perasaan gua, sebatas buat ngelindungin diri lu sendiri.",
-                "Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pengen jadiin tempat cerita.",
+                "Di balik niat baik lu, lu kadang tetep egois sama keputusan yang lu ambil tanpa mikir perasaan gua, terkesan buat ngelindungin diri lu sendiri.",
+                "Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pen gen jadiin tempat cerita.",
                 "Lu sering ga tegas antara iya dan tidak. Seolah lu takut banget dibilang jahat, terkesan lempar batu sembunyi tangan, dan itu malah bikin gua dapet mixed signals yang bikin bingung.",
-                "Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua ga perlu repot-repot ngasih masukan di saat gua liat sikap lu lagi ga bener."
+                "Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua lu ga perlu repot-repot ngasih masukan di saat gua liat sikap lu yang menurut gua kurang pas.",
+                "Semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals.",
+                "Semoga ke depannya lu bisa lebih berani komunikasiin apa yang lu rasain secara langsung, nggak nutup diri terus, dan nggak ngerasa harus nyelesaiin semuanya sendirian.",
+                "Lastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked.",
+                "Anyway, thanks for the chaos, the debates, and everything in between. Semoga whatever u pursue next, semuanya dimudahkan."
             ],
             3: [
-                "Ke depannya, semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals.",
-                "Semoga lu juga ga nutup diri terus, dan bisa nemuin someone who's actually a right fit buat dijadiin tempat cerita tanpa lu harus ngerasa mesti nyelesaiin semuanya sendirian.",
-                "Lastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked.",
-                "Anyway, thanks for the chaos, the debates, and everything in between. Semoga whatever u pursue next, semuanya dimudahkan. Wish u all the best, Ali."
+                "Dari semua evaluasi dan caramu bersikap itu, akhirnya gua sampai pada kesimpulan buat nulis pesan ini.",
+                "Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.",
+                "Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.",
+                "Makasih udah dipersilakan pergi, jadi gua bisa pergi tanpa rasa bersalah dan ga perlu mikir buat balik lagi kayak sebelum-sebelumnya.",
+                "My feelings for u are gone, dan di titik ini gua sadar kalau kita emang ga bisa berteman secara wajar tanpa terus-terusan saling nyakitin.",
+                "Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.",
+                "Lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, dan i need to learn buat mulai lihat dari pov orang lain.",
+                "At the end of the day, gua yakin kalau ikhlas itu jauh lebih indah.",
+                "If we're truly meant to cross paths again, we'll know how to find our way back to each other.",
+                "Kalaupun bukan takdirnya, it's okay, maybe we only met to learn from each other. Jadi, i don't need to be afraid to walk away anymore.",
+                "Maybe when u finish reading this note, I've already blocked u. I'm so sorry. Aku ga bermaksud untuk mutus silaturahim, but i need to take my own time dan fokus ke diri sendiri.",
+                "Tapi, kalau ada hal penting or feedback yang pengen lu sampein, u can send it to my email at karuniashavira@gmail.com.",
+                "Thanks for everything, and i truly wish the best for both of us."
             ]
         };
 
@@ -699,10 +699,15 @@
                 const slideDiv = document.createElement('div');
                 slideDiv.className = `slide ${index === 0 ? 'active' : ''}`;
                 
+                const numberDiv = document.createElement('div');
+                numberDiv.className = 'slide-number';
+                numberDiv.innerText = `Bagian ${String(index + 1).padStart(2, '0')}`;
+
                 const textDiv = document.createElement('div');
                 textDiv.className = 'slide-text';
                 textDiv.innerHTML = text.replace(/\n/g, '<br>');
                 
+                slideDiv.appendChild(numberDiv);
                 slideDiv.appendChild(textDiv);
                 slidesWrapper.appendChild(slideDiv);
             });
@@ -747,7 +752,7 @@
             prevBtn.disabled = currentSlide === 0;
             
             if (currentSlide === totalSlides - 1) {
-                nextBtn.innerHTML = 'Selesaikan Misi ✓';
+                nextBtn.innerHTML = 'Selesaikan Chapter ✓';
             } else {
                 nextBtn.innerHTML = 'Next →';
             }
@@ -770,7 +775,7 @@
                 // Tandai quest selesai
                 questStatus[currentSection].completed = true;
                 
-                // Buka quest berikutnya secara otomatis jika ada
+                // Buka chapter berikutnya secara otomatis jika ada
                 if (currentSection < 3) {
                     questStatus[currentSection + 1].unlocked = true;
                 }
