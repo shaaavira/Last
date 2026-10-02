@@ -103,6 +103,7 @@
             max-width: 860px;
             display: flex;
             flex-direction: column;
+            perspective: 1200px; /* Tambahan untuk efek 3D buku */
         }
 
         .box-container {
@@ -119,6 +120,15 @@
             justify-content: space-between;
             min-height: 1180px;
             position: relative;
+            transform-origin: center;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+
+        /* Animasi Tutup Buku */
+        .box-container.closing-book {
+            transform: scale(0.85) rotateX(15deg);
+            opacity: 0;
+            pointer-events: none;
         }
 
         .box-container::before {
@@ -155,7 +165,7 @@
 
         .cover-subtitle {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.6rem; /* Diperbesar agar match dengan judul */
+            font-size: 1.6rem;
             font-weight: 500;
             color: #a07865;
             letter-spacing: 0.3px;
@@ -272,6 +282,7 @@
             gap: 10px;
         }
 
+        /* Slides Container dengan Efek Geser */
         .slides-container {
             display: flex;
             position: relative;
@@ -285,17 +296,25 @@
         .slide {
             position: absolute;
             width: 100%;
-            display: none;
+            display: flex;
             flex-direction: column;
             opacity: 0;
-            transition: opacity 0.3s ease-in-out;
+            transform: translateX(60px);
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: left;
+            pointer-events: none;
         }
 
         .slide.active {
-            display: flex;
             opacity: 1;
+            transform: translateX(0);
             position: relative;
+            pointer-events: auto;
+        }
+
+        .slide.prev-slide {
+            transform: translateX(-60px);
+            opacity: 0;
         }
 
         .slide-text {
@@ -415,7 +434,7 @@
 
         .closing-quote {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.4rem; /* Diperbesar juga agar serasi */
+            font-size: 1.4rem;
             font-style: italic;
             color: #a07865;
             max-width: 640px;
@@ -596,9 +615,14 @@
 
         function goToMenu() {
             isAppStarted = true;
-            document.getElementById('coverScreen').classList.add('hidden');
-            renderMenuList();
-            document.getElementById('menuScreen').classList.remove('hidden');
+            const cover = document.getElementById('coverScreen');
+            cover.classList.add('closing-book');
+            setTimeout(() => {
+                cover.classList.add('hidden');
+                cover.classList.remove('closing-book');
+                renderMenuList();
+                document.getElementById('menuScreen').classList.remove('hidden');
+            }, 300);
 
             if (player && typeof player.playVideo === 'function') {
                 player.seekTo(START_TIME, true);
@@ -607,8 +631,13 @@
         }
 
         function backToCover() {
-            document.getElementById('menuScreen').classList.add('hidden');
-            document.getElementById('coverScreen').classList.remove('hidden');
+            const menu = document.getElementById('menuScreen');
+            menu.classList.add('closing-book');
+            setTimeout(() => {
+                menu.classList.add('hidden');
+                menu.classList.remove('closing-book');
+                document.getElementById('coverScreen').classList.remove('hidden');
+            }, 300);
         }
 
         function renderMenuList() {
@@ -664,11 +693,20 @@
         }
 
         function backToMenu() {
-            document.getElementById('mainCard').classList.add('hidden');
-            document.getElementById('questCompleteScreen').classList.add('hidden');
-            document.getElementById('grandFinaleScreen').classList.add('hidden');
-            renderMenuList();
-            document.getElementById('menuScreen').classList.remove('hidden');
+            const activeCard = document.getElementById('mainCard');
+            const completeScreen = document.getElementById('questCompleteScreen');
+            const finaleScreen = document.getElementById('grandFinaleScreen');
+            
+            const target = !activeCard.classList.contains('hidden') ? activeCard : 
+                           (!completeScreen.classList.contains('hidden') ? completeScreen : finaleScreen);
+
+            target.classList.add('closing-book');
+            setTimeout(() => {
+                target.classList.add('hidden');
+                target.classList.remove('closing-book');
+                renderMenuList();
+                document.getElementById('menuScreen').classList.remove('hidden');
+            }, 300);
         }
 
         // Chapters Content Data
@@ -682,10 +720,10 @@
                 "Dimana lu tipikal orang yang lebih milih withdraw, mendem sendiri, atau ambil keputusan diem-diem dan itu yang buat gua nerima mixed signals.",
                 "Sementara gua tipe yang outspoken, maunya langsung dibahas, dikejar kejelasannya, dan diberesin saat itu juga dan itu yang buat lu ngerasa tertekan.",
                 "Not to mention, pas masuk ranah perasaan, kita juga saling tabrakan. Gua butuh transparansi, tapi lu lebih nyaman megang kendali sendiri.",
-                "Dari awal udah berasa ko Li dimana semakin gua buka diri seluas-luasnya, semakin tinggi juga boundary lu.",
+                "Dari awal udah berasa ko Li semakin gua buka diri seluas-luasnya, semakin tinggi juga boundary lu.",
                 "Alhasil kita sama-sama cape, gua cape nebak-nebak dan lu mungkin cape karena ngerasa ditekan.",
                 "Fun fact, kita berdua emang sama-sama egois. Lu punya prinsip sendiri, dan gua punya standar sendiri. Ujungnya kita cuma saling nyakitin.",
-                "Intinya, masih banyak yang harus kita pelajarin. Semoga tulisan gua ini bisa bikin kita lebih kenal sama diri masing-masing. Sukses buat kedepannya."
+                "Intinya, masih banyak yang harus kita pelajarin. Semoga tulisan gua ini bisa bikin kita lebih kenal sama diri masing-masing. Terima kasih."
             ],
             2: [
                 "Ngomongin soal interaksi kita kemarin, ini murni cara gua melihat sosok lu selama setengah tahun kita bareng.",
@@ -702,7 +740,7 @@
                 "Semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals.",
                 "Semoga ke depannya lu bisa lebih berani komunikasiin apa yang lu rasain secara langsung, ga nutup diri terus, dan ga ngerasa harus nyelesaiin semuanya sendirian.",
                 "Lastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked.",
-                "Anyway, thanks for the chaos, the debates, and everything in between. Semoga whatever u pursue next, semuanya dimudahkan."
+                "Terima kasih atas segala dinamika, perdebatan, dan semua hal di dalamnya. Semoga whatever u pursue next, semuanya dimudahkan."
             ],
             3: [
                 "Dari semua evaluasi dan caramu bersikap itu, akhirnya gua sampai pada kesimpulan buat nulis pesan ini.",
@@ -762,9 +800,14 @@
                 dotsContainer.appendChild(dot);
             }
 
-            document.getElementById('menuScreen').classList.add('hidden');
-            document.getElementById('mainCard').classList.remove('hidden');
-            updateSlideUI();
+            const menu = document.getElementById('menuScreen');
+            menu.classList.add('closing-book');
+            setTimeout(() => {
+                menu.classList.add('hidden');
+                menu.classList.remove('closing-book');
+                document.getElementById('mainCard').classList.remove('hidden');
+                updateSlideUI();
+            }, 300);
         }
 
         const slides = () => document.querySelectorAll('.slide');
@@ -775,9 +818,11 @@
             const currentDots = dots();
 
             currentSlides.forEach((slide, index) => {
-                slide.classList.remove('active');
+                slide.classList.remove('active', 'prev-slide');
                 if (index === currentSlide) {
                     slide.classList.add('active');
+                } else if (index < currentSlide) {
+                    slide.classList.add('prev-slide');
                 }
             });
 
@@ -820,31 +865,34 @@
 
                 saveProgress();
 
-                if (currentSection === 3) {
-                    showGrandFinaleScreen();
-                } else {
-                    showQuestCompleteScreen();
-                }
+                const mainCard = document.getElementById('mainCard');
+                mainCard.classList.add('closing-book');
+                setTimeout(() => {
+                    mainCard.classList.add('hidden');
+                    mainCard.classList.remove('closing-book');
+                    if (currentSection === 3) {
+                        document.getElementById('grandFinaleScreen').classList.remove('hidden');
+                    } else {
+                        document.getElementById('questCompleteScreen').classList.remove('hidden');
+                    }
+                }, 300);
             } else {
                 changeSlide(1);
             }
         }
 
-        function showQuestCompleteScreen() {
-            document.getElementById('mainCard').classList.add('hidden');
-            document.getElementById('questCompleteScreen').classList.remove('hidden');
-        }
-
-        function showGrandFinaleScreen() {
-            document.getElementById('mainCard').classList.add('hidden');
-            document.getElementById('grandFinaleScreen').classList.remove('hidden');
-        }
-
         function returnToMenuFromComplete() {
-            document.getElementById('questCompleteScreen').classList.add('hidden');
-            document.getElementById('grandFinaleScreen').classList.add('hidden');
-            renderMenuList();
-            document.getElementById('menuScreen').classList.remove('hidden');
+            const completeScreen = document.getElementById('questCompleteScreen');
+            const finaleScreen = document.getElementById('grandFinaleScreen');
+            const target = !completeScreen.classList.contains('hidden') ? completeScreen : finaleScreen;
+
+            target.classList.add('closing-book');
+            setTimeout(() => {
+                target.classList.add('hidden');
+                target.classList.remove('closing-book');
+                renderMenuList();
+                document.getElementById('menuScreen').classList.remove('hidden');
+            }, 300);
         }
     </script>
 </body>
