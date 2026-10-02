@@ -263,13 +263,13 @@
 
         .card-brand {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.85rem;
+            font-size: 1.5rem;
             font-weight: 700;
             letter-spacing: 0.5px;
             color: #e07a5f;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .slides-container {
@@ -325,7 +325,7 @@
             padding-bottom: 5px;
             border-top: 3px solid rgba(255, 223, 186, 0.8);
             margin-bottom: -15px;
-            gap: 16px;
+            gap: 12px;
             position: relative;
             z-index: 2;
         }
@@ -334,10 +334,10 @@
             background: #ffffff;
             border: 3px solid #ffd166;
             color: #d48348;
-            padding: 22px 32px;
+            padding: 22px 24px;
             border-radius: 50px;
             font-family: 'Poppins', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 600;
             cursor: pointer;
             box-shadow: 0 6px 18px rgba(255, 209, 102, 0.38);
@@ -362,7 +362,7 @@
             background: #fff1f2;
             border-color: #fca5a5;
             color: #e11d48;
-            padding: 22px 24px;
+            padding: 22px 20px;
         }
         .back-menu-btn:hover:not(:disabled) {
             background: #ffe4e6;
@@ -380,9 +380,9 @@
 
         .dots {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
-            max-width: 180px;
+            max-width: 150px;
             overflow-x: auto;
             scrollbar-width: none;
         }
@@ -392,8 +392,8 @@
         }
 
         .dot {
-            width: 12px;
-            height: 12px;
+            width: 10px;
+            height: 10px;
             border-radius: 50%;
             background: rgba(244, 162, 97, 0.3);
             transition: all 0.3s ease;
@@ -401,8 +401,8 @@
         }
 
         .dot.active {
-            width: 36px;
-            border-radius: 6px;
+            width: 30px;
+            border-radius: 5px;
             background: #f4a261;
         }
 
@@ -456,7 +456,7 @@
             </div>
             <div>
                 <div style="font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: #a07865; text-align: center; margin-bottom: 18px;" id="questProgressText">
-                    Progress: 0 / 3 Misi Selesai
+                    Progress: 0 / 3 Chapter Selesai
                 </div>
                 <button class="btn" onclick="backToCover()" style="width: 100%; border-radius: 50px;">← Kembali ke Cover</button>
             </div>
@@ -465,8 +465,8 @@
         <!-- 3. Reader Screen (Slides) -->
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
-                <span class="card-brand">🍯 A Note For Ali</span>
-                <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.35rem; font-weight: 600; color: #8c6d59;">1 / 15</span>
+                <span class="card-brand" id="cardBrandTitle">🍯 The Root Cause</span>
+                <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 600; color: #8c6d59;">1 / 15</span>
             </div>
 
             <div class="slides-container" id="slidesWrapper">
@@ -496,9 +496,8 @@
         <div class="box-container hidden" id="questCompleteScreen">
             <div></div>
             <div class="quest-complete-content">
-                <div style="font-size: 5rem; margin-bottom: 16px;">💛</div>
-                <div class="cover-title" style="font-size: 6.5rem; margin-bottom: 15px;">Terima Kasih</div>
-                <div style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 500; color: #a07865;" id="completedQuestDesc">sudah membaca chapter ini dengan sangat baik, Ali</div>
+                <div class="cover-title" style="font-size: 6.5rem; margin-bottom: 25px;">Terima Kasih</div>
+                <div style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 500; color: #a07865;" id="completedQuestDesc">sudah membaca chapter ini dengan baik, Ali</div>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="returnToMenuFromComplete()">
@@ -527,9 +526,9 @@
 
         // Quest Progress Status
         let questStatus = {
-            1: { completed: false, unlocked: true, title: "Chapter 1: The Root Cause" },
-            2: { completed: false, unlocked: false, title: "Chapter 2: How Runi Sees Ali" },
-            3: { completed: false, unlocked: false, title: "Chapter 3: Last Message for Ali" }
+            1: { completed: false, unlocked: true, title: "The Root Cause" },
+            2: { completed: false, unlocked: false, title: "How Runi Sees Ali" },
+            3: { completed: false, unlocked: false, title: "Last Message for Ali" }
         };
 
         // YouTube Player setup
@@ -605,7 +604,7 @@
                 itemCard.className = cardClass;
                 itemCard.innerHTML = `
                     <div class="menu-item-info">
-                        <h3>${quest.title} ${badgeHtml}</h3>
+                        <h3>Chapter ${id}: ${quest.title} ${badgeHtml}</h3>
                     </div>
                     <div class="menu-item-action">${actionText}</div>
                 `;
@@ -654,7 +653,7 @@
                 "Di balik niat baik lu, lu kadang tetep egois sama keputusan yang lu ambil tanpa mikir perasaan gua, terkesan buat ngelindungin diri lu sendiri.",
                 "Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pen gen jadiin tempat cerita.",
                 "Lu sering ga tegas antara iya dan tidak. Seolah lu takut banget dibilang jahat, terkesan lempar batu sembunyi tangan, dan itu malah bikin gua dapet mixed signals yang bikin bingung.",
-                "Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua lu ga perlu repot-repot ngasih masukan di saat gua liat sikap lu yang menurut gua kurang pas.",
+                "Mismipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua lu ga perlu repot-repot ngasih masukan di saat gua liat sikap lu yang menurut gua kurang pas.",
                 "Semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals.",
                 "Semoga ke depannya lu bisa lebih berani komunikasiin apa yang lu rasain secara langsung, nggak nutup diri terus, dan nggak ngerasa harus nyelesaiin semuanya sendirian.",
                 "Lastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ga ngerasa lagi attacked.",
@@ -686,12 +685,16 @@
         const nextBtn = document.getElementById('nextBtn');
         const slideCounterText = document.getElementById('slideCounterText');
         const dotsContainer = document.getElementById('dotsContainer');
+        const cardBrandTitle = document.getElementById('cardBrandTitle');
 
         function openSection(sectionId) {
             currentSection = sectionId;
             currentSlide = 0;
             const data = sectionsData[sectionId];
             totalSlides = data.length;
+
+            // Set pojok kiri atas menyesuaikan judul chapter
+            cardBrandTitle.innerText = `🍯 ${questStatus[sectionId].title}`;
 
             // Render slides
             slidesWrapper.innerHTML = '';
@@ -752,7 +755,7 @@
             prevBtn.disabled = currentSlide === 0;
             
             if (currentSlide === totalSlides - 1) {
-                nextBtn.innerHTML = 'Selesaikan Chapter ✓';
+                nextBtn.innerHTML = 'Selesaikan ✓';
             } else {
                 nextBtn.innerHTML = 'Next →';
             }
@@ -772,7 +775,7 @@
 
         function nextAction() {
             if (currentSlide === totalSlides - 1) {
-                // Tandai quest selesai
+                // Tandai chapter selesai
                 questStatus[currentSection].completed = true;
                 
                 // Buka chapter berikutnya secara otomatis jika ada
