@@ -18,7 +18,8 @@
             min-height: 100%;
             min-height: 100dvh;
             font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #fff9e6 0%, #fff1cc 50%, #ffe6b3 100%);
+            /* Gradasi Kuning agak Pink yang Manis & Hangat */
+            background: linear-gradient(135deg, #fff2e6 0%, #ffdfd3 50%, #fcd5e5 100%);
             background-attachment: fixed;
             color: #3b2e1e;
             font-size: 20px;
@@ -33,7 +34,7 @@
             position: relative;
         }
 
-        /* Bright Honeybee Ambient Glow */
+        /* Ambient Glow (Kuning & Pink Lembut) */
         .ambient-circle {
             position: fixed;
             border-radius: 50%;
@@ -46,7 +47,7 @@
         .circle-1 {
             width: 500px;
             height: 500px;
-            background: #ffdb4d; /* Bright Golden Honey */
+            background: #ffcc6f; /* Warm Golden Yellow */
             top: -100px;
             left: -100px;
         }
@@ -54,12 +55,12 @@
         .circle-2 {
             width: 550px;
             height: 550px;
-            background: #ffca3a; /* Warm Amber Glow */
+            background: #ffb3c6; /* Soft Rose Pink */
             bottom: -100px;
             right: -100px;
         }
 
-        /* Falling Flower Petals Container */
+        /* Falling Elements Container */
         #falling-container {
             position: fixed;
             top: 0;
@@ -445,7 +446,7 @@
             </div>
             <div>
                 <button class="btn btn-primary" onclick="goToMenu()">
-                    Buka Catatan 🌸🌼
+                    Buka Catatan 🐝🌼
                 </button>
             </div>
         </div>
@@ -469,7 +470,7 @@
         <!-- 3. Reader Screen (Slides / Quest Mode) -->
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
-                <span class="card-brand">🌺 A Note For Ali</span>
+                <span class="card-brand">🐝 A Note For Ali</span>
                 <span id="slideCounterText" style="font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 600; color: #8c6a39;">1 / 15</span>
             </div>
 
@@ -500,14 +501,13 @@
         <div class="box-container hidden" id="questCompleteScreen">
             <div></div>
             <div class="quest-complete-content">
-                <div style="font-size: 5rem; margin-bottom: 16px;">💮</div>
-                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: #b38200; margin-bottom: 10px;">Misi Berhasil Dituntaskan, Ali!</div>
-                <div class="cover-title" style="font-size: 4rem; margin-bottom: 20px;" id="completedQuestTitle">Chapter Selesai</div>
-                <div class="cover-subtitle" id="completedQuestDesc">Kamu berhasil membaca seluruh pesan di bagian ini dengan sangat baik.</div>
+                <div style="font-size: 5rem; margin-bottom: 16px;">🍯</div>
+                <div style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; font-weight: 600; color: #8c6a39; margin-bottom: 10px;" id="completedQuestDesc">sudah membaca pesannya dengan sangat baik</div>
+                <div class="cover-title" style="font-size: 4rem; margin-bottom: 20px;">Terima kasih Ali</div>
             </div>
             <div>
                 <button class="btn btn-primary" onclick="returnToMenuFromComplete()">
-                    Kembali ke Daftar Misi 🛡️
+                    Kembali ke Daftar Misi 🐝
                 </button>
             </div>
         </div>
@@ -516,10 +516,10 @@
     <!-- YouTube IFrame API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Falling Flowers generator (Sesuai pilihanmu: 🌼💮🌸🏵🍁☘️🌺)
-        const elements = ['🌼', '💮', '🌸', '🏵', '🍁', '☘️', '🌺'];
+        // Falling Elements generator (Bunga + Honeybee 🐝 dan 🍯)
+        const elements = ['🌼', '💮', '🌸', '🏵', '🍁', '☘️', '🌺', '🐝', '🍯'];
         const container = document.getElementById('falling-container');
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < 9; i++) {
             const span = document.createElement('div');
             span.classList.add('falling-element');
             span.innerText = elements[Math.floor(Math.random() * elements.length)];
@@ -782,10 +782,6 @@
         }
 
         function showQuestCompleteScreen() {
-            const quest = questStatus[currentSection];
-            document.getElementById('completedQuestTitle').innerText = "Misi Selesai, Ali!";
-            document.getElementById('completedQuestDesc').innerText = `Kamu berhasil menuntaskan misi "${quest.title}" dengan membaca seluruh bagian pesannya dengan sangat baik.`;
-
             document.getElementById('mainCard').classList.add('hidden');
             document.getElementById('questCompleteScreen').classList.remove('hidden');
         }
