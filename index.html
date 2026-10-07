@@ -22,14 +22,7 @@
             background-attachment: fixed;
             color: #5c4033;
             font-size: 22px;
-            transition: background 0.6s ease;
         }
-
-        /* Variasi Background Body Berdasarkan Chapter */
-        body.theme-1 { background: linear-gradient(135deg, #fff7d6 0%, #ffe3c4 50%, #ffd1df 100%); }
-        body.theme-2 { background: linear-gradient(135deg, #fff1d0 0%, #ffccb3 50%, #ffb3c6 100%); }
-        body.theme-3 { background: linear-gradient(135deg, #faebd7 0%, #f7d1ba 50%, #f3b0c3 100%); }
-        body.theme-4 { background: linear-gradient(135deg, #fceade 0%, #e8d0df 50%, #d4b8d6 100%); }
 
         body {
             display: flex;
@@ -128,14 +121,8 @@
             min-height: 1180px;
             position: relative;
             transform-origin: center;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, border-color 0.4s ease;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
         }
-
-        /* Variasi Bingkai Kontainer Berdasarkan Chapter */
-        .box-container.theme-1 { border-color: rgba(255, 209, 102, 0.8); }
-        .box-container.theme-2 { border-color: rgba(244, 162, 97, 0.8); }
-        .box-container.theme-3 { border-color: rgba(224, 122, 95, 0.8); }
-        .box-container.theme-4 { border-color: rgba(180, 130, 160, 0.8); }
 
         /* Animasi Tutup Buku */
         .box-container.closing-book {
@@ -449,7 +436,7 @@
         }
     </style>
 </head>
-<body id="appBody" class="theme-1">
+<body>
 
     <div class="ambient-circle circle-1"></div>
     <div class="ambient-circle circle-2"></div>
@@ -458,7 +445,7 @@
 
     <div class="wrapper">
         <!-- 1. Cover Screen -->
-        <div class="box-container theme-1" id="coverScreen">
+        <div class="box-container" id="coverScreen">
             <div></div>
             <div class="cover-content">
                 <div class="cover-title">Notes on Closure</div>
@@ -472,7 +459,7 @@
         </div>
 
         <!-- 2. Menu / Quest Log Screen -->
-        <div class="box-container theme-1 hidden" id="menuScreen">
+        <div class="box-container hidden" id="menuScreen">
             <div>
                 <div class="menu-main-title">Pilih Sesi Catatan</div>
             </div>
@@ -491,7 +478,7 @@
         </div>
 
         <!-- 3. Reader Screen (Slides) -->
-        <div class="box-container theme-1 hidden" id="mainCard">
+        <div class="box-container hidden" id="mainCard">
             <div class="card-header">
                 <span class="card-brand" id="cardBrandTitle">🌸 The Beginning</span>
                 <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 600; color: #8c6d59;">1 / 15</span>
@@ -521,7 +508,7 @@
         </div>
 
         <!-- 4. Normal Quest Complete Screen (Untuk Chapter 1, 2, & 3) -->
-        <div class="box-container theme-1 hidden" id="questCompleteScreen">
+        <div class="box-container hidden" id="questCompleteScreen">
             <div></div>
             <div class="quest-complete-content">
                 <div class="cover-title" style="font-size: 5.5rem; margin-bottom: 20px;">Terima kasih</div>
@@ -535,7 +522,7 @@
         </div>
 
         <!-- 5. Grand Finale Screen (Khusus Penutup Chapter 4) -->
-        <div class="box-container theme-4 hidden" id="grandFinaleScreen">
+        <div class="box-container hidden" id="grandFinaleScreen">
             <div></div>
             <div class="quest-complete-content">
                 <div class="cover-title" style="font-size: 5.5rem; margin-bottom: 15px;">The Final Chapter</div>
@@ -619,17 +606,6 @@
             });
         }
 
-        function applyTheme(themeNum) {
-            const body = document.getElementById('appBody');
-            body.className = `theme-${themeNum}`;
-            
-            // Hanya update box container yang sedang aktif/tidak hidden agar tidak konflik
-            const activeBox = document.querySelector('.box-container:not(.hidden)');
-            if (activeBox) {
-                activeBox.className = activeBox.className.replace(/theme-\d/g, `theme-${themeNum}`);
-            }
-        }
-
         function goToMenu() {
             isAppStarted = true;
             const cover = document.getElementById('coverScreen');
@@ -637,13 +613,8 @@
             setTimeout(() => {
                 cover.classList.add('hidden');
                 cover.classList.remove('closing-book');
-                
-                // Pastikan render menu dipanggil SEBELUM memunculkan elemen
                 renderMenuList();
-                
-                const menu = document.getElementById('menuScreen');
-                menu.classList.remove('hidden');
-                applyTheme(1);
+                document.getElementById('menuScreen').classList.remove('hidden');
             }, 300);
 
             if (player && typeof player.playVideo === 'function') {
@@ -658,7 +629,6 @@
             setTimeout(() => {
                 menu.classList.add('hidden');
                 menu.classList.remove('closing-book');
-                applyTheme(1);
                 document.getElementById('coverScreen').classList.remove('hidden');
             }, 300);
         }
@@ -730,7 +700,6 @@
                 target.classList.remove('closing-book');
                 renderMenuList();
                 document.getElementById('menuScreen').classList.remove('hidden');
-                applyTheme(1);
             }, 300);
         }
 
@@ -809,8 +778,6 @@
             currentSlide = 0;
             const data = sectionsData[sectionId];
             totalSlides = data.length;
-
-            applyTheme(sectionId);
 
             const icons = ['🌸', '🌼', '🌷', '🕊️'];
             cardBrandTitle.innerText = `${icons[sectionId - 1]} ${questStatus[sectionId].title}`;
@@ -906,10 +873,8 @@
                     mainCard.classList.add('hidden');
                     mainCard.classList.remove('closing-book');
                     if (currentSection === 4) {
-                        applyTheme(4);
                         document.getElementById('grandFinaleScreen').classList.remove('hidden');
                     } else {
-                        applyTheme(currentSection);
                         document.getElementById('questCompleteScreen').classList.remove('hidden');
                     }
                 }, 300);
@@ -929,7 +894,6 @@
                 target.classList.remove('closing-book');
                 renderMenuList();
                 document.getElementById('menuScreen').classList.remove('hidden');
-                applyTheme(1);
             }, 300);
         }
     </script>
