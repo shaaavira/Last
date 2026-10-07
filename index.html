@@ -103,6 +103,7 @@
             max-width: 860px;
             display: flex;
             flex-direction: column;
+            perspective: 1200px;
         }
 
         .box-container {
@@ -119,6 +120,15 @@
             justify-content: space-between;
             min-height: 1180px;
             position: relative;
+            transform-origin: center;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        }
+
+        /* Animasi Tutup Buku */
+        .box-container.closing-book {
+            transform: scale(0.85) rotateX(15deg);
+            opacity: 0;
+            pointer-events: none;
         }
 
         .box-container::before {
@@ -406,6 +416,12 @@
             align-items: center;
             position: relative;
             z-index: 2;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         .closing-quote {
@@ -464,7 +480,7 @@
         <!-- 3. Reader Screen (Slides) -->
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
-                <span class="card-brand" id="cardBrandTitle">🌸 The Beginning</span>
+                <span class="card-brand" id="cardBrandTitle">🍯 The Beginning</span>
                 <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 600; color: #8c6d59;">1 / 15</span>
             </div>
 
@@ -526,8 +542,8 @@
     <!-- YouTube IFrame API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Falling Flowers generator (💮🌸🌼🍁)
-        const flowers = ['💮', '🌸', '🌼', '🍁'];
+        // Falling Flowers generator
+        const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
         const container = document.getElementById('falling-container');
         for (let i = 0; i < 6; i++) {
             const span = document.createElement('div');
@@ -592,9 +608,14 @@
 
         function goToMenu() {
             isAppStarted = true;
-            document.getElementById('coverScreen').classList.add('hidden');
-            renderMenuList();
-            document.getElementById('menuScreen').classList.remove('hidden');
+            const cover = document.getElementById('coverScreen');
+            cover.classList.add('closing-book');
+            setTimeout(() => {
+                cover.classList.add('hidden');
+                cover.classList.remove('closing-book');
+                renderMenuList();
+                document.getElementById('menuScreen').classList.remove('hidden');
+            }, 300);
 
             if (player && typeof player.playVideo === 'function') {
                 player.seekTo(START_TIME, true);
@@ -603,8 +624,13 @@
         }
 
         function backToCover() {
-            document.getElementById('menuScreen').classList.add('hidden');
-            document.getElementById('coverScreen').classList.remove('hidden');
+            const menu = document.getElementById('menuScreen');
+            menu.classList.add('closing-book');
+            setTimeout(() => {
+                menu.classList.add('hidden');
+                menu.classList.remove('closing-book');
+                document.getElementById('coverScreen').classList.remove('hidden');
+            }, 300);
         }
 
         function renderMenuList() {
@@ -612,7 +638,6 @@
             container.innerHTML = '';
             
             let completedCount = 0;
-            const chapterIcons = ['🌸', '🌼', '🌷', '🕊️'];
 
             for (let id = 1; id <= 4; id++) {
                 const quest = questStatus[id];
@@ -637,7 +662,7 @@
                 itemCard.className = cardClass;
                 itemCard.innerHTML = `
                     <div class="menu-item-info">
-                        <h3>${chapterIcons[id-1]} Chapter ${id}: ${quest.title} ${badgeHtml}</h3>
+                        <h3>Chapter ${id}: ${quest.title} ${badgeHtml}</h3>
                     </div>
                     <div class="menu-item-action">${actionText}</div>
                 `;
@@ -661,12 +686,20 @@
         }
 
         function backToMenu() {
-            document.getElementById('mainCard').classList.add('hidden');
-            document.getElementById('questCompleteScreen').classList.add('hidden');
-            document.getElementById('grandFinaleScreen').classList.add('hidden');
+            const activeCard = document.getElementById('mainCard');
+            const completeScreen = document.getElementById('questCompleteScreen');
+            const finaleScreen = document.getElementById('grandFinaleScreen');
             
-            renderMenuList();
-            document.getElementById('menuScreen').classList.remove('hidden');
+            const target = !activeCard.classList.contains('hidden') ? activeCard : 
+                           (!completeScreen.classList.contains('hidden') ? completeScreen : finaleScreen);
+
+            target.classList.add('closing-book');
+            setTimeout(() => {
+                target.classList.add('hidden');
+                target.classList.remove('closing-book');
+                renderMenuList();
+                document.getElementById('menuScreen').classList.remove('hidden');
+            }, 300);
         }
 
         // Chapters Content Data (4 Chapters)
@@ -745,8 +778,7 @@
             const data = sectionsData[sectionId];
             totalSlides = data.length;
 
-            const icons = ['🌸', '🌼', '🌷', '🕊️'];
-            cardBrandTitle.innerText = `${icons[sectionId - 1]} ${questStatus[sectionId].title}`;
+            cardBrandTitle.innerText = `🍯 ${questStatus[sectionId].title}`;
 
             slidesWrapper.innerHTML = '';
             data.forEach((text, index) => {
@@ -770,9 +802,14 @@
                 dotsContainer.appendChild(dot);
             }
 
-            document.getElementById('menuScreen').classList.add('hidden');
-            document.getElementById('mainCard').classList.remove('hidden');
-            updateSlideUI();
+            const menu = document.getElementById('menuScreen');
+            menu.classList.add('closing-book');
+            setTimeout(() => {
+                menu.classList.add('hidden');
+                menu.classList.remove('closing-book');
+                document.getElementById('mainCard').classList.remove('hidden');
+                updateSlideUI();
+            }, 300);
         }
 
         const slides = () => document.querySelectorAll('.slide');
@@ -828,22 +865,34 @@
 
                 saveProgress();
 
-                document.getElementById('mainCard').classList.add('hidden');
-                if (currentSection === 4) {
-                    document.getElementById('grandFinaleScreen').classList.remove('hidden');
-                } else {
-                    document.getElementById('questCompleteScreen').classList.remove('hidden');
-                }
+                const mainCard = document.getElementById('mainCard');
+                mainCard.classList.add('closing-book');
+                setTimeout(() => {
+                    mainCard.classList.add('hidden');
+                    mainCard.classList.remove('closing-book');
+                    if (currentSection === 4) {
+                        document.getElementById('grandFinaleScreen').classList.remove('hidden');
+                    } else {
+                        document.getElementById('questCompleteScreen').classList.remove('hidden');
+                    }
+                }, 300);
             } else {
                 changeSlide(1);
             }
         }
 
         function returnToMenuFromComplete() {
-            document.getElementById('questCompleteScreen').classList.add('hidden');
-            document.getElementById('grandFinaleScreen').classList.add('hidden');
-            renderMenuList();
-            document.getElementById('menuScreen').classList.remove('hidden');
+            const completeScreen = document.getElementById('questCompleteScreen');
+            const finaleScreen = document.getElementById('grandFinaleScreen');
+            const target = !completeScreen.classList.contains('hidden') ? completeScreen : finaleScreen;
+
+            target.classList.add('closing-book');
+            setTimeout(() => {
+                target.classList.add('hidden');
+                target.classList.remove('closing-book');
+                renderMenuList();
+                document.getElementById('menuScreen').classList.remove('hidden');
+            }, 300);
         }
     </script>
 </body>
