@@ -622,23 +622,28 @@
         function applyTheme(themeNum) {
             const body = document.getElementById('appBody');
             body.className = `theme-${themeNum}`;
-            const boxes = document.querySelectorAll('.box-container');
-            boxes.forEach(box => {
-                box.className = box.className.replace(/theme-\d/g, `theme-${themeNum}`);
-            });
+            
+            // Hanya update box container yang sedang aktif/tidak hidden agar tidak konflik
+            const activeBox = document.querySelector('.box-container:not(.hidden)');
+            if (activeBox) {
+                activeBox.className = activeBox.className.replace(/theme-\d/g, `theme-${themeNum}`);
+            }
         }
 
         function goToMenu() {
             isAppStarted = true;
-            applyTheme(1);
             const cover = document.getElementById('coverScreen');
             cover.classList.add('closing-book');
             setTimeout(() => {
                 cover.classList.add('hidden');
                 cover.classList.remove('closing-book');
+                
+                // Pastikan render menu dipanggil SEBELUM memunculkan elemen
                 renderMenuList();
+                
                 const menu = document.getElementById('menuScreen');
                 menu.classList.remove('hidden');
+                applyTheme(1);
             }, 300);
 
             if (player && typeof player.playVideo === 'function') {
@@ -659,7 +664,6 @@
         }
 
         function renderMenuList() {
-            applyTheme(1);
             const container = document.getElementById('menuListContainer');
             container.innerHTML = '';
             
@@ -726,6 +730,7 @@
                 target.classList.remove('closing-book');
                 renderMenuList();
                 document.getElementById('menuScreen').classList.remove('hidden');
+                applyTheme(1);
             }, 300);
         }
 
@@ -924,6 +929,7 @@
                 target.classList.remove('closing-book');
                 renderMenuList();
                 document.getElementById('menuScreen').classList.remove('hidden');
+                applyTheme(1);
             }, 300);
         }
     </script>
