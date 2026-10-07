@@ -124,7 +124,6 @@
             transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
         }
 
-        /* Animasi Tutup Buku */
         .box-container.closing-book {
             transform: scale(0.85) rotateX(15deg);
             opacity: 0;
@@ -177,7 +176,6 @@
             display: none !important;
         }
 
-        /* Menu / Quest Log Styles */
         .menu-main-title {
             font-family: 'Pinyon Script', cursive;
             font-size: 5.5rem;
@@ -285,7 +283,6 @@
             gap: 10px;
         }
 
-        /* Slides Container dengan Efek Fade Lembut */
         .slides-container {
             display: flex;
             position: relative;
@@ -410,7 +407,6 @@
             background: #f4a261;
         }
 
-        /* Quest Complete Screen */
         .quest-complete-content {
             margin: auto 0;
             text-align: center;
@@ -466,9 +462,7 @@
             <div>
                 <div class="menu-main-title">Pilih Sesi Catatan</div>
             </div>
-            <div class="menu-stack" id="menuListContainer">
-                <!-- Disuntikkan via JS -->
-            </div>
+            <div class="menu-stack" id="menuListContainer"></div>
             <div>
                 <div style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 600; color: #a07865; text-align: center; margin-bottom: 18px;" id="questProgressText">
                     Progress: 0 / 4 Chapter Selesai
@@ -487,11 +481,8 @@
                 <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 600; color: #8c6d59;">1 / 15</span>
             </div>
 
-            <div class="slides-container" id="slidesWrapper">
-                <!-- Disuntikkan via JS -->
-            </div>
+            <div class="slides-container" id="slidesWrapper"></div>
 
-            <!-- Controls -->
             <div class="controls">
                 <button class="btn back-menu-btn" onclick="confirmBackToMenu()">
                     ✕ Menu
@@ -500,9 +491,7 @@
                     ← Prev
                 </button>
                 
-                <div class="dots" id="dotsContainer">
-                    <!-- Disuntikkan via JS -->
-                </div>
+                <div class="dots" id="dotsContainer"></div>
 
                 <button class="btn" id="nextBtn" onclick="nextAction()">
                     Next →
@@ -510,7 +499,7 @@
             </div>
         </div>
 
-        <!-- 4. Normal Quest Complete Screen (Untuk Chapter 1, 2, & 3) -->
+        <!-- 4. Normal Quest Complete Screen -->
         <div class="box-container hidden" id="questCompleteScreen">
             <div></div>
             <div class="quest-complete-content">
@@ -524,7 +513,7 @@
             </div>
         </div>
 
-        <!-- 5. Grand Finale Screen (Khusus Penutup Chapter 4) -->
+        <!-- 5. Grand Finale Screen -->
         <div class="box-container hidden" id="grandFinaleScreen">
             <div></div>
             <div class="quest-complete-content">
@@ -545,7 +534,6 @@
     <!-- YouTube IFrame API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Falling Flowers generator
         const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
         const container = document.getElementById('falling-container');
         for (let i = 0; i < 6; i++) {
@@ -559,7 +547,6 @@
             container.appendChild(span);
         }
 
-        // Default Quest Status (4 Chapters)
         let defaultQuestStatus = {
             1: { completed: false, unlocked: true, title: "The Beginning" },
             2: { completed: false, unlocked: false, title: "The Root Cause" },
@@ -567,7 +554,6 @@
             4: { completed: false, unlocked: false, title: "Last Message for Ali" }
         };
 
-        // Load Quest Status from localStorage if available
         let questStatus = JSON.parse(localStorage.getItem('notesOnClosureProgress')) || defaultQuestStatus;
 
         function saveProgress() {
@@ -582,7 +568,6 @@
             }
         }
 
-        // YouTube Player setup
         let player;
         let isAppStarted = false;
         const START_TIME = 0;
@@ -651,12 +636,12 @@
                 let cardClass = 'menu-item-card';
 
                 if (quest.completed) {
-                    badgeHtml = `<span class="quest-status-badge badge-completed">Selesai</span>`;
+                    badgeHtml = '<span class="quest-status-badge badge-completed">Selesai</span>';
                     actionText = 'Ulangi ↺';
                 } else if (quest.unlocked) {
-                    badgeHtml = `<span class="quest-status-badge badge-available">Tersedia</span>`;
+                    badgeHtml = '<span class="quest-status-badge badge-available">Tersedia</span>';
                 } else {
-                    badgeHtml = `<span class="quest-status-badge badge-locked">Terkunci 🔒</span>`;
+                    badgeHtml = '<span class="quest-status-badge badge-locked">Terkunci 🔒</span>';
                     actionText = 'Terkunci';
                     cardClass += ' locked';
                 }
@@ -705,13 +690,12 @@
             }, 300);
         }
 
-        // Chapters Content Data (4 Chapters updated)
         const sectionsData = {
             1: [
                 "Hai Li, sebelum kita ada di titik ini, seperti yang lu tau... gua pernah ngerasa nyaman dan kagum sama lu.",
                 "U were so fun to talk to, had strong principles, and ur out of the box perspective always made me see things differently.",
                 "And i guess, all of that became the real reason why i fell for u.",
-                "I used to think that if i ever have kids one day, I'd want them to have a father just like u",
+                "I used to think that if i ever have kids one day, I\\'d want them to have a father just like u",
                 "Waktu itu, rasanya semua hal tentang lu keliatan begitu berarti, dan bagian dari diri gua sempat berharap kalau cerita kita bakal berjalan beda.",
                 "Tapi ya, hidup ga selalu sesuai sama apa yang kita mau.",
                 "Even now, part of me still appreciates those little things we shared. Hal-hal tulus itu yang bakal selalu gua ingat dari lu."
@@ -748,17 +732,17 @@
             ],
             4: [
                 "Akhirnya kita sampai di tahap gua harus nulis pesan ini.",
-                "Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.",
-                "Oh, and i bought u that book u wanted to read (I really hope u haven't bought it yet, cause i had to wait quite a while to finally give it to u).",
+                "Thanks for the gift, and i\\'m glad we managed to exchange gifts. A bit late, but happy 24th birthday.",
+                "Oh, and i bought u that book u wanted to read (I really hope u haven\\'t bought it yet, cause i had to wait quite a while to finally give it to u).",
                 "Lewat tulisan ini, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun.",
                 "Makasih udah dipersilakan pergi, jadi gua bisa pergi tanpa rasa bersalah dan ga perlu mikir buat balik lagi kayak sebelum sebelumnya.",
-                "My feelings for u are gone, dan di titik ini gua sadar kalau kita emang ga bisa berteman secara wajar tanpa terus-terusan saling nyakitin.",
+                "My feelings for u are gone, dan di titik ini gua sadار kalau kita emang ga bisa berteman secara wajar tanpa terus-terusan saling nyakitin.",
                 "Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus memperbaiki diri, termasuk cara pandang gua yang sering kejebak di ego sendiri.",
                 "Lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, dan i need to learn buat mulai lihat dari pov orang lain.",
                 "At the end of the day, gua yakin kalau ikhlas itu jauh lebih indah.",
-                "If we're truly meant to cross paths again, we'll find our way back to each other.",
-                "Kalaupun bukan takdirnya, it's okay, maybe we only met to learn from each other. So, i don't need to be afraid to walk away anymore.",
-                "When u finish reading this note, I've already blocked u. I'm so sorry. Aku ga bermaksud untuk mutus silaturahim, but i need to take my own time dan fokus ke diri sendiri.",
+                "If we\\'re truly meant to cross paths again, we\\'ll find our way back to each other.",
+                "Kalaupun bukan takdirnya, it\\'s okay, maybe we only met to learn from each other. So, i don\\'t need to be afraid to walk away anymore.",
+                "When u finish reading this note, I\\'ve already blocked u. I\\'m so sorry. Aku ga bermaksud untuk mutus silaturahim, but i need to take my own time dan fokus ke diri sendiri.",
                 "Tapi, kalau ada hal penting or feedback yang pengen lu sampein, u can send it to my email at karuniashavira@gmail.com.",
                 "Thanks for everything, and i truly wish the best for both of us."
             ]
