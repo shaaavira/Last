@@ -191,7 +191,10 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
-            margin: 15px 0;
+            margin: 10px 0;
+            max-height: 640px;
+            overflow-y: auto;
+            padding-right: 4px;
         }
 
         .menu-item-card {
@@ -282,7 +285,7 @@
             gap: 10px;
         }
 
-        /* Slides Container */
+        /* Slides Container dengan Efek Fade Lembut */
         .slides-container {
             display: flex;
             position: relative;
@@ -480,7 +483,7 @@
         <!-- 3. Reader Screen (Slides) -->
         <div class="box-container hidden" id="mainCard">
             <div class="card-header">
-                <span class="card-brand" id="cardBrandTitle">🌸 The Beginning</span>
+                <span class="card-brand" id="cardBrandTitle">🍯 The Beginning</span>
                 <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 600; color: #8c6d59;">1 / 15</span>
             </div>
 
@@ -542,8 +545,8 @@
     <!-- YouTube IFrame API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Falling Flowers generator strictly using 💮 🌸 🌼 🍁
-        const flowers = ['💮', '🌸', '🌼', '🍁'];
+        // Falling Flowers generator
+        const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
         const container = document.getElementById('falling-container');
         for (let i = 0; i < 6; i++) {
             const span = document.createElement('div');
@@ -638,7 +641,6 @@
             container.innerHTML = '';
             
             let completedCount = 0;
-            const chapterIcons = ['🌸', '🌼', '🌷', '🕊️'];
 
             for (let id = 1; id <= 4; id++) {
                 const quest = questStatus[id];
@@ -663,7 +665,7 @@
                 itemCard.className = cardClass;
                 itemCard.innerHTML = `
                     <div class="menu-item-info">
-                        <h3>${chapterIcons[id-1]} Chapter ${id}: ${quest.title} ${badgeHtml}</h3>
+                        <h3>Chapter ${id}: ${quest.title} ${badgeHtml}</h3>
                     </div>
                     <div class="menu-item-action">${actionText}</div>
                 `;
@@ -703,7 +705,7 @@
             }, 300);
         }
 
-        // Chapters Content Data (4 Chapters)
+        // Chapters Content Data (4 Chapters updated)
         const sectionsData = {
             1: [
                 "Hai Li, sebelum kita ada di titik ini, seperti yang lu tau... gua pernah ngerasa nyaman dan kagum sama lu.",
@@ -779,8 +781,7 @@
             const data = sectionsData[sectionId];
             totalSlides = data.length;
 
-            const icons = ['🌸', '🌼', '🌷', '🕊️'];
-            cardBrandTitle.innerText = `${icons[sectionId - 1]} ${questStatus[sectionId].title}`;
+            cardBrandTitle.innerText = `🍯 ${questStatus[sectionId].title}`;
 
             slidesWrapper.innerHTML = '';
             data.forEach((text, index) => {
