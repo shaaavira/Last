@@ -22,7 +22,14 @@
             background-attachment: fixed;
             color: #5c4033;
             font-size: 22px;
+            transition: background 0.6s ease;
         }
+
+        /* Variasi Background Body Berdasarkan Chapter */
+        body.theme-1 { background: linear-gradient(135deg, #fff7d6 0%, #ffe3c4 50%, #ffd1df 100%); }
+        body.theme-2 { background: linear-gradient(135deg, #fff1d0 0%, #ffccb3 50%, #ffb3c6 100%); }
+        body.theme-3 { background: linear-gradient(135deg, #faebd7 0%, #f7d1ba 50%, #f3b0c3 100%); }
+        body.theme-4 { background: linear-gradient(135deg, #fceade 0%, #e8d0df 50%, #d4b8d6 100%); }
 
         body {
             display: flex;
@@ -121,8 +128,14 @@
             min-height: 1180px;
             position: relative;
             transform-origin: center;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, border-color 0.4s ease;
         }
+
+        /* Variasi Bingkai Kontainer Berdasarkan Chapter */
+        .box-container.theme-1 { border-color: rgba(255, 209, 102, 0.8); }
+        .box-container.theme-2 { border-color: rgba(244, 162, 97, 0.8); }
+        .box-container.theme-3 { border-color: rgba(224, 122, 95, 0.8); }
+        .box-container.theme-4 { border-color: rgba(180, 130, 160, 0.8); }
 
         /* Animasi Tutup Buku */
         .box-container.closing-book {
@@ -190,14 +203,14 @@
         .menu-stack {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
             margin: 15px 0;
         }
 
         .menu-item-card {
             background: #ffffff;
             border: 3px solid rgba(255, 209, 102, 0.6);
-            padding: 24px 28px;
+            padding: 20px 24px;
             border-radius: 24px;
             cursor: pointer;
             display: flex;
@@ -224,7 +237,7 @@
 
         .menu-item-info h3 {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 600;
             color: #4a3b32;
             display: flex;
@@ -251,7 +264,7 @@
 
         .menu-item-action {
             font-family: 'Poppins', sans-serif;
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: #f4a261;
             font-weight: 600;
         }
@@ -282,7 +295,7 @@
             gap: 10px;
         }
 
-        /* Slides Container dengan Efek Fade Lembut */
+        /* Slides Container */
         .slides-container {
             display: flex;
             position: relative;
@@ -436,7 +449,7 @@
         }
     </style>
 </head>
-<body>
+<body class="theme-1">
 
     <div class="ambient-circle circle-1"></div>
     <div class="ambient-circle circle-2"></div>
@@ -445,7 +458,7 @@
 
     <div class="wrapper">
         <!-- 1. Cover Screen -->
-        <div class="box-container" id="coverScreen">
+        <div class="box-container theme-1" id="coverScreen">
             <div></div>
             <div class="cover-content">
                 <div class="cover-title">Notes on Closure</div>
@@ -459,7 +472,7 @@
         </div>
 
         <!-- 2. Menu / Quest Log Screen -->
-        <div class="box-container hidden" id="menuScreen">
+        <div class="box-container theme-1 hidden" id="menuScreen">
             <div>
                 <div class="menu-main-title">Pilih Sesi Catatan</div>
             </div>
@@ -468,7 +481,7 @@
             </div>
             <div>
                 <div style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 600; color: #a07865; text-align: center; margin-bottom: 18px;" id="questProgressText">
-                    Progress: 0 / 3 Chapter Selesai
+                    Progress: 0 / 4 Chapter Selesai
                 </div>
                 <div style="display: flex; gap: 10px;">
                     <button class="btn" onclick="backToCover()" style="flex: 1; border-radius: 50px;">← Kembali ke Cover</button>
@@ -478,9 +491,9 @@
         </div>
 
         <!-- 3. Reader Screen (Slides) -->
-        <div class="box-container hidden" id="mainCard">
+        <div class="box-container theme-1" id="mainCard" style="display:none;">
             <div class="card-header">
-                <span class="card-brand" id="cardBrandTitle">🍯 The Root Cause</span>
+                <span class="card-brand" id="cardBrandTitle">🌸 The Beginning</span>
                 <span id="slideCounterText" style="font-family: 'Poppins', sans-serif; font-size: 1.25rem; font-weight: 600; color: #8c6d59;">1 / 15</span>
             </div>
 
@@ -507,8 +520,8 @@
             </div>
         </div>
 
-        <!-- 4. Normal Quest Complete Screen (Untuk Chapter 1 & 2) -->
-        <div class="box-container hidden" id="questCompleteScreen">
+        <!-- 4. Normal Quest Complete Screen (Untuk Chapter 1, 2, & 3) -->
+        <div class="box-container theme-1 hidden" id="questCompleteScreen">
             <div></div>
             <div class="quest-complete-content">
                 <div class="cover-title" style="font-size: 5.5rem; margin-bottom: 20px;">Terima kasih</div>
@@ -521,8 +534,8 @@
             </div>
         </div>
 
-        <!-- 5. Grand Finale Screen (Khusus Penutup Chapter 3) -->
-        <div class="box-container hidden" id="grandFinaleScreen">
+        <!-- 5. Grand Finale Screen (Khusus Penutup Chapter 4) -->
+        <div class="box-container theme-4 hidden" id="grandFinaleScreen">
             <div></div>
             <div class="quest-complete-content">
                 <div class="cover-title" style="font-size: 5.5rem; margin-bottom: 15px;">The Final Chapter</div>
@@ -542,8 +555,8 @@
     <!-- YouTube IFrame API Script -->
     <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        // Falling Flowers generator
-        const flowers = ['🌸', '🌼', '🌷', '🌻', '💮'];
+        // Falling Flowers generator (Revisi: 💮🌸🌼🍁)
+        const flowers = ['💮', '🌸', '🌼', '🍁'];
         const container = document.getElementById('falling-container');
         for (let i = 0; i < 6; i++) {
             const span = document.createElement('div');
@@ -556,11 +569,12 @@
             container.appendChild(span);
         }
 
-        // Default Quest Status
+        // Default Quest Status (4 Chapters)
         let defaultQuestStatus = {
-            1: { completed: false, unlocked: true, title: "The Root Cause" },
-            2: { completed: false, unlocked: false, title: "How Runi Sees Ali" },
-            3: { completed: false, unlocked: false, title: "Last Message for Ali" }
+            1: { completed: false, unlocked: true, title: "The Beginning" },
+            2: { completed: false, unlocked: false, title: "The Root Cause" },
+            3: { completed: false, unlocked: false, title: "How Runi Sees Ali" },
+            4: { completed: false, unlocked: false, title: "Last Message for Ali" }
         };
 
         // Load Quest Status from localStorage if available
@@ -605,8 +619,17 @@
             });
         }
 
+        function applyTheme(themeNum) {
+            document.body.className = `theme-${themeNum}`;
+            const boxes = document.querySelectorAll('.box-container');
+            boxes.forEach(box => {
+                box.className = box.className.replace(/theme-\d/g, `theme-${themeNum}`);
+            });
+        }
+
         function goToMenu() {
             isAppStarted = true;
+            applyTheme(1);
             const cover = document.getElementById('coverScreen');
             cover.classList.add('closing-book');
             setTimeout(() => {
@@ -628,17 +651,20 @@
             setTimeout(() => {
                 menu.classList.add('hidden');
                 menu.classList.remove('closing-book');
+                applyTheme(1);
                 document.getElementById('coverScreen').classList.remove('hidden');
             }, 300);
         }
 
         function renderMenuList() {
+            applyTheme(1);
             const container = document.getElementById('menuListContainer');
             container.innerHTML = '';
             
             let completedCount = 0;
+            const chapterIcons = ['🌸', '🌼', '🌷', '🕊️'];
 
-            for (let id = 1; id <= 3; id++) {
+            for (let id = 1; id <= 4; id++) {
                 const quest = questStatus[id];
                 if (quest.completed) completedCount++;
 
@@ -661,7 +687,7 @@
                 itemCard.className = cardClass;
                 itemCard.innerHTML = `
                     <div class="menu-item-info">
-                        <h3>Chapter ${id}: ${quest.title} ${badgeHtml}</h3>
+                        <h3>${chapterIcons[id-1]} Chapter ${id}: ${quest.title} ${badgeHtml}</h3>
                     </div>
                     <div class="menu-item-action">${actionText}</div>
                 `;
@@ -675,7 +701,7 @@
                 container.appendChild(itemCard);
             }
 
-            document.getElementById('questProgressText').innerText = `Progress: ${completedCount} / 3 Chapter Selesai`;
+            document.getElementById('questProgressText').innerText = `Progress: ${completedCount} / 4 Chapter Selesai`;
         }
 
         function confirmBackToMenu() {
@@ -701,46 +727,55 @@
             }, 300);
         }
 
-        // Chapters Content Data
+        // Chapters Content Data (4 Chapters)
         const sectionsData = {
             1: [
-                "Hai Li, mungkin lu agak kaget nerima tulisan ini, tapi gua rasa ini cara yang paling clear buat nutup semuanya.",
+                "Hai Li, sebelum kita ada di titik ini, seperti yang lu tau... gua pernah ngerasa nyaman dan kagum sama lu.",
+                "U were so fun to talk to, had strong principles, and ur out of the box perspective always made me see things differently.",
+                "And i guess, all of that became the real reason why i fell for u.",
+                "I used to think that if i ever have kids one day, I'd want them to have a father just like u",
+                "Waktu itu, rasanya semua hal tentang lu keliatan begitu berarti, dan bagian dari diri gua sempat berharap kalau cerita kita bakal berjalan beda.",
+                "Tapi ya, hidup ga selalu sesuai sama apa yang kita mau.",
+                "Even now, part of me still appreciates those little things we shared. Hal-hal tulus itu yang bakal selalu gua ingat dari lu."
+            ],
+            2: [
+                "Mungkin lu agak kaget nerima tulisan ini, tapi gua rasa ini cara yang paling clear buat nutup semuanya.",
                 "Sebenarnya waktu gua tanya kenapa kita berantem mulu, gua udah tau jawabannya, Li.",
                 "Waktu itu sengaja gua jawab ga tau karena penasaran sama pov lu, dan ya menurut lu gua satu-satunya subjek masalah.",
                 "So, let me give u the actual picture of what was really happening.",
-                "Gua udah dari lama sadar, interaksi kita selama setengah tahun ini ga sejalan. Tiap ada masalah, reaksi kita selalu kontras.",
-                "Dimana lu tipikal orang yang lebih milih withdraw, mendem sendiri, atau ambil keputusan diem-diem dan itu yang buat gua nerima mixed signals.",
+                "Gua udah dari lama sadar, interaksi kita selama setengah tahun ini ga sejalan.",
+                "Gimana cara kita nyelesaiin masalah itu beda. Dimana lu tipikal orang yang lebih milih withdraw, mendem sendiri, atau ambil keputusan diem-diem dan itu yang buat gua nerima mixed signals.",
                 "Sementara gua tipe yang outspoken, maunya langsung dibahas, dikejar kejelasannya, dan diberesin saat itu juga dan itu yang buat lu ngerasa tertekan.",
-                "Not to mention, pas masuk ranah perasaan, kita juga saling tabrakan. Gua butuh transparansi, tapi lu lebih nyaman megang kendali sendiri.",
-                "Dari awal udah berasa ko Li dimana semakin gua buka diri seluas-luasnya, semakin tinggi juga boundary lu.",
-                "Alhasil kita sama-sama cape, gua cape nebak-nebak dan lu mungkin cape karena ngerasa ditekan.",
-                "Fun fact, kita berdua emang sama-sama egois. Lu punya prinsip sendiri, dan gua punya standar sendiri. Ujungnya kita cuma saling nyakitin.",
+                "Dari awal udah berasa ko Li, dimana semakin gua buka diri seluas-luasnya, semakin tinggi juga boundary lu.",
+                "Ya jadinya kita sama-sama cape, gua cape nebak-nebak dan lu mungkin cape karena ngerasa ditekan.",
+                "Fun fact, kita berdua sama egoisnya. Lu punya prinsip sendiri, dan gua punya standar sendiri. Ujungnya kita cuma saling nyakitin.",
                 "Intinya, masih banyak yang harus kita pelajarin. Semoga tulisan gua ini bisa bikin kita lebih kenal sama diri masing-masing. Sukses buat kedepannya."
             ],
-            2: [
-                "Ngomongin soal interaksi kita kemarin, ini murni cara gua melihat sosok lu selama setengah tahun kita bareng.",
-                "Pasti bakal beda sama cara lu memandang diri lu sendiri, tapi ini yang bener-bener gua tangkep dari how u carried yourself around me.",
+            3: [
+                "Ngomongin soal interaksi kita kemarin, ini murni cara gua melihat sosok lu selama setengah tahun kita berinteraksi.",
+                "Pasti bakal beda sama cara lu memandang diri lu sendiri, tapi ini yang bener-bener gua tangkep dari how you carried yourself around me.",
                 "Kalau lu mau, lu juga bebas banget buat ngasi feedback gimana gua selama ini.",
-                "Dimata gua lu punya prinsip kuat buat defend argumen lu yang jujur itu buat gua kagum. Seorang Ali dengan argumennya yang ga gampang goyah.",
+                "Di mata gua lu punya prinsip kuat buat defend argumen lu, dan kejujuran itu buat gua kagum. Seorang Ali dengan argumennya yang ga gampang goyah.",
                 "Deep down, gua tau niat lu emang tulus pengen jadi orang baik.",
                 "Walau sering bikin gua cape dan nguras energi banget, to be fair, lu partner debat paling seru.",
                 "Lu bisa ngasih perspective yang out of the box. Ada aja sudut pandang tak terduga dari lu yang ngebuka mata gua.",
-                "Di balik niat baik lu, lu kadang tetep egois sama keputusan yang lu ambil tanpa mikir perasaan gua, terkesan buat ngelindungin diri lu sendiri.",
-                "Lu tertutup banget sama kehidupan lu. I know, mungkin karena emang bukan gua orangnya, bukan gua yang lu pengen jadiin tempat cerita.",
-                "Lu sering ga tegas antara iya dan tidak. Seolah lu takut banget dibilang jahat, terkesan lempar batu sembunyi tangan, dan itu malah bikin gua dapet mixed signals yang bikin bingung.",
-                "Meskipun lu seru diajak diskusi, lu beberapa kali nunjukin sikap ga suka dikoreksi kalau lagi salah. Lu bahkan pernah bilang kalau gua lu ga perlu repot-repot ngasih masukan di saat gua liat sikap lu yang menurut gua kurang pas.",
-                "Semoga lu bisa grow into a better person, lebih berani jujur sama diri sendiri, dan tegas pas ngambil sikap, tanpa harus takut dicap jahat atau sengaja ngasih mixed signals.",
-                "Semoga ke depannya lu bisa lebih berani komunikasiin apa yang lu rasain secara langsung, ga nutup diri terus, dan ga ngerasa harus nyelesaiin semuanya sendirian.",
-                "Lastly, semoga lu makin open minded nerima masukan, cause debates and discussions bakal jauh lebih seru kalau lu ngasa lagi attacked.",
+                "Di sisi lain, gua ngerasa pola komunikasi kita sering bentrok. Hal itu yang sering bikin kita sama-sama salah paham.",
+                "Gua juga sempat ngerasa kesulitan pas lu milih buat tertutup atau kurang tegas dalam ngambil keputusan.",
+                "Mungkin karena emang bukan gua orangnya, bukan gua yang lu pengen jadiin tempat cerita.",
+                "Tapi justru bikin gua dapet mixed signals dan kebingungan sendiri.",
+                "Terus soal masukan, kadang lu ngerasa ga butuh atau ga nyaman dikoreksi.",
+                "Menurut gua, diskusi bakal jauh lebih enak kalau kita sama sama terbuka nerima input satu sama lain tanpa harus ngerasa diserang.",
+                "Semoga ke depannya lu bisa lebih berani komunikasiin apa yang lu rasain secara langsung, ga perlu ngerasa harus nyelesaiin semuanya sendirian, dan lebih nyaman nerima masukan dari orang lain.",
                 "Anyway, thanks for the chaos, the debates, and everything in between. Semoga whatever u pursue next, semuanya dimudahkan."
             ],
-            3: [
+            4: [
                 "Akhirnya kita sampai di tahap gua harus nulis pesan ini.",
                 "Thanks for the gift, and i'm glad we managed to exchange gifts. A bit late, but happy 24th birthday.",
-                "Through this message, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun ini.",
-                "Makasih udah dipersilakan pergi, jadi gua bisa pergi tanpa rasa bersalah dan ga perlu mikir buat balik lagi kayak sebelum-sebelumnya.",
+                "Oh, and i bought u that book u wanted to read (I really hope u haven't bought it yet, cause i had to wait quite a while to finally give it to u).",
+                "Lewat tulisan ini, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun.",
+                "Makasih udah dipersilakan pergi, jadi gua bisa pergi tanpa rasa bersalah dan ga perlu mikir buat balik lagi kayak sebelum sebelumnya.",
                 "My feelings for u are gone, dan di titik ini gua sadar kalau kita emang ga bisa berteman secara wajar tanpa terus-terusan saling nyakitin.",
-                "Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki, termasuk cara pandang gua yang sering kejebak di ego sendiri.",
+                "Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus memperbaiki diri, termasuk cara pandang gua yang sering kejebak di ego sendiri.",
                 "Lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, dan i need to learn buat mulai lihat dari pov orang lain.",
                 "At the end of the day, gua yakin kalau ikhlas itu jauh lebih indah.",
                 "If we're truly meant to cross paths again, we'll find our way back to each other.",
@@ -768,7 +803,10 @@
             const data = sectionsData[sectionId];
             totalSlides = data.length;
 
-            cardBrandTitle.innerText = `🍯 ${questStatus[sectionId].title}`;
+            applyTheme(sectionId);
+
+            const icons = ['🌸', '🌼', '🌷', '🕊️'];
+            cardBrandTitle.innerText = `${icons[sectionId - 1]} ${questStatus[sectionId].title}`;
 
             slidesWrapper.innerHTML = '';
             data.forEach((text, index) => {
@@ -797,7 +835,7 @@
             setTimeout(() => {
                 menu.classList.add('hidden');
                 menu.classList.remove('closing-book');
-                document.getElementById('mainCard').classList.remove('hidden');
+                document.getElementById('mainCard').style.display = 'flex';
                 updateSlideUI();
             }, 300);
         }
@@ -849,7 +887,7 @@
             if (currentSlide === totalSlides - 1) {
                 questStatus[currentSection].completed = true;
                 
-                if (currentSection < 3) {
+                if (currentSection < 4) {
                     questStatus[currentSection + 1].unlocked = true;
                 }
 
@@ -858,11 +896,13 @@
                 const mainCard = document.getElementById('mainCard');
                 mainCard.classList.add('closing-book');
                 setTimeout(() => {
-                    mainCard.classList.add('hidden');
+                    mainCard.style.display = 'none';
                     mainCard.classList.remove('closing-book');
-                    if (currentSection === 3) {
+                    if (currentSection === 4) {
+                        applyTheme(4);
                         document.getElementById('grandFinaleScreen').classList.remove('hidden');
                     } else {
+                        applyTheme(currentSection);
                         document.getElementById('questCompleteScreen').classList.remove('hidden');
                     }
                 }, 300);
