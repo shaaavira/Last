@@ -636,7 +636,8 @@
                 cover.classList.add('hidden');
                 cover.classList.remove('closing-book');
                 renderMenuList();
-                document.getElementById('menuScreen').classList.remove('hidden');
+                const menu = document.getElementById('menuScreen');
+                menu.classList.remove('hidden');
             }, 300);
 
             if (player && typeof player.playVideo === 'function') {
