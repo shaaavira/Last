@@ -73,7 +73,7 @@
             --stat-border: rgba(150, 130, 190, 0.4);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 
         html, body {
             width: 100%;
@@ -83,7 +83,20 @@
             background: var(--bg);
             background-attachment: fixed;
             color: var(--text);
+            touch-action: manipulation;
         }
+
+        /* tidak ada kotak/siluet biru saat diketuk: tanpa highlight sentuhan, tanpa seleksi teks, tanpa outline klik mouse */
+        .box-container, .ch-body, .btn, .menu-item-card, .polaroid, .vs-card, .stat, .chest, .env,
+        .line-stage, .line-card, .mode-seg button, .music-btn, .modal-card, svg, svg * {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+        svg, svg * { outline: none; }
+        :focus:not(:focus-visible) { outline: none; }
+        ::selection { background: transparent; }
+        .mail-link::selection { background: transparent; }
 
         body {
             display: flex;
@@ -637,57 +650,60 @@
         }
 
         /* =====================================================
-           CHAPTER 4: ilustrasi interaktif (versi pengalaman)
+           CHAPTER 4: ilustrasi interaktif
            ===================================================== */
         .line-art svg [data-tap] { cursor: pointer; }
         .line-art .boat-svg { width: 230px; touch-action: none; -webkit-touch-callout: none; user-select: none; -webkit-user-select: none; cursor: pointer; }
         .line-art .balloon-svg { width: 190px; cursor: pointer; }
-        .line-art .book-svg { width: 160px; cursor: pointer; }
+        .line-art .book-svg { width: 170px; cursor: pointer; }
         .line-art .cake-svg { width: 130px; cursor: pointer; }
 
-        /* -- Buku: sampul terbuka, halaman berbalik, cahaya terbit -- */
-        .bk-cover { transform-box: fill-box; transform-origin: left center; transition: transform 0.9s cubic-bezier(.3,.8,.3,1); }
-        .book-svg.out .bk-cover { transform: scaleX(-0.9); }
-        .pg { transform-box: fill-box; transform-origin: left center; }
-        .book-svg.out .pg { animation: pageFlip 0.7s ease-in-out forwards; }
-        .book-svg.out .pg.p1 { animation-delay: 0.55s; }
-        .book-svg.out .pg.p2 { animation-delay: 0.95s; }
-        .book-svg.out .pg.p3 { animation-delay: 1.35s; }
-        @keyframes pageFlip { from { transform: scaleX(1); } to { transform: scaleX(-0.85); } }
-        .book-svg .beam { opacity: 0; transition: opacity 2s ease 1.6s; }
-        .book-svg.out .beam { opacity: 1; animation: beamPulse 3.4s ease-in-out 3.6s infinite; }
-        @keyframes beamPulse { 0%, 100% { opacity: 0.75; } 50% { opacity: 1; } }
-        .book-svg .tapmsg { opacity: 0; transition: opacity 1.2s ease 2s; fill: #4a3550; font-size: 6.5px; }
+        /* -- Buku: sampul terbuka seperti sungguhan, halaman berbalik satu per satu -- */
+        .bk-all { transition: transform 1.5s cubic-bezier(0.45, 0, 0.2, 1); }
+        .book-svg.out .bk-all { transform: translateX(30px); }
+        .book-svg .bk-shadow { transform-box: fill-box; transform-origin: center; transition: transform 1.5s cubic-bezier(0.45, 0, 0.2, 1); }
+        .book-svg.out .bk-shadow { transform: scaleX(1.6); }
+        .bk-cover, .bk-skew, .pg { transform-box: fill-box; transform-origin: left center; }
+        .bk-inside { opacity: 0; }
+        .book-svg.out .bk-cover { animation: bkFlip 1.3s cubic-bezier(0.45, 0, 0.55, 1) forwards; }
+        .book-svg.out .bk-skew { animation: bkSkew 1.3s ease-in-out forwards; }
+        .book-svg.out .bk-front { animation: bkFaceHide 1.3s linear forwards; }
+        .book-svg.out .bk-inside { animation: bkFaceShow 1.3s linear forwards; }
+        @keyframes bkFlip { from { transform: scaleX(1); } to { transform: scaleX(-1); } }
+        @keyframes bkSkew { 0%, 100% { transform: skewY(0deg); } 50% { transform: skewY(-5deg); } }
+        @keyframes bkFaceHide { 0%, 49.9% { opacity: 1; } 50%, 100% { opacity: 0; } }
+        @keyframes bkFaceShow { 0%, 49.9% { opacity: 0; } 50%, 100% { opacity: 1; } }
+        .pg { opacity: 0; }
+        .book-svg.out .pg { animation: pgTurn 1.05s cubic-bezier(0.45, 0, 0.55, 1) forwards; }
+        .book-svg.out .pg.p1 { --end: -0.84; animation-delay: 0.8s; }
+        .book-svg.out .pg.p2 { --end: -0.9; animation-delay: 1.25s; }
+        .book-svg.out .pg.p3 { --end: -0.96; animation-delay: 1.7s; }
+        @keyframes pgTurn {
+            0%   { opacity: 1; transform: scaleX(1); }
+            100% { opacity: 1; transform: scaleX(var(--end)); }
+        }
+        .book-svg .tapmsg { opacity: 0; transition: opacity 1.4s ease 2.5s; fill: #4a3550; font-size: 6.5px; }
         .book-svg.out .tapmsg { opacity: 1; }
 
-        /* -- Perahu: tahan untuk melepas -- */
+        /* -- Perahu: tahan untuk melepas (tanpa cahaya, tenang) -- */
         .boat-svg .ring, .boat-svg .ring-bg { transition: opacity 0.8s ease; }
-        .boat-svg .lglow { opacity: 0.5; }
-        .boat-svg .boat { filter: drop-shadow(0 0 6px rgba(242,213,143,0.5)); }
         .boat-svg.holding .boat { animation-duration: 1.1s; }
         .boat-svg.out .ring, .boat-svg.out .ring-bg { opacity: 0; }
-        .boat-svg.out .boat { animation: boatSail 7s cubic-bezier(.35,.05,.6,1) forwards; }
-        .boat-svg.out .lglow { animation: glowAway 7s cubic-bezier(.35,.05,.6,1) forwards; }
+        .boat-svg.out .boat { animation: boatSail 7s cubic-bezier(0.35, 0.05, 0.6, 1) forwards; }
         @keyframes boatSail {
             0%   { transform: translateX(0) scale(1); opacity: 1; }
             85%  { opacity: 0.9; }
             100% { transform: translateX(125px) scale(0.4); opacity: 0; }
         }
-        @keyframes glowAway {
-            0%   { transform: translateX(0); opacity: 0.9; }
-            100% { transform: translateX(125px); opacity: 0; }
-        }
-        .boat-svg .rip { fill: none; stroke: rgba(242,213,143,0.7); stroke-width: 1.2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+        .boat-svg .rip { fill: none; stroke: rgba(255, 255, 255, 0.5); stroke-width: 1.2; opacity: 0; transform-box: fill-box; transform-origin: center; }
         .boat-svg.out .rip { animation: ripple 3.6s ease-out forwards; }
         .boat-svg.out .rip.r2 { animation-delay: 0.9s; }
         .boat-svg.out .rip.r3 { animation-delay: 1.8s; }
-        @keyframes ripple { 0% { transform: scale(0.2); opacity: 0.8; } 100% { transform: scale(3); opacity: 0; } }
-        .boat-svg .refl { opacity: 0; transition: opacity 3s ease 4s; }
-        .boat-svg.out .refl { opacity: 1; }
+        @keyframes ripple { 0% { transform: scale(0.2); opacity: 0.7; } 100% { transform: scale(3); opacity: 0; } }
         .boat-svg .waves2 { transform-box: fill-box; animation: waveDrift 5s ease-in-out infinite alternate; }
         @keyframes waveDrift { from { transform: translateX(-4px); } to { transform: translateX(4px); } }
 
-        /* -- Partikel & balon yang dilepas (di atas seluruh layar) -- */
+        /* -- Partikel cahaya (dipakai lilin saja) -- */
         .fx-p {
             position: fixed; z-index: 6; pointer-events: none; border-radius: 50%;
             width: var(--s, 5px); height: var(--s, 5px);
@@ -700,31 +716,31 @@
             15%  { opacity: 1; }
             100% { transform: translate(var(--dx), var(--dy)) scale(0.2); opacity: 0; }
         }
+
+        /* -- Balon: gambar yang sama persis dilepas dari tempatnya, naik mulus lalu memudar -- */
         .fx-balloon {
-            position: fixed; z-index: 6; width: 0; height: 0; pointer-events: none;
-            animation: fbRise 9s cubic-bezier(.3,.1,.5,1) forwards;
+            position: fixed; z-index: 6; pointer-events: none;
+            animation: fbRise 4.2s cubic-bezier(0.4, 0, 0.45, 1) forwards;
         }
-        .fb-in { position: absolute; left: -19px; top: -21px; width: 38px; height: 100px; transform-origin: 50% 21%; animation: fbSway 2.6s ease-in-out infinite alternate; }
-        .fb-in svg { display: block; overflow: visible; filter: drop-shadow(0 0 8px rgba(242,213,143,0.6)); }
-        @keyframes fbSway { from { transform: rotate(-9deg); } to { transform: rotate(9deg); } }
+        .fx-balloon svg {
+            display: block; width: 100%; height: 100%; overflow: visible;
+            transform-origin: 50% 40%; animation: fbSway 3s ease-in-out infinite;
+        }
+        @keyframes fbSway {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(4deg); }
+            75% { transform: rotate(-4deg); }
+        }
         @keyframes fbRise {
             0%   { transform: translate(0, 0) scale(1); opacity: 1; }
-            70%  { opacity: 1; }
-            100% { transform: translate(var(--drift), var(--rise)) scale(0.4); opacity: 0; }
+            65%  { opacity: 1; }
+            100% { transform: translate(var(--drift), var(--rise)) scale(0.6); opacity: 0; }
         }
-        .fx-star {
-            position: fixed; z-index: 3; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%;
-            pointer-events: none; background: #fff6d6;
-            box-shadow: 0 0 10px 4px rgba(255,236,170,0.8), 0 0 28px 10px rgba(255,220,140,0.35);
-            opacity: 0; animation: starBorn 3s ease forwards, starTw 2.8s ease-in-out 3s infinite;
-        }
-        @keyframes starBorn { 0% { opacity: 0; transform: scale(0.2); } 60% { opacity: 1; transform: scale(1.8); } 100% { opacity: 1; transform: scale(1); } }
-        @keyframes starTw { 0%, 100% { opacity: 0.55; transform: scale(0.85); } 50% { opacity: 1; transform: scale(1.15); } }
 
         /* redup lembut saat melepas perahu */
         html.release-dim body::before { opacity: 0.4; }
 
-        /* harapan: kartu surat menyala sebentar */
+        /* harapan: kartu surat menyala sebentar (hanya lilin) */
         .line-card.wishglow { animation: wishGlow 3s ease both; }
         @keyframes wishGlow {
             0%, 100% { box-shadow: 0 0 30px rgba(150,120,230,0.38), 0 10px 28px rgba(0,0,0,0.4); }
@@ -779,12 +795,20 @@
             50% { box-shadow: 0 0 0 1px rgba(var(--glow), 0.7), 0 0 22px 5px rgba(var(--glow), 0.6); }
         }
 
-        /* --- Chapter 4: petunjuk ketuk di atas gambar --- */
+        /* --- Chapter 4: petunjuk ketuk di atas gambar (tinggi tetap supaya layout tidak melompat) --- */
         .art-hint {
             text-align: center; font-size: 0.85rem; font-weight: 600; color: var(--muted);
+            min-height: 2.1rem; display: flex; align-items: center; justify-content: center;
             animation: pulse 1.8s ease-in-out infinite;
         }
         .art-hint:empty { display: none; }
+        .art-hint.gone { animation: hintOut 0.6s ease forwards; }
+        @keyframes hintOut { from { opacity: 0.8; } to { opacity: 0; } }
+        .art-hint.wish {
+            font-family: 'Pinyon Script', cursive; font-weight: 400; font-size: 1.7rem; line-height: 1.2;
+            color: #f6dc9c; animation: wishIn 2.2s ease both;
+        }
+        @keyframes wishIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
         /* --- Chapter 4: kertas ungu tua yang menyala, nyambung dengan langit --- */
         html[data-theme="4"] .line-card {
@@ -813,6 +837,7 @@
         }
         html[data-theme="4"] .line-card.key .line-text { color: #f6dc9c; font-weight: 600; }
         html[data-theme="4"] .line-card .art-hint { color: #d9c9f0; }
+        html[data-theme="4"] .line-card .art-hint.wish { color: #f6dc9c; }
 
         /* =====================================================
            BUBBLE CHAT CHAPTER 2 (tampilan seperti aplikasi chat)
@@ -1107,7 +1132,7 @@
                 <div class="closing-quote">"Some chapters are meant to be read once, closed gently, and put back on the shelf without ever needing to be reopened"</div>
             </div>
             <div id="finaleActions">
-                <button class="btn" onclick="downloadNotes()" style="width: 100%; margin-bottom: 10px; padding: 12px; font-size: 0.9rem;">Simpan semua catatan (.txt)</button>
+                <button class="btn" onclick="downloadNotes()" style="width: 100%; margin-bottom: 10px; padding: 12px; font-size: 0.9rem;">Simpan semua catatan (PDF)</button>
                 <button class="btn btn-primary" onclick="returnToMenuFromComplete()">Tutup Buku &amp; Kembali ke Menu</button>
             </div>
         </div>
@@ -1322,7 +1347,7 @@
             document.documentElement.classList.toggle('key-dim', !!(on && IS_IOS && mode === 'anim'));
         }
 
-        /* partikel cahaya yang beterbangan (dipakai interaksi chapter 4) */
+        /* partikel cahaya yang beterbangan (dipakai lilin di chapter 4) */
         function emit(x, y, n, o) {
             o = o || {};
             const cols = o.colors || ['#f2d58f', '#ffe9b8', '#f6dc9c', '#ffd9a0'];
@@ -1666,27 +1691,300 @@
             arr[i] = t + '.';
         }));
 
-        /* ---------- Simpan semua catatan sebagai file teks ---------- */
-        function downloadNotes() {
-            const parts = [];
-            for (let id = 1; id <= 4; id++) {
-                const lines = sectionsData[id].map(t => t.replace(/<br\s*\/?>/g, ' '));
-                parts.push(`Chapter ${id}: ${defaultQuestStatus[id].title}\n\n${lines.join('\n\n')}`);
+        /* =====================================================
+           SIMPAN SEMUA CATATAN SEBAGAI PDF
+           Tiap halaman digambar di canvas (font & warna sama dengan situs),
+           lalu dirangkai jadi file PDF langsung di browser, tanpa library.
+           Ukuran A5, satu chapter per halaman baru, alamat email bisa diketuk.
+           ===================================================== */
+        const PDF = { W: 420, H: 595, S: 3, ML: 56 };
+        const PDF_BODY = 'Poppins, "Helvetica Neue", Arial, sans-serif';
+        const PDF_SCRIPT = '"Pinyon Script", "Snell Roundhand", cursive';
+        const PDF_THEMES = {
+            0: { stops: ['#fff4d6', '#ffe4cc', '#ffd2de'], accent: '#c4623f', text: '#4a3b32', muted: '#8a6552' },
+            1: { stops: ['#fff8ea', '#ffeedd', '#ffe4e4'], accent: '#c4623f', text: '#4a3b32', muted: '#8a6552' },
+            2: { stops: ['#f4f9ee', '#e8f1e0', '#dce9d5'], accent: '#4a7048', text: '#2f3d2c', muted: '#587254' },
+            3: { stops: ['#f5f7fe', '#e9ecfa', '#dde0f4'], accent: '#4f5d9c', text: '#2f3250', muted: '#62679a' },
+            4: { stops: ['#f8f3fb', '#efe6f6', '#e4d9f0'], accent: '#7a5799', text: '#3a2f48', muted: '#7d6a92' }
+        };
+
+        function pdfRR(c, x, y, w, h, r) {
+            c.beginPath();
+            c.moveTo(x + r, y);
+            c.arcTo(x + w, y, x + w, y + h, r);
+            c.arcTo(x + w, y + h, x, y + h, r);
+            c.arcTo(x, y + h, x, y, r);
+            c.arcTo(x, y, x + w, y, r);
+            c.closePath();
+        }
+
+        function pdfNewPage(t) {
+            const cv = document.createElement('canvas');
+            cv.width = PDF.W * PDF.S; cv.height = PDF.H * PDF.S;
+            const c = cv.getContext('2d');
+            c.scale(PDF.S, PDF.S);
+            const g = c.createLinearGradient(0, 0, PDF.W, PDF.H);
+            t.stops.forEach((col, i) => g.addColorStop(i / (t.stops.length - 1), col));
+            c.fillStyle = g; c.fillRect(0, 0, PDF.W, PDF.H);
+            c.strokeStyle = t.accent;
+            c.globalAlpha = 0.4; c.lineWidth = 1.2; pdfRR(c, 16, 16, PDF.W - 32, PDF.H - 32, 14); c.stroke();
+            c.globalAlpha = 0.25; c.lineWidth = 0.8; c.setLineDash([3, 3]); pdfRR(c, 24, 24, PDF.W - 48, PDF.H - 48, 9); c.stroke();
+            c.setLineDash([]); c.globalAlpha = 1;
+            return { cv, c, t, links: [], numbered: false };
+        }
+
+        /* teks dengan jarak antar huruf, rata tengah */
+        function pdfSpaced(c, text, cx, y, sp) {
+            const chars = [...text];
+            const ws = chars.map(ch => c.measureText(ch).width);
+            const total = ws.reduce((a, b) => a + b, 0) + sp * (chars.length - 1);
+            let x = cx - total / 2;
+            c.textAlign = 'left';
+            chars.forEach((ch, i) => { c.fillText(ch, x, y); x += ws[i] + sp; });
+        }
+
+        function pdfFitScript(c, text, size, maxW) {
+            let s = size;
+            c.font = `400 ${s}px ${PDF_SCRIPT}`;
+            while (c.measureText(text).width > maxW && s > 20) { s -= 2; c.font = `400 ${s}px ${PDF_SCRIPT}`; }
+            return s;
+        }
+
+        function pdfDrawBee(c, x, y, s) {
+            c.save(); c.translate(x, y); c.scale(s, s);
+            c.fillStyle = 'rgba(255,255,255,0.92)'; c.strokeStyle = 'rgba(160,120,101,0.4)'; c.lineWidth = 0.6;
+            [[-2, -5], [3, -5]].forEach(([cx, cy]) => { c.beginPath(); c.ellipse(cx, cy, 4.5, 3.3, 0, 0, Math.PI * 2); c.fill(); c.stroke(); });
+            c.fillStyle = '#f2c36b'; c.beginPath(); c.ellipse(0, 0, 8, 5.6, 0, 0, Math.PI * 2); c.fill();
+            c.strokeStyle = '#4a3550'; c.lineWidth = 2; c.beginPath();
+            c.moveTo(-2.4, -5.2); c.lineTo(-2.4, 5.2); c.moveTo(3.2, -4.6); c.lineTo(3.2, 4.6); c.stroke();
+            c.fillStyle = '#4a3550'; c.beginPath(); c.arc(-6.2, -1, 1.1, 0, Math.PI * 2); c.fill();
+            c.restore();
+        }
+
+        /* memecah teks jadi baris-baris per kata */
+        function pdfLayout(c, text, maxW, font) {
+            c.font = font;
+            const words = text.replace(/<br\s*\/?>/g, ' ').split(/\s+/).filter(Boolean);
+            const sp = c.measureText(' ').width;
+            const lines = [];
+            let line = [], w = 0;
+            words.forEach(wd => {
+                const ww = c.measureText(wd).width;
+                if (line.length && w + sp + ww > maxW) { lines.push({ words: line, w, sp }); line = []; w = 0; }
+                w += (line.length ? sp : 0) + ww;
+                line.push({ t: wd, w: ww });
+            });
+            if (line.length) lines.push({ words: line, w, sp });
+            return lines;
+        }
+
+        function pdfJpeg(cv) {
+            const bin = atob(cv.toDataURL('image/jpeg', 0.92).split(',')[1]);
+            const u = new Uint8Array(bin.length);
+            for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+            return u;
+        }
+
+        function buildPdfPages() {
+            const P = PDF, TOP = 78, BOTTOM = P.H - 66, TW = P.W - P.ML * 2;
+            const mctx = document.createElement('canvas').getContext('2d');
+            const out = [];
+            let cur = null, y = 0, chap = null;
+
+            function finish() {
+                if (!cur) return;
+                const { c, t, cv } = cur;
+                if (cur.numbered) {
+                    c.fillStyle = t.muted; c.font = `500 8.5px ${PDF_BODY}`; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+                    c.fillText(String(out.length + 1), P.W / 2, P.H - 36);
+                    c.strokeStyle = t.accent; c.globalAlpha = 0.4; c.lineWidth = 0.8; c.beginPath();
+                    c.moveTo(P.W / 2 - 30, P.H - 39); c.lineTo(P.W / 2 - 14, P.H - 39);
+                    c.moveTo(P.W / 2 + 14, P.H - 39); c.lineTo(P.W / 2 + 30, P.H - 39);
+                    c.stroke(); c.globalAlpha = 1;
+                }
+                out.push({ jpg: pdfJpeg(cv), w: cv.width, h: cv.height, links: cur.links });
+                cv.width = 0; cv.height = 0;
+                cur = null;
             }
-            const txt = 'Notes on Closure\n\n' + parts.join('\n\n———\n\n') + '\n\n— Runi\n';
+
+            function ensure(h) {
+                if (y + h <= BOTTOM) return;
+                finish();
+                const t = PDF_THEMES[chap.id];
+                cur = pdfNewPage(t); cur.numbered = true;
+                const c = cur.c;
+                c.fillStyle = t.muted; c.font = `500 8px ${PDF_BODY}`; c.textAlign = 'center'; c.textBaseline = 'alphabetic';
+                c.fillText(`Chapter ${chap.id}  ·  ${chap.title}`, P.W / 2, 52);
+                y = TOP;
+            }
+
+            function drawLine(L, x0, base, fs, align, font, color) {
+                const c = cur.c, t = cur.t;
+                let x = align === 'center' ? (P.W - L.w) / 2 : x0;
+                c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.font = font;
+                L.words.forEach(wd => {
+                    const mail = /\S+@\S+\.\S+/.test(wd.t);
+                    c.fillStyle = mail ? t.accent : color;
+                    c.fillText(wd.t, x, base);
+                    if (mail) {
+                        c.strokeStyle = t.accent; c.lineWidth = 0.7; c.beginPath();
+                        c.moveTo(x, base + 2); c.lineTo(x + wd.w, base + 2); c.stroke();
+                        cur.links.push({
+                            x1: x, x2: x + wd.w, y1: P.H - (base + fs * 0.3), y2: P.H - (base - fs),
+                            uri: 'mailto:' + wd.t.replace(/[.,;:!?]+$/, '')
+                        });
+                    }
+                    x += wd.w + L.sp;
+                });
+            }
+
+            function para(text, key) {
+                const t = cur.t;
+                const fs = key ? 12.5 : 10.5, lh = key ? 22 : 18.5;
+                const font = `${key ? 500 : 400} ${fs}px ${PDF_BODY}`;
+                const lines = pdfLayout(mctx, text, key ? 270 : TW, font);
+                const keep = key || lines.length <= 5;
+                if (keep) ensure((key ? 24 : 0) + lines.length * lh);
+                if (key) {
+                    const c = cur.c;
+                    y += 6;
+                    c.strokeStyle = t.accent; c.globalAlpha = 0.55; c.lineWidth = 1; c.beginPath();
+                    c.moveTo(P.W / 2 - 14, y + 4); c.lineTo(P.W / 2 + 14, y + 4); c.stroke(); c.globalAlpha = 1;
+                    y += 18;
+                }
+                lines.forEach(L => {
+                    if (!keep) ensure(lh);
+                    const tt = cur.t;
+                    drawLine(L, P.ML, y + lh * 0.72, fs, key ? 'center' : 'left', font, key ? tt.accent : tt.text);
+                    y += lh;
+                });
+                y += key ? 22 : 12;
+            }
+
+            /* --- sampul --- */
+            (function cover() {
+                const t = PDF_THEMES[0];
+                cur = pdfNewPage(t);
+                const c = cur.c;
+                pdfDrawBee(c, P.W / 2, 150, 3);
+                c.textAlign = 'center'; c.textBaseline = 'alphabetic'; c.fillStyle = t.text;
+                const s1 = pdfFitScript(c, 'Notes on', 62, 300);
+                c.font = `400 ${s1}px ${PDF_SCRIPT}`; c.fillText('Notes on', P.W / 2, 255);
+                c.font = `400 ${s1}px ${PDF_SCRIPT}`; c.fillText('Closure', P.W / 2, 315);
+                c.strokeStyle = t.accent; c.globalAlpha = 0.55; c.lineWidth = 1; c.beginPath();
+                c.moveTo(P.W / 2 - 34, 342); c.lineTo(P.W / 2 + 34, 342); c.stroke(); c.globalAlpha = 1;
+                const subFont = `400 11px ${PDF_BODY}`;
+                const sub = pdfLayout(mctx, "Written because some things need to be said out loud, even if it's the last time we ever talk", 250, subFont);
+                sub.forEach((L, i) => drawLine(L, 0, 372 + i * 18, 11, 'center', subFont, t.muted));
+                c.fillStyle = t.accent; c.font = `400 34px ${PDF_SCRIPT}`; c.textAlign = 'center';
+                c.fillText('Untuk Ali', P.W / 2, 505);
+                c.fillStyle = t.muted; c.font = `600 8.5px ${PDF_BODY}`;
+                pdfSpaced(c, 'DARI RUNI', P.W / 2, 530, 3);
+                finish();
+            })();
+
+            /* --- 4 chapter --- */
+            for (let id = 1; id <= 4; id++) {
+                const t = PDF_THEMES[id];
+                chap = { id, title: defaultQuestStatus[id].title };
+                cur = pdfNewPage(t); cur.numbered = true;
+                const c = cur.c;
+                c.textBaseline = 'alphabetic';
+                c.fillStyle = t.muted; c.font = `600 8.5px ${PDF_BODY}`;
+                pdfSpaced(c, 'CHAPTER ' + id, P.W / 2, 92, 3);
+                const size = pdfFitScript(c, chap.title, 40, 290);
+                c.fillStyle = t.accent; c.font = `400 ${size}px ${PDF_SCRIPT}`; c.textAlign = 'center';
+                c.fillText(chap.title, P.W / 2, 140);
+                c.strokeStyle = t.accent; c.globalAlpha = 0.55; c.lineWidth = 1; c.beginPath();
+                c.moveTo(P.W / 2 - 34, 160); c.lineTo(P.W / 2 + 34, 160); c.stroke(); c.globalAlpha = 1;
+                y = 196;
+                const keys = PLAIN_KEYS[id] || [];
+                sectionsData[id].forEach((txt, i) => para(txt, keys.includes(i)));
+                if (id === 4) {
+                    ensure(56);
+                    const cc = cur.c, tt = cur.t;
+                    y += 4;
+                    pdfDrawBee(cc, P.ML + 14, y + 24, 1.3);
+                    cc.fillStyle = tt.accent; cc.font = `400 30px ${PDF_SCRIPT}`; cc.textAlign = 'right';
+                    cc.fillText('— Runi', P.W - P.ML, y + 32);
+                    y += 50;
+                }
+                finish();
+            }
+            return out;
+        }
+
+        /* menulis file PDF (tiap halaman = satu gambar JPEG + tautan email) */
+        function pdfBlob(pages) {
+            const enc = new TextEncoder();
+            const chunks = [], xref = [];
+            let off = 0;
+            const push = d => { const b = typeof d === 'string' ? enc.encode(d) : d; chunks.push(b); off += b.length; };
+            const addObj = (id, dict, stream) => {
+                xref[id] = off;
+                push(`${id} 0 obj\n${dict}\n`);
+                if (stream) { push('stream\n'); push(stream); push('\nendstream\n'); }
+                push('endobj\n');
+            };
+
+            let next = 3;
+            const ids = pages.map(p => ({ page: next++, content: next++, img: next++, annots: p.links.map(() => next++) }));
+            const infoId = next++;
+
+            push(new Uint8Array([0x25, 0x50, 0x44, 0x46, 0x2d, 0x31, 0x2e, 0x34, 0x0a, 0x25, 0xe2, 0xe3, 0xcf, 0xd3, 0x0a]));
+            addObj(1, '<< /Type /Catalog /Pages 2 0 R >>');
+            addObj(2, `<< /Type /Pages /Kids [${ids.map(o => o.page + ' 0 R').join(' ')}] /Count ${pages.length} >>`);
+
+            pages.forEach((p, i) => {
+                const o = ids[i];
+                const annots = o.annots.length ? ` /Annots [${o.annots.map(a => a + ' 0 R').join(' ')}]` : '';
+                addObj(o.page, `<< /Type /Page /Parent 2 0 R /MediaBox [0 0 ${PDF.W} ${PDF.H}] /Resources << /XObject << /Im0 ${o.img} 0 R >> >> /Contents ${o.content} 0 R${annots} >>`);
+                const cs = enc.encode(`q ${PDF.W} 0 0 ${PDF.H} 0 0 cm /Im0 Do Q`);
+                addObj(o.content, `<< /Length ${cs.length} >>`, cs);
+                addObj(o.img, `<< /Type /XObject /Subtype /Image /Width ${p.w} /Height ${p.h} /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length ${p.jpg.length} >>`, p.jpg);
+                p.links.forEach((l, k) => {
+                    addObj(o.annots[k], `<< /Type /Annot /Subtype /Link /Rect [${l.x1.toFixed(2)} ${l.y1.toFixed(2)} ${l.x2.toFixed(2)} ${l.y2.toFixed(2)}] /Border [0 0 0] /A << /S /URI /URI (${l.uri}) >> >>`);
+                });
+            });
+            addObj(infoId, '<< /Title (Notes on Closure) /Creator (Notes on Closure) >>');
+
+            const xrefAt = off;
+            let x = `xref\n0 ${next}\n0000000000 65535 f \n`;
+            for (let i = 1; i < next; i++) x += String(xref[i]).padStart(10, '0') + ' 00000 n \n';
+            push(x);
+            push(`trailer\n<< /Size ${next} /Root 1 0 R /Info ${infoId} 0 R >>\nstartxref\n${xrefAt}\n%%EOF\n`);
+            return new Blob(chunks, { type: 'application/pdf' });
+        }
+
+        let pdfBusy = false;
+        async function downloadNotes() {
+            if (pdfBusy) return;
+            pdfBusy = true;
+            showToast('Menyiapkan PDF…');
             try {
-                const blob = new Blob([txt], { type: 'text/plain;charset=utf-8' });
+                if (document.fonts && document.fonts.load) {
+                    const loads = Promise.all([
+                        document.fonts.load('400 20px Poppins'), document.fonts.load('500 20px Poppins'),
+                        document.fonts.load('600 20px Poppins'), document.fonts.load('400 20px "Pinyon Script"')
+                    ]);
+                    await Promise.race([loads, new Promise(r => setTimeout(r, 3000))]);
+                }
+            } catch (e) {}
+            try {
+                const blob = pdfBlob(buildPdfPages());
                 const url = URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'notes-on-closure.txt';
+                a.download = 'notes-on-closure.pdf';
                 document.body.appendChild(a);
                 a.click();
                 a.remove();
-                setTimeout(() => URL.revokeObjectURL(url), 1500);
+                setTimeout(() => URL.revokeObjectURL(url), 4000);
+                showToast('PDF siap ✓');
             } catch (e) {
                 showToast('Belum bisa menyimpan, coba lagi ya');
             }
+            pdfBusy = false;
         }
 
         /* ---------- Buka chapter ---------- */
@@ -2186,11 +2484,12 @@
 
         /* =====================================================
            CHAPTER 4: Amplop & surat
-           Ilustrasi interaktif dibuat sebagai "pengalaman":
-             kalimat 2  : kue  -> tiup lilin, harapan terbang jadi cahaya
-             kalimat 3  : buku -> sampul terbuka, halaman berbalik, cahaya terbit
-             kalimat 9  : perahu -> TAHAN untuk melepaskan, berlayar pergi, riak air & bintang
-             kalimat 11 : balon -> dilepas, naik melintasi layar, berubah jadi bintang
+           Ilustrasi interaktif:
+             kalimat 2  : kue    -> tiup lilin, api jadi cahaya, muncul "Make a wish"
+             kalimat 3  : buku   -> sampul terbuka mulus, halaman berbalik satu per satu
+             kalimat 9  : perahu -> TAHAN untuk melepaskan, berlayar pergi dengan tenang
+             kalimat 11 : balon  -> dilepas dari tempatnya, naik pelan lalu memudar
+           Hanya lilin yang bercahaya; yang lain dibuat tenang.
            ===================================================== */
         chapters[4] = function () {
             const d = sectionsData[4], n = d.length;
@@ -2208,52 +2507,42 @@
                         <rect x="30" y="10" width="60" height="70" fill="transparent"/>
                     </svg>`,
                 2: `<svg viewBox="0 0 120 90" class="book-svg">
-                        <defs>
-                            <linearGradient id="bm" x1="0" y1="1" x2="0" y2="0">
-                                <stop offset="0" stop-color="#ffe7a8" stop-opacity="0.65"/>
-                                <stop offset="1" stop-color="#ffe7a8" stop-opacity="0"/>
-                            </linearGradient>
-                        </defs>
-                        <polygon class="beam" points="36,30 84,30 118,-40 2,-40" fill="url(#bm)"/>
-                        <ellipse cx="60" cy="83" rx="36" ry="4" fill="rgba(0,0,0,0.18)"/>
-                        <rect x="30" y="28" width="60" height="52" rx="4" fill="#fffdf6"/>
-                        <text class="tapmsg" x="60" y="52" text-anchor="middle" font-weight="600" font-family="Poppins, sans-serif">Sisi Tergelap</text>
-                        <text class="tapmsg" x="60" y="62" text-anchor="middle" font-weight="600" font-family="Poppins, sans-serif">Surga</text>
-                        <rect class="pg p3" x="30" y="28" width="60" height="52" rx="3" fill="#f6edd8"/>
-                        <rect class="pg p2" x="30" y="28" width="60" height="52" rx="3" fill="#fbf3e0"/>
-                        <rect class="pg p1" x="30" y="28" width="60" height="52" rx="3" fill="#fffaf0"/>
-                        <g class="bk-cover">
-                            <rect x="30" y="28" width="60" height="52" rx="4" fill="#8fa5cf"/>
-                            <rect x="30" y="28" width="8" height="52" rx="3" fill="#6f87b5"/>
-                            <rect x="46" y="42" width="30" height="3" rx="1.5" fill="#f2e6c8"/>
-                            <rect x="46" y="50" width="22" height="3" rx="1.5" fill="#f2e6c8"/>
+                        <ellipse class="bk-shadow" cx="60" cy="83" rx="36" ry="4" fill="rgba(0,0,0,0.18)"/>
+                        <g class="bk-all">
+                            <rect x="30" y="28" width="60" height="52" rx="4" fill="#fffdf6"/>
+                            <text class="tapmsg" x="60" y="52" text-anchor="middle" font-weight="600" font-family="Poppins, sans-serif">Sisi Tergelap</text>
+                            <text class="tapmsg" x="60" y="62" text-anchor="middle" font-weight="600" font-family="Poppins, sans-serif">Surga</text>
+                            <g class="bk-cover"><g class="bk-skew">
+                                <g class="bk-front">
+                                    <rect x="30" y="28" width="60" height="52" rx="4" fill="#8fa5cf"/>
+                                    <rect x="30" y="28" width="8" height="52" rx="3" fill="#6f87b5"/>
+                                    <rect x="46" y="42" width="30" height="3" rx="1.5" fill="#f2e6c8"/>
+                                    <rect x="46" y="50" width="22" height="3" rx="1.5" fill="#f2e6c8"/>
+                                </g>
+                                <g class="bk-inside">
+                                    <rect x="30" y="28" width="60" height="52" rx="4" fill="#efe4c8"/>
+                                    <rect x="82" y="28" width="8" height="52" rx="3" fill="#e2d4b0"/>
+                                    <path d="M40 42 h34 M40 50 h28 M40 58 h32" stroke="#d9c9a0" stroke-width="1.4" stroke-linecap="round"/>
+                                </g>
+                            </g></g>
+                            <rect class="pg p3" x="30" y="28" width="60" height="52" rx="3" fill="#f6edd8" stroke="#e6dcc4" stroke-width="0.4"/>
+                            <rect class="pg p2" x="30" y="28" width="60" height="52" rx="3" fill="#fbf3e0" stroke="#e6dcc4" stroke-width="0.4"/>
+                            <rect class="pg p1" x="30" y="28" width="60" height="52" rx="3" fill="#fffaf0" stroke="#e6dcc4" stroke-width="0.4"/>
                         </g>
                     </svg>`,
                 8: `<svg viewBox="0 0 120 90" class="boat-svg">
-                        <defs>
-                            <radialGradient id="lg">
-                                <stop offset="0" stop-color="#ffe7a8" stop-opacity="0.95"/>
-                                <stop offset="1" stop-color="#ffe7a8" stop-opacity="0"/>
-                            </radialGradient>
-                        </defs>
-                        <circle class="ring-bg" cx="60" cy="48" r="34" fill="none" stroke="rgba(242,213,143,0.18)" stroke-width="2"/>
-                        <circle class="ring" cx="60" cy="48" r="34" fill="none" stroke="#f2d58f" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6" transform="rotate(-90 60 48)"/>
-                        <circle class="lglow" cx="60" cy="52" r="12" fill="url(#lg)"/>
+                        <circle class="ring-bg" cx="60" cy="48" r="34" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="2"/>
+                        <circle class="ring" cx="60" cy="48" r="34" fill="none" stroke="#d9c9f0" stroke-width="2.6" stroke-linecap="round" stroke-dasharray="213.6" stroke-dashoffset="213.6" transform="rotate(-90 60 48)"/>
                         <g class="boat">
                             <path d="M60 56 v-30 l24 30z" fill="#fffdf6"/>
-                            <path d="M60 56 v-30 l-18 30z" fill="#f2d58f"/>
-                            <path d="M30 56 h60 l-10 15 h-40z" fill="#fffdf6" stroke="#d9a94f" stroke-width="1.5" stroke-linejoin="round"/>
-                            <circle cx="60" cy="63" r="2.6" fill="#ffe7a8"/>
+                            <path d="M60 56 v-30 l-18 30z" fill="#e3d8f0"/>
+                            <path d="M30 56 h60 l-10 15 h-40z" fill="#fffdf6" stroke="#b9a6d6" stroke-width="1.5" stroke-linejoin="round"/>
+                            <circle cx="60" cy="63" r="2.6" fill="#d9c9f0"/>
                         </g>
                         <ellipse class="rip" cx="60" cy="74" rx="20" ry="3.5"/>
                         <ellipse class="rip r2" cx="60" cy="74" rx="20" ry="3.5"/>
                         <ellipse class="rip r3" cx="60" cy="74" rx="20" ry="3.5"/>
                         <path class="waves2" d="M6 74 q10 -7 20 0 t20 0 t20 0 t20 0 t20 0 t20 0" fill="none" stroke="#8fa5cf" stroke-width="2.5" stroke-linecap="round"/>
-                        <g class="refl" fill="#fff6d6">
-                            <circle class="twinkle" cx="28" cy="82" r="1.3"/>
-                            <circle class="twinkle" style="animation-delay:.7s" cx="60" cy="85" r="1.6"/>
-                            <circle class="twinkle" style="animation-delay:1.3s" cx="92" cy="81" r="1.2"/>
-                        </g>
                         <rect width="120" height="90" fill="transparent"/>
                     </svg>`,
                 10: `<svg viewBox="0 0 120 90" class="balloon-svg">
@@ -2271,9 +2560,21 @@
             const ART_HINTS = {
                 1: 'Ketuk lilinnya, lalu buat satu harapan 🕯️',
                 2: 'Ketuk bukunya untuk membukanya 📖',
-                8: 'Tahan perahunya... sampai ia siap berlayar 🤍',
+                8: 'Tahan perahunya... sampai ia siap berlayar',
                 10: 'Ketuk balonnya untuk melepasnya 🎈'
             };
+
+            /* petunjuk: tinggi tetap supaya layout tidak melompat saat teksnya berganti */
+            function artHint(t) {
+                const h = $('artHint');
+                if (!h) return;
+                h.className = 'art-hint';
+                h.textContent = t || '';
+            }
+            function fadeHint() {
+                const h = $('artHint');
+                if (h && h.textContent) h.classList.add('gone');
+            }
 
             /* ----- Aksi tiap ilustrasi ----- */
             function lineCardGlow() {
@@ -2283,13 +2584,15 @@
                 setTimeout(() => c.classList.remove('wishglow'), 3100);
             }
 
-            /* KUE: lilin padam, asap jadi cahaya yang naik jadi bintang */
+            /* KUE: lilin padam, api jadi cahaya, lalu muncul tulisan "Make a wish" di atas lilin */
             function actCake(svg) {
                 let done = false;
                 svg.addEventListener('click', () => {
                     if (done) return; done = true;
+                    const my = idx;
                     svg.classList.add('out');
                     buzz([20, 60, 20]);
+                    fadeHint();
                     const r = svg.getBoundingClientRect();
                     const cx = r.left + r.width * 0.5, cy = r.top + r.height * 0.28;
                     setTimeout(() => {
@@ -2298,29 +2601,31 @@
                         buzz(30);
                     }, 450);
                     setTimeout(() => emit(cx, cy, 12, { spread: 120, rise: 300, t: 3.6, size: 3, delay: 1.2, colors: ['#ffffff', '#ffe9b8'] }), 1300);
-                    $('artHint').textContent = '';
+                    setTimeout(() => {
+                        if (idx !== my) return;
+                        const h = $('artHint');
+                        if (!h) return;
+                        h.className = 'art-hint wish';
+                        h.textContent = 'Make a wish';
+                    }, 1200);
                 });
             }
 
-            /* BUKU: sampul terbuka, halaman berbalik satu-satu, cahaya terbit dari dalamnya */
+            /* BUKU: sampul terbuka mulus, halaman berbalik satu per satu (tanpa cahaya) */
             function actBook(svg) {
                 let done = false;
                 svg.addEventListener('click', () => {
                     if (done) return; done = true;
                     svg.classList.add('out');
-                    buzz([15, 70, 15, 70, 15]);
-                    const r = svg.getBoundingClientRect();
-                    const cx = r.left + r.width * 0.5, cy = r.top + r.height * 0.5;
-                    setTimeout(() => emit(cx, cy, 24, { spread: 150, rise: 210, t: 3.2, size: 3.6, delay: 1.2, jitter: 40 }), 1500);
-                    setTimeout(() => lineCardGlow(), 1700);
-                    $('artHint').textContent = '';
+                    buzz([15, 70, 15]);
+                    fadeHint();
                 });
             }
 
             /* PERAHU: tahan untuk melepaskan */
             function dimOn(on) { document.documentElement.classList.toggle('release-dim', !!on); }
             function actBoat(svg) {
-                const ring = svg.querySelector('.ring'), glow = svg.querySelector('.lglow');
+                const ring = svg.querySelector('.ring');
                 const L = 213.6, HOLD_MS = 2600;
                 let holding = false, done = false, t0 = 0, raf = 0, lastBuzz = 0, restoreT = null;
                 const baseHint = ART_HINTS[8];
@@ -2329,8 +2634,6 @@
                     if (!holding) return;
                     const p = Math.min(1, (now - t0) / HOLD_MS);
                     ring.style.strokeDashoffset = String(L * (1 - p));
-                    glow.setAttribute('r', String(12 + p * 24));
-                    glow.style.opacity = String(0.5 + p * 0.5);
                     if (now - lastBuzz > 420) { lastBuzz = now; buzz(8 + Math.round(p * 22)); }
                     if (p >= 1) { complete(); return; }
                     raf = requestAnimationFrame(frame);
@@ -2345,7 +2648,7 @@
                     svg.classList.add('holding');
                     dimOn(true);
                     fadeVolume(18, 2200);
-                    $('artHint').textContent = 'Tetap tahan... jangan dilepas dulu 🤍';
+                    artHint('Tetap tahan... jangan dilepas dulu');
                     raf = requestAnimationFrame(frame);
                 }
                 function cancel() {
@@ -2353,27 +2656,21 @@
                     holding = false; cancelAnimationFrame(raf);
                     ring.style.transition = 'stroke-dashoffset 0.9s ease';
                     ring.style.strokeDashoffset = String(L);
-                    glow.setAttribute('r', '12'); glow.style.opacity = '';
                     svg.classList.remove('holding');
                     dimOn(false);
                     fadeVolume(35, 1200);
-                    $('artHint').textContent = 'Belum... tahan sedikit lebih lama 🤍';
-                    restoreT = setTimeout(() => { if (!done) $('artHint').textContent = baseHint; }, 2600);
+                    artHint('Belum... tahan sedikit lebih lama');
+                    restoreT = setTimeout(() => { if (!done) artHint(baseHint); }, 2600);
                 }
                 function complete() {
                     done = true; holding = false;
                     svg.classList.remove('holding');
                     svg.classList.add('out');
-                    $('artHint').textContent = '';
+                    fadeHint();
                     buzz([40, 90, 40, 140, 70]);
-                    shoot();
                     fadeVolume(50, 6000);
-                    const r = svg.getBoundingClientRect();
-                    const bx = r.left + r.width * 0.5, by = r.top + r.height * 0.6;
-                    emit(bx, by, 22, { spread: 200, rise: 140, t: 2.4, size: 4, delay: 0.3, jitter: 30 });
-                    const t1 = setTimeout(() => emit(r.left + r.width * 0.75, by, 8, { spread: 90, rise: 70, t: 3, size: 3, delay: 2 }), 1800);
                     const t2 = setTimeout(() => { dimOn(false); }, 5200);
-                    fxTimers.add(t1); fxTimers.add(t2);
+                    fxTimers.add(t2);
                 }
                 svg.addEventListener('pointerdown', start);
                 svg.addEventListener('pointerup', cancel);
@@ -2382,53 +2679,39 @@
                 svg.addEventListener('contextmenu', e => e.preventDefault());
             }
 
-            /* BALON: dilepas, naik melintasi layar, jadi bintang */
+            /* BALON: gambar yang sama persis dilepas dari posisinya, naik pelan lalu memudar (tanpa cahaya) */
             function actBalloon(svg) {
                 let done = false;
                 svg.addEventListener('click', () => {
                     if (done) return; done = true;
                     const g = svg.querySelector('.balloon');
-                    const r = g.getBoundingClientRect();
-                    const sx = r.left + r.width / 2, sy = r.top + r.height * 0.42;
-                    g.style.transition = 'opacity 0.2s ease'; g.style.opacity = '0';
-                    $('artHint').textContent = '';
+                    const r = svg.getBoundingClientRect();
+                    const tf = getComputedStyle(g).transform;
+
+                    const clone = svg.cloneNode(true);
+                    clone.removeAttribute('class');
+                    clone.removeAttribute('style');
+                    const cg = clone.querySelector('.balloon');
+                    cg.style.animation = 'none';
+                    cg.style.transform = tf === 'none' ? '' : tf;
+
+                    const w = document.createElement('div');
+                    w.className = 'fx-balloon';
+                    w.style.left = r.left + 'px'; w.style.top = r.top + 'px';
+                    w.style.width = r.width + 'px'; w.style.height = r.height + 'px';
+                    w.style.setProperty('--rise', -Math.max(160, r.top + r.height * 0.3) + 'px');
+                    w.style.setProperty('--drift', (Math.random() < 0.5 ? -1 : 1) * (14 + Math.random() * 16) + 'px');
+                    w.appendChild(clone);
+                    document.body.appendChild(w);
+                    fxNodes.add(w);
+                    /* gambar asli disembunyikan di frame yang sama, jadi tidak ada lompatan */
+                    g.style.opacity = '0';
+                    fadeHint();
                     buzz([20, 60, 20]);
 
-                    const endY = Math.max(70, window.innerHeight * 0.13);
-                    const drift = (Math.random() < 0.5 ? -1 : 1) * (28 + Math.random() * 38);
-                    const b = document.createElement('div');
-                    b.className = 'fx-balloon';
-                    b.style.left = sx + 'px'; b.style.top = sy + 'px';
-                    b.style.setProperty('--rise', -(sy - endY) + 'px');
-                    b.style.setProperty('--drift', drift + 'px');
-                    b.innerHTML = `<div class="fb-in"><svg viewBox="0 0 38 100" width="38" height="100">
-                        <ellipse cx="19" cy="21" rx="17" ry="21" fill="#e8c27a"/>
-                        <ellipse cx="12" cy="13" rx="4.5" ry="7" fill="rgba(255,255,255,0.45)"/>
-                        <path d="M16 41 h6 l-3 5z" fill="#d9a94f"/>
-                        <path d="M19 46 q-6 10 0 20 q6 10 0 20 q-4 8 0 14" fill="none" stroke="#cdbfe0" stroke-width="1.5" stroke-linecap="round"/>
-                    </svg></div>`;
-                    document.body.appendChild(b);
-                    fxNodes.add(b);
-
-                    /* jejak cahaya di belakang balon */
-                    const trail = setInterval(() => {
-                        const q = b.getBoundingClientRect();
-                        emit(q.left, q.top + 26, 1, { spread: 22, rise: 34, t: 1.6, size: 3, delay: 0, jitter: 8 });
-                    }, 130);
-                    fxTimers.add(trail);
-
-                    b.addEventListener('animationend', e => {
-                        if (e.target !== b) return;
-                        clearInterval(trail); fxTimers.delete(trail);
-                        const ex = sx + drift;
-                        b.remove(); fxNodes.delete(b);
-                        const star = document.createElement('div');
-                        star.className = 'fx-star';
-                        star.style.left = ex + 'px'; star.style.top = endY + 'px';
-                        document.body.appendChild(star);
-                        fxNodes.add(star);
-                        emit(ex, endY, 14, { spread: 90, rise: 40, t: 2, size: 3, delay: 0.2, jitter: 4, colors: ['#ffffff', '#ffe9b8'] });
-                        buzz(25);
+                    w.addEventListener('animationend', e => {
+                        if (e.target !== w) return;
+                        w.remove(); fxNodes.delete(w);
                     });
                 });
             }
@@ -2500,7 +2783,7 @@
                 const art = $('lineArt');
                 art.innerHTML = ART4[idx] || '';
                 art.style.display = ART4[idx] ? '' : 'none';
-                $('artHint').textContent = ART_HINTS[idx] || '';
+                artHint(ART_HINTS[idx] || '');
                 const svg = art.querySelector('svg');
                 if (svg) {
                     /* ketukan di ilustrasi tidak boleh ikut memajukan kalimat */
