@@ -278,7 +278,8 @@
             display: inline-flex; align-items: center; justify-content: center;
             font-size: 1rem; line-height: 1; box-shadow: none;
         }
-        html.no-music .music-btn { display: none; }
+        /* file musik tidak ketemu: tombol tetap ada (tidak disembunyikan), hanya diredupkan */
+        html.music-missing .music-btn { opacity: 0.45; }
 
         .quest-complete-content {
             margin: auto 0; text-align: center; display: flex; flex-direction: column;
@@ -429,7 +430,9 @@
         html[data-theme="4"] .line-card { background: rgba(255,255,255,0.05); }
         .line-text { font-size: 1.15rem; line-height: 1.8; color: var(--text); }
         .fade-in-line { animation: fadeUp 0.5s ease both; }
-        .soft-in { animation: slowIn 3s ease both; color: var(--muted); font-style: italic; }
+        /* dibatasi ke .line-text saja: dulu class ini juga dipakai kotak layar penutup, sehingga seluruh isinya
+           (termasuk judul Pinyon Script) sempat "dimiringkan" paksa oleh browser lalu tiba-tiba tegak saat class dilepas */
+        .line-text.soft-in { animation: slowIn 3s ease both; color: var(--muted); font-style: italic; }
         @keyframes slowIn { from { opacity: 0; } to { opacity: 1; } }
 
         @media (max-width: 480px) {
@@ -678,32 +681,32 @@
 
         /* -- Buku 3D: sampul dan halaman berputar pada punggung buku, mulus & tanpa cahaya -- */
         .book-persp {
-            position: relative; width: 100%; height: 158px; display: flex; align-items: center; justify-content: center;
+            position: relative; width: 100%; height: 122px; display: flex; align-items: center; justify-content: center;
             perspective: 900px; perspective-origin: 50% 35%;
         }
         .bk3-shadow {
-            position: absolute; left: 50%; bottom: 8px; width: 96px; height: 12px; margin-left: -48px; border-radius: 50%;
+            position: absolute; left: 50%; bottom: 6px; width: 74px; height: 10px; margin-left: -37px; border-radius: 50%;
             background: radial-gradient(ellipse at center, rgba(0,0,0,0.28), transparent 70%);
             transition: transform 1.7s cubic-bezier(0.45, 0, 0.2, 1);
         }
-        .book-persp.out .bk3-shadow { transform: translateX(48px) scaleX(1.9); }
+        .book-persp.out .bk3-shadow { transform: translateX(37px) scaleX(1.9); }
         .book3d {
-            position: relative; width: 96px; height: 124px; cursor: pointer;
+            position: relative; width: 74px; height: 96px; cursor: pointer;
             transform-style: preserve-3d; transform: rotateX(8deg);
             transition: transform 1.7s cubic-bezier(0.45, 0, 0.2, 1);
             will-change: transform;
         }
-        .book3d.out { transform: translateX(48px) rotateX(8deg); }
+        .book3d.out { transform: translateX(37px) rotateX(8deg); }
         .bk3-base, .bk3-pg, .bk3-cover { position: absolute; inset: 0; transform-origin: left center; }
         .bk3-base {
-            transform: translateZ(-1px); border-radius: 0 5px 5px 0;
+            transform: translateZ(-1px); border-radius: 0 4px 4px 0;
             background: linear-gradient(90deg, #e6d9b8, #fffaf0 14%);
             box-shadow: 0 3px 8px rgba(0,0,0,0.18);
             display: flex; align-items: center; justify-content: center;
         }
         .bk3-title {
             display: flex; flex-direction: column; align-items: center; gap: 2px;
-            font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 10px; color: #4a3550;
+            font-family: 'Poppins', sans-serif; font-weight: 600; font-size: 8px; color: #4a3550;
             opacity: 0; transition: opacity 1.4s ease 2.2s;
         }
         .book3d.out .bk3-title { opacity: 1; }
@@ -719,8 +722,8 @@
         .bk3-pg .b, .bk3-cover .b { border-radius: 5px 0 0 5px; transform: rotateY(180deg); }
         .bk3-pg .f, .bk3-pg .b {
             background-color: #fffaf0;
-            background-image: repeating-linear-gradient(180deg, transparent 0 13px, rgba(190,170,130,0.25) 13px 14px);
-            background-position: 0 20px;
+            background-image: repeating-linear-gradient(180deg, transparent 0 10px, rgba(190,170,130,0.25) 10px 11px);
+            background-position: 0 16px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.12);
         }
         .bk3-pg .b { background-color: #f6edd8; }
@@ -728,9 +731,9 @@
             background: linear-gradient(90deg, #6f87b5 0 9%, #8fa5cf 9%);
             box-shadow: 0 3px 8px rgba(0,0,0,0.22);
         }
-        .bk3-cover .f i { position: absolute; left: 24px; height: 3px; border-radius: 2px; background: #f2e6c8; }
-        .bk3-cover .f i:nth-child(1) { top: 46px; width: 46px; }
-        .bk3-cover .f i:nth-child(2) { top: 56px; width: 32px; }
+        .bk3-cover .f i { position: absolute; left: 18px; height: 2.5px; border-radius: 2px; background: #f2e6c8; }
+        .bk3-cover .f i:nth-child(1) { top: 36px; width: 36px; }
+        .bk3-cover .f i:nth-child(2) { top: 44px; width: 25px; }
         .bk3-cover .b { background: #efe4c8; box-shadow: inset -6px 0 8px rgba(0,0,0,0.06); }
         .bk3-cover { transform: rotateY(0deg) translateZ(3px); }
         .bk3-p1 { transform: rotateY(0deg) translateZ(2px); }
@@ -951,7 +954,7 @@
             position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 120;
             background: rgba(60,45,45,0.92); color: #fff; padding: 10px 20px; border-radius: 22px;
             font-size: 0.85rem; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
-            white-space: nowrap;
+            white-space: nowrap; max-width: 92vw; overflow: hidden; text-overflow: ellipsis;
         }
 
         /* mode serius: tampilan polos, hanya kalimat */
@@ -1031,7 +1034,7 @@
             opacity: 0; transform: scale(0.985); pointer-events: none;
             transition: opacity 0.7s ease, transform 0.7s ease;
         }
-        .box-container.soft-in { animation: softIn 1s ease both; }
+        .box-container.screen-in { animation: softIn 1s ease both; }
         @keyframes softIn {
             from { opacity: 0; transform: translateY(8px) scale(0.985); }
             to   { opacity: 1; transform: none; }
@@ -1051,10 +1054,163 @@
                 transition-delay: 0s !important;
                 scroll-behavior: auto !important;
             }
-            #falling-container, .cover-bee-wrap, .lanterns, .spark, .shooting, .flybee, .fx-p { display: none !important; }
+            #falling-container, .cover-bee-wrap, .lanterns, .spark, .shooting, .flybee, .beeout, .fx-p { display: none !important; }
             .ch-intro { animation: none !important; opacity: 1; }
             .ci-line { width: 110px; }
         }
+
+        /* =====================================================
+           REVISI (letakkan paling akhir supaya menimpa aturan lama)
+           ===================================================== */
+
+        /* ===== 1. Teks judul penutup: fade saja, tanpa scale/geser ===== */
+        @keyframes fadeOnly { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes softIn   { from { opacity: 0; } to { opacity: 1; } }
+
+        .box-container.soft-out { transform: none; }
+
+        #questCompleteScreen .quest-complete-content,
+        #grandFinaleScreen .quest-complete-content { animation: none; }
+
+        #questCompleteScreen .cover-title,
+        #grandFinaleScreen .cover-title { animation: fadeOnly 1.4s ease 0.5s both; }
+        #questCompleteScreen #completedQuestDesc { animation: fadeOnly 1.4s ease 1.1s both; }
+        #questCompleteScreen > div:last-child { animation: fadeOnly 1.4s ease 1.7s both; }
+        #grandFinaleScreen .closing-quote { animation: fadeOnly 1.6s ease 1.2s both; }
+
+        .cover-title { text-rendering: geometricPrecision; -webkit-font-smoothing: antialiased; }
+        /* huruf script tidak boleh pernah dimiringkan/ditebalkan buatan oleh browser */
+        .cover-title, .menu-main-title, .ci-title, .sign, .plain-sign, .addr-to, .wish-over { font-synthesis: none; }
+        /* judul penutup punya layer sendiri supaya tidak dirender ulang saat kotaknya selesai muncul */
+        #questCompleteScreen .cover-title, #grandFinaleScreen .cover-title { will-change: opacity; }
+
+        /* ===== 2. Balon: gerak halus satu arah, fade terpisah ===== */
+        .bl-fly { will-change: transform, opacity; }
+        .balloon-svg.out .balloon { animation-play-state: running; } /* tetap bergoyang pelan */
+        .balloon-svg.out .bl-fa {
+            animation: blMoveA 4.4s cubic-bezier(0.32, 0.08, 0.55, 1) forwards,
+                       blFade 4.4s ease-in forwards;
+        }
+        .balloon-svg.out .bl-fb {
+            animation: blMoveB 4.8s cubic-bezier(0.32, 0.08, 0.55, 1) 0.15s forwards,
+                       blFade 4.8s ease-in 0.15s forwards;
+        }
+        @keyframes blMoveA { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(-34px, -150px) rotate(-8deg); } }
+        @keyframes blMoveB { from { transform: translate(0, 0) rotate(0deg); } to { transform: translate(34px, -165px) rotate(8deg); } }
+        @keyframes blFade  { 0%, 45% { opacity: 1; } 100% { opacity: 0; } }
+
+        /* ===== 3. Bubble chat Chapter 2: hijau soft ===== */
+        .chat-av { background: #7fae78; }
+        .bubble.right { background: #d9ecd2; color: #2f4a2c; }
+        .bubble.right.key {
+            background: #a9d39e; color: #24391f;
+            box-shadow: 0 3px 12px rgba(95, 150, 90, 0.4);
+        }
+        .bubble.right.typing i { background: rgba(63, 107, 60, 0.6); }
+
+        /* =====================================================
+           REVISI 2
+           ===================================================== */
+
+        /* ===== A. Warna menu: Basic Mode = peach hangat (bawaan); Animation Mode = tampilan buku (sampul ungu, halaman krem) ===== */
+        html[data-mode="anim"][data-theme="0"] {
+            --bg: linear-gradient(160deg, #1d2145 0%, #38305a 55%, #5d3f6e 100%);
+            --box-bg: rgba(252, 246, 231, 0.99);
+            --box-border: rgba(214, 178, 100, 0.85);
+            --dash: rgba(122, 87, 153, 0.25);
+            --brand: #6b4fa0;
+            --primary: #6b4fa0;
+            --btn-border: #d6b264;
+            --btn-bg: #fffaf0;
+            --btn-text: #5a4290;
+            --c1: #4b4a8a;
+            --c2: #8a4f7d;
+            --text: #3a2f48;
+            --muted: #7d6a92;
+            --stat-border: rgba(214, 178, 100, 0.7);
+        }
+        html[data-mode="anim"][data-theme="0"] .box-container {
+            box-shadow: 0 16px 36px rgba(10, 8, 30, 0.45), inset 0 0 0 1px rgba(255, 255, 255, 0.5), inset 14px 0 18px -12px rgba(90, 60, 30, 0.18);
+        }
+        html[data-mode="anim"][data-theme="0"] .menu-item-card { background: #fffaf0; box-shadow: 0 3px 8px rgba(120, 90, 40, 0.12); }
+        html[data-mode="anim"][data-theme="0"] .menu-item-card:hover:not(.locked) { background: #fff3da; }
+        html[data-mode="anim"][data-theme="0"] .menu-item-card.locked { background: #f1ebdd; }
+        html[data-mode="anim"][data-theme="0"] .menu-item-info h3 { color: #3a2f48; }
+        html[data-mode="anim"][data-theme="0"] .menu-item-card.locked .menu-item-info h3 { color: #8a7d99; }
+        html[data-mode="anim"][data-theme="0"] .menu-item-action { color: #8a5fb0; }
+        html[data-mode="anim"][data-theme="0"] .mode-seg { background: rgba(107, 79, 160, 0.1); }
+        html[data-mode="anim"][data-theme="0"] #stars { display: block; }
+
+        /* pembuka Animation Mode: sampul buku menutupi menu persis seukuran kotaknya, lalu terbuka seperti sampul sungguhan.
+           Menu itulah "halaman" di bawahnya, jadi tidak ada sisa buku yang tertinggal. */
+        .book-intro { position: fixed; z-index: 60; perspective: 1500px; pointer-events: all; animation: fadeOnly 0.5s ease both; }
+        .bi-cover {
+            position: absolute; inset: 0; transform-origin: left center; transform-style: preserve-3d;
+            transition: transform 1.7s cubic-bezier(0.45, 0, 0.25, 1), opacity 0.6s ease 1.15s;
+        }
+        .book-intro.open .bi-cover { transform: rotateY(-168deg); opacity: 0; }
+        .bi-cover .sb-cover, .bi-cover .bi-back { position: absolute; inset: 0; border-radius: 28px; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .bi-cover .sb-cover { gap: 22px; box-shadow: inset 0 0 0 2px rgba(242, 201, 107, 0.45), inset -10px 0 18px rgba(0,0,0,0.2); }
+        .bi-cover .sb-cover::before { inset: 16px 16px 16px 30px; border-radius: 16px; }
+        .bi-cover .sb-title { font-size: 3.2rem; line-height: 1.1; }
+        .bi-cover .sb-orn { width: 70px; }
+        .bi-cover .sb-cover svg { width: 36px; }
+        .book-intro.bee-gone .sb-cover svg { opacity: 0; }
+        .bi-back { background: #efe4c8; transform: rotateY(180deg); box-shadow: inset -8px 0 12px rgba(0,0,0,0.1); }
+
+        /* ===== B. Tanggal dibaca di kartu menu ===== */
+        .menu-read { font-size: 0.7rem; font-weight: 500; color: var(--muted); margin-top: 3px; letter-spacing: 0.2px; }
+
+        /* ===== C. Penutup rapi di Chapter 4: surat kembali ke amplop, lebah di segel terbang keluar ===== */
+        .line-card { transition: opacity 0.9s ease, transform 0.9s ease; }
+        .line-stage { position: relative; }
+        .line-stage .line-card.away {
+            opacity: 0; visibility: hidden; transform: translateY(26px) rotate(-0.4deg) scale(0.94); pointer-events: none;
+            transition: opacity 0.9s ease, transform 0.9s ease, visibility 0s linear 0.9s;
+        }
+        .close-env {
+            position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 20px; pointer-events: none; opacity: 0; transition: opacity 0.9s ease; perspective: 700px;
+        }
+        .close-env.show { opacity: 1; }
+        .close-env .env { animation: none; }
+        .close-env .env-flap { transition: transform 0.7s ease 1.2s, z-index 0.7s linear 1.2s; }
+        .close-env .seal { transition: opacity 0.6s ease 1.9s; }
+        .close-env .seal svg { transition: opacity 0.5s ease; }
+        .close-env .seal.released svg { opacity: 0; }
+        .close-note {
+            font-size: 0.85rem; font-weight: 500; color: var(--muted); text-align: center; opacity: 0;
+            transition: opacity 1.6s ease; min-height: 1.3em;
+        }
+        .close-note.show { opacity: 1; }
+
+        /* lebah terbang keluar: seluruh gerakan (lintasan, arah badan, ukuran, memudar) dihitung lewat Web Animations API
+           di flyBeeSmooth(), jadi CSS hanya menyiapkan posisinya. */
+        .beeout {
+            position: fixed; z-index: 7; pointer-events: none;
+            will-change: transform, opacity;
+        }
+        .beeout svg { display: block; width: 100%; height: auto; overflow: visible; }
+
+        /* ===== D. Tutup Buku: sampul menutup di atas halaman penutup (kebalikan dari pembuka), tanggal dibaca ada di sampul ===== */
+        .sb-cover {
+            position: absolute; inset: 0; border-radius: 4px 9px 9px 4px; overflow: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px;
+            background: linear-gradient(90deg, #2a2158 0 9%, #3b2f78 9% 11%, #43377f 11%, #34296a 100%);
+            box-shadow: inset 0 0 0 1.5px rgba(242, 201, 107, 0.4), inset -8px 0 14px rgba(0,0,0,0.18);
+        }
+        .sb-cover::before { content: ''; position: absolute; inset: 11px 10px 11px 19px; border: 1px solid rgba(242, 201, 107, 0.35); border-radius: 2px; pointer-events: none; }
+        .sb-title { font-family: 'Pinyon Script', cursive; font-size: 1.7rem; line-height: 1.05; color: #f6dc9c; text-align: center; padding-left: 10px; font-synthesis: none; }
+        .sb-orn { width: 34px; height: 1.5px; margin-left: 10px; background: linear-gradient(90deg, transparent, #f2c36b, transparent); opacity: 0.8; }
+        .sb-cover svg { width: 22px; height: auto; margin-left: 10px; overflow: visible; }
+        .book-intro.closing .bi-cover { transition: transform 1.5s cubic-bezier(0.45, 0, 0.25, 1), opacity 0.4s ease 0s; }
+        .book-intro.notrans .bi-cover { transition: none !important; }
+        .book-intro.fade { animation: fadeGone 0.7s ease forwards; pointer-events: none; }
+        @keyframes fadeGone { from { opacity: 1; } to { opacity: 0; } }
+        .book-intro.tappable { cursor: pointer; }
+        .sb-date { font-size: 0.9rem; font-weight: 500; letter-spacing: 0.4px; color: #f6dc9c; margin-left: 10px; text-align: center; }
+        .sb-date:empty, .sb-hint:empty { display: none; }
+        .sb-hint { position: absolute; left: 0; right: 0; bottom: 30px; padding-left: 10px; text-align: center; font-size: 0.74rem; color: rgba(246, 220, 156, 0.7); animation: fadeOnly 1.6s ease both; }
     </style>
 </head>
 <body>
@@ -1183,7 +1339,7 @@
             </div>
             <div id="finaleActions">
                 <button class="btn" onclick="downloadNotes()" style="width: 100%; margin-bottom: 10px; padding: 12px; font-size: 0.9rem;">Simpan semua catatan (PDF)</button>
-                <button class="btn btn-primary" onclick="returnToMenuFromComplete()">Tutup Buku &amp; Kembali ke Menu</button>
+                <button class="btn btn-primary" onclick="closeTheBook()">Tutup Buku</button>
             </div>
         </div>
     </div>
@@ -1195,6 +1351,25 @@
                 <button class="btn" id="modalNo">Batal</button>
                 <button class="btn btn-primary modal-yes" id="modalYes">Ya</button>
             </div>
+        </div>
+    </div>
+
+    <div class="book-intro hidden" id="bookIntro" aria-hidden="true">
+        <div class="bi-cover">
+            <div class="sb-cover">
+                <span class="sb-title">Notes on<br>Closure</span>
+                <span class="sb-orn"></span>
+                <svg viewBox="-12 -12 24 22">
+                    <ellipse cx="-2" cy="-5" rx="4.5" ry="3.3" fill="rgba(255,255,255,0.85)"/>
+                    <ellipse cx="3" cy="-5" rx="4.5" ry="3.3" fill="rgba(255,255,255,0.85)"/>
+                    <ellipse cx="0" cy="0" rx="8" ry="5.6" fill="#f2c36b"/>
+                    <path d="M-2.4 -5.2 v10.4 M3.2 -4.6 v9.2" stroke="#2a2158" stroke-width="2"/>
+                    <circle cx="-6.2" cy="-1" r="1.1" fill="#2a2158"/>
+                </svg>
+                <span class="sb-date" id="biDate"></span>
+                <span class="sb-hint" id="biHint"></span>
+            </div>
+            <div class="bi-back"></div>
         </div>
     </div>
 
@@ -1232,18 +1407,40 @@
         /* =====================================================
            MUSIK: file audio sendiri + crossfade
            Taruh file di folder "audio/" di sebelah index.html:
-             audio/menu.mp3, audio/cp1.mp3, audio/cp2.mp3, audio/cp3.mp3, audio/cp4.mp3
-           (kalau formatnya bukan mp3, ganti AUDIO_EXT)
+             audio/Menu.mp3  -> menu + Chapter 1
+             audio/cp2.mp3   -> Chapter 2
+             audio/cp3.mp3   -> Chapter 3
+             audio/cp4.mp3   -> Chapter 4 + penutup
+           Kode ini toleran: kalau nama persisnya beda huruf besar/kecil
+           (menu.mp3, Cp2.mp3, ...) atau ekstensinya .MP3/.m4a/.ogg/.wav,
+           ia mencoba semua kemungkinan itu satu per satu.
+           Folder dicari relatif terhadap lokasi halaman, jadi aman
+           walau alamatnya tanpa garis miring di akhir
+           (user.github.io/repo  maupun  user.github.io/repo/).
            ===================================================== */
         const AUDIO_DIR = 'audio/';
-        const AUDIO_EXT = '.mp3';
-        const SONGS = {
-            0: AUDIO_DIR + 'menu' + AUDIO_EXT,
-            1: AUDIO_DIR + 'cp1' + AUDIO_EXT,
-            2: AUDIO_DIR + 'cp2' + AUDIO_EXT,
-            3: AUDIO_DIR + 'cp3' + AUDIO_EXT,
-            4: AUDIO_DIR + 'cp4' + AUDIO_EXT
+        const AUDIO_EXTS = ['.mp3', '.MP3', '.m4a', '.ogg', '.wav'];
+        const SONG_NAMES = {
+            0: ['Menu', 'menu', 'MENU'],
+            2: ['cp2', 'Cp2', 'CP2'],
+            3: ['cp3', 'Cp3', 'CP3'],
+            4: ['cp4', 'Cp4', 'CP4']
         };
+        const AUDIO_BASE = (function () {
+            let u = location.href.split('#')[0].split('?')[0];
+            const last = u.split('/').pop();
+            if (!/\/$/.test(u) && !/\.[a-z0-9]+$/i.test(last)) u += '/';
+            return u.replace(/[^\/]*$/, '') + AUDIO_DIR;
+        })();
+        const SONG_URL = {};            /* URL yang sudah terbukti berhasil, per lagu */
+        const missingKeys = {};
+
+        function songCandidates(key) {
+            if (SONG_URL[key]) return [SONG_URL[key]];
+            const out = [];
+            AUDIO_EXTS.forEach(e => (SONG_NAMES[key] || []).forEach(n => out.push(AUDIO_BASE + n + e)));
+            return out;
+        }
 
         let isAppStarted = false;
         let musicOn = true;
@@ -1252,10 +1449,42 @@
         const decks = [new Audio(), new Audio()];
         decks.forEach(d => {
             d.loop = true; d.preload = 'auto'; d._g = 0; d._tok = 0;
-            /* kalau file tidak ketemu, sembunyikan tombol musik */
-            d.addEventListener('error', () => { if (d.getAttribute('src')) hideMusicUI(); });
+            d._key = null; d._cands = []; d._ci = 0; d._want = false;
+            /* kalau satu nama gagal, coba kandidat berikutnya; tombol musik TIDAK disembunyikan */
+            d.addEventListener('error', () => {
+                if (d._key === null || !d.getAttribute('src')) return;
+                if (d._ci < d._cands.length - 1) {
+                    d._ci++;
+                    d.src = d._cands[d._ci];
+                    if (d._want) d.play().catch(() => {});
+                } else {
+                    musicMissing(d._key);
+                }
+            });
+            d.addEventListener('canplay', () => {
+                if (d._key !== null && d._cands[d._ci]) {
+                    SONG_URL[d._key] = d._cands[d._ci];
+                    if (missingKeys[d._key]) delete missingKeys[d._key];
+                    if (!Object.keys(missingKeys).length) document.documentElement.classList.remove('music-missing');
+                }
+            });
         });
         let deckI = 0, curKey = 0, masterVol = 100, volTok = 0;
+
+        function setSrc(d, key) {
+            d._key = key;
+            d._cands = songCandidates(key);
+            d._ci = 0;
+            d.src = d._cands[0];
+        }
+        function musicMissing(key) {
+            document.documentElement.classList.add('music-missing');
+            const first = !missingKeys[key];
+            missingKeys[key] = true;
+            const shown = (SONG_NAMES[key] || ['?'])[0] + '.mp3';
+            console.warn('[Musik] File tidak ditemukan untuk lagu', key, '- dicoba:', songCandidates(key).slice(0, 4).join(', '), '...');
+            if (first) setTimeout(() => showToast('Musik tidak ditemukan: ' + AUDIO_DIR + shown), 1200);
+        }
 
         function setVol(d) {
             try { d.volume = Math.max(0, Math.min(1, d._g * masterVol / 100)); } catch (e) {}
@@ -1284,10 +1513,12 @@
             const old = decks[deckI], nw = decks[1 - deckI];
             deckI = 1 - deckI;
             nw.muted = false;
-            nw.src = SONGS[key];
+            nw._want = true;
+            setSrc(nw, key);
             nw._g = 0; setVol(nw);
             nw.play().catch(() => {});
             fadeDeck(nw, 1, 2500);
+            old._want = false;
             fadeDeck(old, 0, 2000, () => old.pause());
         }
         function playSong(key) {
@@ -1300,19 +1531,22 @@
             if (!isAppStarted) return;
             const d = decks[deckI];
             if (musicOn) {
-                if (d.getAttribute('src') !== SONGS[curKey]) d.src = SONGS[curKey];
+                d._want = true;
+                if (d._key !== curKey) setSrc(d, curKey);
                 d.play().catch(() => {});
                 fadeDeck(d, 1, 1500);
             } else {
+                d._want = false;
                 fadeDeck(d, 0, 500, () => d.pause());
             }
         }
         /* dipanggil di dalam klik pertama, supaya deck cadangan boleh diputar nanti (penting di iPhone/Safari) */
         function unlockAudio() {
             const s = decks[1 - deckI];
-            s.muted = true; s.src = SONGS[0];
+            s._want = false;
+            s.muted = true;
+            setSrc(s, 0);
             s.play().then(() => { s.pause(); s.muted = false; }).catch(() => { s.muted = false; });
-            Object.values(SONGS).forEach(u => { const p = new Audio(); p.preload = 'auto'; p.src = u; });
         }
 
         function updateMusicBtn() {
@@ -1327,12 +1561,18 @@
             try { localStorage.setItem('notesOnClosureMusic', musicOn ? 'on' : 'off'); } catch (e) {}
             updateMusicBtn();
             applyMusic();
+            if (musicOn && missingKeys[curKey]) {
+                const shown = (SONG_NAMES[curKey] || ['?'])[0] + '.mp3';
+                showToast('Musik tidak ditemukan: ' + AUDIO_DIR + shown);
+            }
         }
-        function hideMusicUI() { document.documentElement.classList.add('no-music'); }
+
+        /* lagu tiap tema: chapter 1 melanjutkan lagu menu (key 0), mulai chapter 2 lagunya ganti */
+        const THEME_SONG = { 0: 0, 1: 0, 2: 2, 3: 3, 4: 4 };
 
         function applyTheme(id) {
             document.documentElement.setAttribute('data-theme', String(id || 0));
-            playSong(id || 0);
+            playSong(THEME_SONG[id || 0]);
         }
 
         /* ---------- Keyboard: elemen role="button" bisa dipakai lewat Enter/Spasi, Esc menutup modal ---------- */
@@ -1458,6 +1698,17 @@
             $('finaleActions').classList.remove('finale-in');
         }
 
+        /* ---------- Tanggal dibaca ---------- */
+        const BULAN = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+        function todayISO() {
+            const d = new Date();
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        }
+        function fmtDate(iso) {
+            const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+            return m ? (+m[3]) + ' ' + BULAN[+m[2] - 1] + ' ' + m[1] : '';
+        }
+
         /* ---------- Navigasi layar ---------- */
         function swapScreen(from, to, cb) {
             from.classList.add('closing-book');
@@ -1477,8 +1728,8 @@
                 from.classList.remove('soft-out');
                 if (cb) cb();
                 to.classList.remove('hidden');
-                to.classList.add('soft-in');
-                setTimeout(() => to.classList.remove('soft-in'), 1100);
+                to.classList.add('screen-in');
+                setTimeout(() => to.classList.remove('screen-in'), 1100);
             }, 750);
         }
 
@@ -1578,9 +1829,94 @@
             }
             isAppStarted = true;
             updateMusicBtn();
-            swapScreen($('coverScreen'), $('menuScreen'), renderMenuList);
+            if (mode === 'anim') openBookIntro();
+            else swapScreen($('coverScreen'), $('menuScreen'), renderMenuList);
             unlockAudio();
             applyMusic();
+        }
+
+        /* =====================================================
+           LEBAH TERBANG MULUS
+           Lintasan dihitung rapat (90 titik) lewat Web Animations API,
+           bukan beberapa keyframe CSS, jadi geraknya tidak berhenti-jalan.
+           Badan miring mengikuti arah terbang, ukuran membesar halus,
+           dan memudar pelan di akhir. Tidak ada lompatan skala/opasitas
+           di awal, karena lebah tiruan dimulai persis seperti lebah aslinya.
+           ===================================================== */
+        function flyBeeSmooth(b, o) {
+            const dur = o.dur || 6000, dx = o.dx, dy = o.dy;
+            const wob = o.wob != null ? o.wob : 14, s0 = o.s0 || 1, s1 = o.s1 || 1.2, fadeIn = o.fadeIn || 0;
+            const dir = dx >= 0 ? 1 : -1, N = 90;
+            const sm = x => x * x * (3 - 2 * x);
+            const P = [];
+            for (let i = 0; i <= N; i++) {
+                const t = i / N;
+                const p = t * t * (1.6 - 0.6 * t);                       /* lepas landas pelan, lalu makin laju */
+                const env = Math.sin(Math.PI * Math.min(1, t * 1.1));    /* goyangan membesar di tengah, tenang di ujung */
+                P.push({
+                    t,
+                    x: dx * p + Math.sin(t * Math.PI * 4.4) * wob * env,
+                    y: dy * p + Math.sin(t * Math.PI * 6 + 1) * wob * 0.45 * env
+                });
+            }
+            let sa = 0;
+            const frames = P.map((q, i) => {
+                const a = P[Math.min(N, i + 1)], c = P[Math.max(0, i - 1)];
+                let ang = Math.atan2(a.y - c.y, Math.abs(a.x - c.x) || 1e-6) * 180 / Math.PI;
+                ang = Math.max(-35, Math.min(25, ang)) * dir * Math.min(1, q.t * 5) * 0.7;
+                sa += (ang - sa) * 0.35;                                 /* haluskan sudut */
+                const op = Math.min(1, fadeIn ? q.t / fadeIn : 1) * (1 - sm(Math.max(0, (q.t - 0.6) / 0.4)));
+                const sc = s0 + (s1 - s0) * sm(q.t);
+                return {
+                    offset: q.t,
+                    transform: `translate(${q.x.toFixed(2)}px,${q.y.toFixed(2)}px) rotate(${sa.toFixed(2)}deg) scale(${sc.toFixed(3)})`,
+                    opacity: op.toFixed(3)
+                };
+            });
+            const an = b.animate(frames, { duration: dur, easing: 'linear', fill: 'forwards' });
+            an.onfinish = () => b.remove();
+            return an;
+        }
+
+        /* lebah di sampul lepas landas dan terbang pergi sebelum sampul dibuka */
+        function releaseCoverBee(bi) {
+            const svg = bi.querySelector('.sb-cover svg');
+            if (!svg) return;
+            const r = svg.getBoundingClientRect();
+            const b = document.createElement('div');
+            b.className = 'beeout';
+            b.style.zIndex = '70';
+            b.style.left = (r.left + r.width / 2) + 'px';
+            b.style.top = (r.top + r.height / 2) + 'px';
+            b.style.width = r.width + 'px';
+            b.style.margin = (-r.height / 2) + 'px 0 0 ' + (-r.width / 2) + 'px';
+            b.innerHTML = svg.outerHTML;
+            b.querySelectorAll('ellipse').forEach((e, i) => { if (i < 2) e.classList.add('wing'); });
+            document.body.appendChild(b);
+            bi.classList.add('bee-gone');
+            /* terbang ke kiri atas, searah hadap lebah di sampul, jadi tidak perlu dibalik */
+            flyBeeSmooth(b, { dx: -window.innerWidth * 0.55, dy: -window.innerHeight * 0.6, dur: 6000, wob: 14, s1: 1.2 });
+        }
+
+        /* Animation Mode: sampul menutupi menu (seukuran kotaknya), lalu terbuka dan menu ada di bawahnya */
+        function openBookIntro() {
+            const cover = $('coverScreen'), menu = $('menuScreen'), bi = $('bookIntro');
+            cover.classList.add('closing-book');
+            setTimeout(() => {
+                cover.classList.add('hidden');
+                cover.classList.remove('closing-book');
+                renderMenuList();
+                menu.style.opacity = '0';
+                menu.classList.remove('hidden');
+                const r = menu.getBoundingClientRect();
+                Object.assign(bi.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' });
+                bi.className = 'book-intro';
+                bi.onclick = null;
+                $('biDate').textContent = ''; $('biHint').textContent = '';
+                setTimeout(() => releaseCoverBee(bi), 900);
+                setTimeout(() => { menu.style.opacity = ''; bi.classList.add('open'); }, 3000);
+                setTimeout(() => bi.classList.add('hidden'), 4900);
+            }, 250);
         }
         function backToCover() {
             swapScreen($('menuScreen'), $('coverScreen'));
@@ -1641,6 +1977,49 @@
             });
         }
 
+        /* Tutup Buku: sampul menutup di atas halaman penutup (kebalikan dari pembuka). Tanggal dibaca tertulis di sampul.
+           Ketuk sampul untuk kembali ke cover depan. */
+        let bookClosing = false;
+        function closeTheBook() {
+            if (bookClosing) return;
+            bookClosing = true;
+            finaleT.forEach(clearTimeout); finaleT = [];
+            fadeVolume(0, 2600);
+            const fin = $('grandFinaleScreen'), bi = $('bookIntro');
+            const r = fin.getBoundingClientRect();
+            Object.assign(bi.style, { left: r.left + 'px', top: r.top + 'px', width: r.width + 'px', height: r.height + 'px' });
+            $('biDate').textContent = 'Dibaca ' + fmtDate(questStatus[4].readAt || todayISO());
+            $('biHint').textContent = '';
+            bi.onclick = null;
+            bi.className = 'book-intro closing notrans open';   /* mulai dari posisi terbuka, tanpa transisi */
+            void bi.offsetWidth;
+            bi.classList.remove('notrans');
+            bi.classList.remove('open');                         /* sampul berayun menutup */
+            setTimeout(() => {
+                fin.classList.add('hidden');
+                $('biHint').textContent = 'Ketuk untuk kembali ke awal';
+                bi.classList.add('tappable');
+                bi.onclick = leaveClosedBook;
+                bookClosing = false;
+            }, 1700);
+        }
+        function leaveClosedBook() {
+            const bi = $('bookIntro');
+            bi.onclick = null;
+            bi.classList.add('fade');
+            endFinale();
+            document.documentElement.classList.remove('finale');
+            applyTheme(0);
+            fadeVolume(100, 3000);
+            setTimeout(() => {
+                bi.className = 'book-intro hidden';
+                const cv = $('coverScreen');
+                cv.classList.remove('hidden');
+                cv.classList.add('screen-in');
+                setTimeout(() => cv.classList.remove('screen-in'), 1100);
+            }, 750);
+        }
+
         function returnToMenuFromComplete() {
             endFinale();
             const complete = $('questCompleteScreen');
@@ -1671,6 +2050,7 @@
             runCleanup();
             setResume(curChapter, 0);
             questStatus[curChapter].completed = true;
+            questStatus[curChapter].readAt = todayISO();
             if (curChapter < 4) questStatus[curChapter + 1].unlocked = true;
             saveProgress();
             $('completedQuestDesc').textContent = `Chapter ${curChapter}: ${questStatus[curChapter].title} selesai dengan baik, Ali`;
@@ -2544,6 +2924,7 @@
         chapters[4] = function () {
             const d = sectionsData[4], n = d.length;
             const KEY4 = 8;
+            const CLOSE_AFTER = 3400; /* jeda setelah kalimat terakhir & tanda tangan, sebelum surat kembali ke amplop */
             const fxNodes = new Set(), fxTimers = new Set();
 
             const ART4 = {
@@ -2743,14 +3124,8 @@
 
             const ACT4 = { 1: actCake, 2: actBook, 8: actBoat, 10: actBalloon };
 
-            $('chBody').innerHTML = `
-                <div class="env-wrap" id="envWrap">
-                    <i class="spark" style="left:24%;top:64%;animation-delay:0s"></i>
-                    <i class="spark" style="left:72%;top:58%;animation-delay:1.2s"></i>
-                    <i class="spark" style="left:38%;top:70%;animation-delay:2.4s"></i>
-                    <i class="spark" style="left:62%;top:72%;animation-delay:3.3s"></i>
-                    <i class="spark" style="left:50%;top:60%;animation-delay:4.2s"></i>
-                    <div class="env" id="env" role="button" tabindex="0" aria-label="Buka amplop">
+            /* isi amplop (dipakai amplop pembuka dan amplop penutup) */
+            const ENV_INNER = `
                         <div class="env-paper"></div>
                         <div class="env-body"></div>
                         <div class="env-flap"></div>
@@ -2761,7 +3136,17 @@
                         <div class="seal">
                             <svg viewBox="0 0 24 24" width="20" height="20"><ellipse cx="9" cy="8" rx="4" ry="2.6" fill="rgba(255,255,255,0.75)" transform="rotate(-25 9 8)"/><ellipse cx="15" cy="8" rx="4" ry="2.6" fill="rgba(255,255,255,0.75)" transform="rotate(25 15 8)"/><ellipse cx="12" cy="14" rx="5" ry="6" fill="#f2c36b"/><path d="M7.5 13 h9 M7.8 16.5 h8.4" stroke="#4a3550" stroke-width="1.8"/></svg>
                         </div>
-                    </div>
+            `;
+            const BEE_SVG = `<svg viewBox="-12 -12 24 22"><ellipse class="wing" cx="-2" cy="-5" rx="4.5" ry="3.3" fill="rgba(255,255,255,0.9)" stroke="rgba(160,120,101,0.35)" stroke-width="0.6"/><ellipse class="wing" cx="3" cy="-5" rx="4.5" ry="3.3" fill="rgba(255,255,255,0.9)" stroke="rgba(160,120,101,0.35)" stroke-width="0.6"/><ellipse cx="0" cy="0" rx="8" ry="5.6" fill="#f2c36b"/><path d="M-2.4 -5.2 v10.4 M3.2 -4.6 v9.2" stroke="#4a3550" stroke-width="2"/><circle cx="-6.2" cy="-1" r="1.1" fill="#4a3550"/></svg>`;
+
+            $('chBody').innerHTML = `
+                <div class="env-wrap" id="envWrap">
+                    <i class="spark" style="left:24%;top:64%;animation-delay:0s"></i>
+                    <i class="spark" style="left:72%;top:58%;animation-delay:1.2s"></i>
+                    <i class="spark" style="left:38%;top:70%;animation-delay:2.4s"></i>
+                    <i class="spark" style="left:62%;top:72%;animation-delay:3.3s"></i>
+                    <i class="spark" style="left:50%;top:60%;animation-delay:4.2s"></i>
+                    <div class="env" id="env" role="button" tabindex="0" aria-label="Buka amplop">${ENV_INNER}</div>
                     <div class="env-hint">Ketuk amplop untuk membuka</div>
                 </div>`;
             setNext('Next →', false);
@@ -2770,10 +3155,6 @@
             const starEl = document.createElement('div');
             starEl.className = 'shooting';
             document.body.appendChild(starEl);
-            const bee = document.createElement('div');
-            bee.className = 'flybee';
-            bee.textContent = '🐝';
-            document.body.appendChild(bee);
             let signTimer = null;
             let lockUntil = 0, holdT = null;
             cleanupFn = () => {
@@ -2783,20 +3164,78 @@
                 fxTimers.forEach(t => { clearInterval(t); clearTimeout(t); }); fxTimers.clear();
                 fxNodes.forEach(x => x.remove()); fxNodes.clear();
                 document.querySelectorAll('.fx-p').forEach(x => x.remove());
-                starEl.remove(); bee.remove();
+                starEl.remove(); stopClosing();
             };
             function shoot() {
                 starEl.classList.remove('go');
                 void starEl.offsetWidth;
                 starEl.classList.add('go');
             }
-            function flyBee() {
-                bee.classList.remove('go');
-                void bee.offsetWidth;
-                bee.classList.add('go');
+
+            /* ----- Penutup rapi: setelah tanda tangan, surat kembali ke amplop, amplop menutup, lebah di segel terbang pergi ----- */
+            let closeEnvEl = null, beeEl = null;
+            const closeT = [];
+            const calmMotion = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            function later(fn, ms) { const t = setTimeout(fn, ms); closeT.push(t); }
+            /* dipakai saat chapter selesai/keluar: hentikan jadwal saja, surat tetap tersembunyi (tidak muncul lagi saat layar memudar) */
+            function stopClosing() {
+                closeT.forEach(clearTimeout); closeT.length = 0;
+                if (beeEl) { const b = beeEl; beeEl = null; setTimeout(() => b.remove(), 7200); }
+            }
+            function resetClosing() {
+                closeT.forEach(clearTimeout); closeT.length = 0;
+                if (closeEnvEl) { closeEnvEl.remove(); closeEnvEl = null; }
+                if (beeEl) { beeEl.remove(); beeEl = null; }
+                const c = document.querySelector('.line-card');
+                if (c) c.classList.remove('away');
+            }
+            function startClosing(my) {
+                const stage = $('lineStage');
+                const card = stage && stage.querySelector('.line-card');
+                if (!stage || !card) return;
+                later(() => {
+                    if (idx !== my) return;
+                    card.classList.add('away');
+                    /* amplop baru muncul setelah surat benar-benar hilang, supaya tidak ada bayangan tulisan */
+                    later(() => {
+                        const wrap = document.createElement('div');
+                        wrap.className = 'close-env';
+                        wrap.innerHTML = `<div class="env open" aria-hidden="true">${ENV_INNER}</div><div class="close-note">Suratnya sudah kembali ke amplopnya</div>`;
+                        stage.appendChild(wrap);
+                        closeEnvEl = wrap;
+                        void wrap.offsetWidth;
+                        wrap.classList.add('show');
+                        const env = wrap.querySelector('.env');
+                        later(() => { env.classList.remove('open'); buzz(25); }, 1100);
+                        /* amplop tertutup (~2,5 detik), lalu lebah di segel lepas landas */
+                        later(() => {
+                            const seal = wrap.querySelector('.seal');
+                            const r = seal.getBoundingClientRect();
+                            /* lebah mulai persis di ukuran & posisi ikon di segel, lalu terbang mulus ke kanan atas */
+                            const sz = 22;
+                            const b = document.createElement('div');
+                            b.className = 'beeout';
+                            b.style.left = (r.left + r.width / 2) + 'px';
+                            b.style.top = (r.top + r.height / 2) + 'px';
+                            b.style.width = sz + 'px';
+                            b.style.margin = (-sz * 22 / 24 / 2) + 'px 0 0 ' + (-sz / 2) + 'px';
+                            b.innerHTML = BEE_SVG;
+                            b.querySelector('svg').style.transform = 'scaleX(-1)';
+                            document.body.appendChild(b);
+                            beeEl = b;
+                            flyBeeSmooth(b, { dx: window.innerWidth * 0.5, dy: -window.innerHeight * 0.6, dur: 6500, wob: 12, s1: 1.5, fadeIn: 0.06 });
+                            seal.classList.add('released');
+                            buzz([15, 50, 15]);
+                            later(() => { const nt = wrap.querySelector('.close-note'); if (nt) nt.classList.add('show'); }, 1500);
+                            later(() => { if (beeEl === b) { b.remove(); beeEl = null; } }, 7200);
+                            later(() => { if (idx === my) setNext('Selesaikan ✓', true, finishChapter); }, 600);
+                        }, 1100 + 2600);
+                    }, 1100);
+                }, CLOSE_AFTER);
             }
 
             function showLine() {
+                resetClosing();
                 const el = $('lineText');
                 el.className = 'line-text';
                 void el.offsetWidth;
@@ -2830,7 +3269,6 @@
                 /* di iPhone volume tidak bisa diatur, jadi layar yang meredup halus */
                 keyDim(idx === KEY4 || idx === n - 1);
                 if (idx === 9) shoot();
-                if (idx === n - 1) flyBee();
                 const sg = $('sign');
                 clearTimeout(signTimer);
                 sg.classList.remove('go'); sg.textContent = '';
@@ -2847,8 +3285,11 @@
                 clearTimeout(holdT);
                 lockUntil = idx === KEY4 ? Date.now() + KEY_HOLD : 0;
                 const goNext = () => { idx++; showLine(); };
-                if (idx === n - 1) setNext('Selesaikan ✓', true, finishChapter);
-                else {
+                if (idx === n - 1) {
+                    /* tombol Selesaikan menunggu amplop menutup (kecuali "kurangi gerakan" aktif) */
+                    if (calmMotion()) setNext('Selesaikan ✓', true, finishChapter);
+                    else { setNext('Selesaikan ✓', false, finishChapter); startClosing(idx); }
+                } else {
                     setNext('Next →', !lockUntil, goNext);
                     if (lockUntil) holdT = setTimeout(() => setNext('Next →', true, goNext), KEY_HOLD);
                 }
@@ -2873,6 +3314,9 @@
         };
 
         /* ---------- Keadaan awal ---------- */
+        if (document.fonts && document.fonts.load) {
+            try { document.fonts.load('400 40px "Pinyon Script"'); document.fonts.load('500 16px Poppins'); } catch (e) {}
+        }
         setMode(mode);
         updateMusicBtn();
     </script>
