@@ -1407,10 +1407,11 @@
         /* =====================================================
            MUSIK: file audio sendiri + crossfade
            Taruh file di folder "audio/" di sebelah index.html:
-             audio/Menu.mp3  -> menu + Chapter 1
-             audio/cp2.mp3   -> Chapter 2
-             audio/cp3.mp3   -> Chapter 3
-             audio/cp4.mp3   -> Chapter 4 + penutup
+             Menu.mp3  -> menu + Chapter 1
+             cp2.mp3   -> Chapter 2
+             cp3.mp3   -> Chapter 3
+             cp4.mp3   -> Chapter 4 + penutup
+           Boleh sejajar dengan index.html (root repo) atau di folder "audio/".
            Kode ini toleran: kalau nama persisnya beda huruf besar/kecil
            (menu.mp3, Cp2.mp3, ...) atau ekstensinya .MP3/.m4a/.ogg/.wav,
            ia mencoba semua kemungkinan itu satu per satu.
@@ -1426,19 +1427,21 @@
             3: ['cp3', 'Cp3', 'CP3'],
             4: ['cp4', 'Cp4', 'CP4']
         };
-        const AUDIO_BASE = (function () {
+        const PAGE_BASE = (function () {
             let u = location.href.split('#')[0].split('?')[0];
             const last = u.split('/').pop();
             if (!/\/$/.test(u) && !/\.[a-z0-9]+$/i.test(last)) u += '/';
-            return u.replace(/[^\/]*$/, '') + AUDIO_DIR;
+            return u.replace(/[^\/]*$/, '');
         })();
+        /* dicari dulu di folder yang sama dengan index.html, lalu di folder audio/ */
+        const AUDIO_BASES = [PAGE_BASE, PAGE_BASE + AUDIO_DIR];
         const SONG_URL = {};            /* URL yang sudah terbukti berhasil, per lagu */
         const missingKeys = {};
 
         function songCandidates(key) {
             if (SONG_URL[key]) return [SONG_URL[key]];
             const out = [];
-            AUDIO_EXTS.forEach(e => (SONG_NAMES[key] || []).forEach(n => out.push(AUDIO_BASE + n + e)));
+            AUDIO_EXTS.forEach(e => (SONG_NAMES[key] || []).forEach(n => AUDIO_BASES.forEach(bs => out.push(bs + n + e))));
             return out;
         }
 
@@ -1483,7 +1486,7 @@
             missingKeys[key] = true;
             const shown = (SONG_NAMES[key] || ['?'])[0] + '.mp3';
             console.warn('[Musik] File tidak ditemukan untuk lagu', key, '- dicoba:', songCandidates(key).slice(0, 4).join(', '), '...');
-            if (first) setTimeout(() => showToast('Musik tidak ditemukan: ' + AUDIO_DIR + shown), 1200);
+            if (first) setTimeout(() => showToast('Musik tidak ditemukan: ' + shown), 1200);
         }
 
         function setVol(d) {
@@ -1563,7 +1566,7 @@
             applyMusic();
             if (musicOn && missingKeys[curKey]) {
                 const shown = (SONG_NAMES[curKey] || ['?'])[0] + '.mp3';
-                showToast('Musik tidak ditemukan: ' + AUDIO_DIR + shown);
+                showToast('Musik tidak ditemukan: ' + shown);
             }
         }
 
