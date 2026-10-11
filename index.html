@@ -274,10 +274,15 @@
 
         /* tombol musik */
         .music-btn {
-            width: 36px; height: 36px; padding: 0; border-radius: 50%; flex: 0 0 auto;
+            width: 38px; height: 38px; padding: 0; border-radius: 50%; flex: 0 0 auto;
             display: inline-flex; align-items: center; justify-content: center;
-            font-size: 1rem; line-height: 1; box-shadow: none;
+            line-height: 1; box-shadow: none;
+            background: var(--btn-bg); border: 2px solid var(--btn-border); color: var(--btn-text);
         }
+        .music-btn svg { width: 18px; height: 18px; display: block; pointer-events: none; }
+        .music-btn.off { opacity: 0.7; }
+        #menuScreen .music-btn { width: 44px; height: 44px; }
+        #menuScreen .music-btn svg { width: 20px; height: 20px; }
         /* file musik tidak ketemu: tombol tetap ada (tidak disembunyikan), hanya diredupkan */
         html.music-missing .music-btn { opacity: 0.45; }
 
@@ -858,7 +863,6 @@
         .art-hint {
             text-align: center; font-size: 0.85rem; font-weight: 600; color: var(--muted);
             min-height: 2.1rem; display: flex; align-items: center; justify-content: center;
-            animation: pulse 1.8s ease-in-out infinite;
         }
         .art-hint:empty { display: none; }
         .art-hint.gone { animation: hintOut 0.6s ease forwards; }
@@ -1266,7 +1270,7 @@
                 </div>
                 <div style="display: flex; gap: 8px; align-items: center;">
                     <button class="btn" onclick="backToCover()" style="flex: 1; padding: 10px 14px; font-size: 0.85rem;">← Kembali</button>
-                    <button class="btn music-btn" onclick="toggleMusic()" aria-label="Matikan musik" aria-pressed="false" title="Musik">🔊</button>
+                    <button class="btn music-btn" onclick="toggleMusic()" aria-label="Matikan musik" aria-pressed="false" title="Musik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19z" fill="currentColor"/><path d="M15.5 8.6a5 5 0 0 1 0 6.8"/><path d="M18.4 5.8a9 9 0 0 1 0 12.4"/></svg></button>
                 </div>
             </div>
         </div>
@@ -1277,7 +1281,7 @@
                 <span class="card-brand" id="cardBrandTitle">The Beginning</span>
                 <div class="card-right">
                     <span id="slideCounterText"></span>
-                    <button class="btn music-btn" onclick="toggleMusic()" aria-label="Matikan musik" aria-pressed="false" title="Musik">🔊</button>
+                    <button class="btn music-btn" onclick="toggleMusic()" aria-label="Matikan musik" aria-pressed="false" title="Musik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19z" fill="currentColor"/><path d="M15.5 8.6a5 5 0 0 1 0 6.8"/><path d="M18.4 5.8a9 9 0 0 1 0 12.4"/></svg></button>
                 </div>
             </div>
             <div class="ch-body" id="chBody"></div>
@@ -1552,9 +1556,12 @@
             s.play().then(() => { s.pause(); s.muted = false; }).catch(() => { s.muted = false; });
         }
 
+        const MUSIC_ICON_ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19z" fill="currentColor"/><path d="M15.5 8.6a5 5 0 0 1 0 6.8"/><path d="M18.4 5.8a9 9 0 0 1 0 12.4"/></svg>';
+        const MUSIC_ICON_OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6.5 9H3v6h3.5L11 19z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5"/></svg>';
         function updateMusicBtn() {
             document.querySelectorAll('.music-btn').forEach(b => {
-                b.textContent = musicOn ? '🔊' : '🔇';
+                b.innerHTML = musicOn ? MUSIC_ICON_ON : MUSIC_ICON_OFF;
+                b.classList.toggle('off', !musicOn);
                 b.setAttribute('aria-label', musicOn ? 'Matikan musik' : 'Nyalakan musik');
                 b.setAttribute('aria-pressed', String(!musicOn));
             });
@@ -1881,6 +1888,39 @@
             return an;
         }
 
+        /* lebah terbang DATANG lalu hinggap: kebalikan dari flyBeeSmooth.
+           Dimulai dari luar layar, melambat halus, goyangannya mereda, badan perlahan mendatar,
+           dan berakhir persis di posisi/ukuran lebah di sampul, jadi saat diganti lebah diam tidak ada lompatan. */
+        function flyBeeIn(b, o) {
+            const dur = o.dur || 3600, sx = o.sx, sy = o.sy, wob = o.wob != null ? o.wob : 12, s0 = o.s0 || 0.8, N = 90;
+            const sm = x => x * x * (3 - 2 * x);
+            const P = [];
+            for (let i = 0; i <= N; i++) {
+                const t = i / N;
+                const rem = Math.pow(1 - t, 2.6);                       /* sisa jarak: cepat di awal, melambat saat mendarat */
+                const k = Math.min(1, t * 6);
+                P.push({
+                    t,
+                    x: sx * rem + Math.sin(t * Math.PI * 4.2) * wob * k * rem,
+                    y: sy * rem + Math.sin(t * Math.PI * 5.6 + 1) * wob * 0.5 * k * rem
+                });
+            }
+            const dir = sx >= 0 ? -1 : 1;                                /* datang dari kanan = bergerak ke kiri */
+            let sa = 0;
+            const frames = P.map((q, i) => {
+                const a = P[Math.min(N, i + 1)], c = P[Math.max(0, i - 1)];
+                let ang = Math.atan2(a.y - c.y, Math.abs(a.x - c.x) || 1e-6) * 180 / Math.PI;
+                ang = Math.max(-30, Math.min(30, ang)) * dir * 0.7 * Math.min(1, (1 - q.t) * 4);
+                sa += (ang - sa) * 0.35;
+                return {
+                    offset: q.t,
+                    transform: `translate(${q.x.toFixed(2)}px,${q.y.toFixed(2)}px) rotate(${sa.toFixed(2)}deg) scale(${(s0 + (1 - s0) * sm(q.t)).toFixed(3)})`,
+                    opacity: Math.min(1, q.t / 0.08).toFixed(3)
+                };
+            });
+            return b.animate(frames, { duration: dur, easing: 'linear', fill: 'forwards' });
+        }
+
         /* lebah di sampul lepas landas dan terbang pergi sebelum sampul dibuka */
         function releaseCoverBee(bi) {
             const svg = bi.querySelector('.sb-cover svg');
@@ -1994,17 +2034,50 @@
             $('biDate').textContent = 'Dibaca ' + fmtDate(questStatus[4].readAt || todayISO());
             $('biHint').textContent = '';
             bi.onclick = null;
-            bi.className = 'book-intro closing notrans open';   /* mulai dari posisi terbuka, tanpa transisi */
+            bi.className = 'book-intro closing notrans open bee-gone';   /* mulai dari posisi terbuka, tanpa transisi; lebah sampul disembunyikan, nanti ia datang sendiri */
             void bi.offsetWidth;
             bi.classList.remove('notrans');
             bi.classList.remove('open');                         /* sampul berayun menutup */
             setTimeout(() => {
                 fin.classList.add('hidden');
+                landBeeOnBook(bi);
+            }, 1700);
+        }
+        /* setelah sampul tertutup: lebah terbang dari kanan atas dan hinggap di sampul, baru tombol "ketuk" muncul */
+        function landBeeOnBook(bi) {
+            let done = false;
+            const finish = () => {
+                if (done) return; done = true;
+                bi.classList.remove('bee-gone');
                 $('biHint').textContent = 'Ketuk untuk kembali ke awal';
                 bi.classList.add('tappable');
                 bi.onclick = leaveClosedBook;
                 bookClosing = false;
-            }, 1700);
+            };
+            const svg = bi.querySelector('.sb-cover svg');
+            const calm = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!svg || calm) { finish(); return; }
+            const r = svg.getBoundingClientRect();
+            const tx = r.left + r.width / 2, ty = r.top + r.height / 2;
+            const b = document.createElement('div');
+            b.className = 'beeout';
+            b.style.zIndex = '70';
+            b.style.left = tx + 'px';
+            b.style.top = ty + 'px';
+            b.style.width = r.width + 'px';
+            b.style.margin = (-r.height / 2) + 'px 0 0 ' + (-r.width / 2) + 'px';
+            b.style.opacity = '0';
+            b.innerHTML = svg.outerHTML;
+            b.querySelectorAll('ellipse').forEach((e, i) => { if (i < 2) e.classList.add('wing'); });
+            document.body.appendChild(b);
+            const dur = 3600;
+            const an = flyBeeIn(b, {
+                sx: window.innerWidth - tx + 40,
+                sy: -Math.min(ty, window.innerHeight * 0.45),
+                dur, wob: 12, s0: 0.8
+            });
+            an.onfinish = () => { b.remove(); finish(); };
+            setTimeout(() => { b.remove(); finish(); }, dur + 600);   /* jaga-jaga */
         }
         function leaveClosedBook() {
             const bi = $('bookIntro');
@@ -2090,7 +2163,7 @@
             3: [
                 `Ngomongin soal interaksi kita kemarin, ini murni cara gua melihat sosok lu selama setengah tahun kita berinteraksi`,
                 `Kalau lu mau, lu juga bebas banget buat ngasi feedback gimana gua selama ini`,
-                `Di mata gua lu punya prinsip kuat buat defend argumen lu, dan kejujuran itu buat gua kagum. Argumen lu selalu punya dasar yang jelas, dan itu bikin gua respect`,
+                `Di mata gua lu punya prinsip kuat buat defend argumen lu, dan jujur itu buat gua kagum. Argumen lu selalu punya dasar yang jelas, dan itu bikin gua respect`,
                 `Deep down, gua tau niat lu emang tulus pengen jadi orang baik`,
                 `Lu partner debat yang seru, banyak diskusi kita yang bikin gua mikir ulang`,
                 `Lu bisa ngasih perspective yang out of the box. Ada aja sudut pandang tak terduga dari lu yang ngebuka mata gua`,
@@ -2106,9 +2179,9 @@
                 `Oh, and i bought u that book u wanted to read (Semoga lu belum beli sendiri ya, kalau udah, anggap aja jadi koleksi tambahan)`,
                 `Lewat tulisan ini, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun`,
                 `Makasih udah ngasih ruang buat gua pamit, jadi gua bisa pergi dengan lebih tenang`,
-                `Di titik ini, gua sadar kalau perasaan yang sempat ada buat lu perlahan udah hilang, dan gua juga sadar kalau kita emang ga bisa berteman secara wajar tanpa terus-terusan saling nyakitin`,
-                `Dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki dalam diri ini, termasuk cara pandang gua yang sering kejebak di ego sendiri`,
-                `Lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, and i need to learn buat mulai lihat dari pov orang lain`,
+                `Di titik ini, sejujurnya, ada hal yang ga pernah bener-bener selesai di dalam diri gua, Li. Berkali-kali gua cape, berkali-kali gua coba pergi, dan berkali-kali juga hati gua nemu jalan balik ke lu. Seumur hidup, baru dua kali hati gua memilih dengan sendirinya, dan lu salah satunya. Dari situ gua sadar kalau gua ga bisa murni jadi temen lu, kalau gua paksa, gua akan terus-terusan nyakitin kita berdua.`,
+                `Selain itu, dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki dalam diri ini, termasuk cara pandang gua yang sering kejebak di ego sendiri`,
+                `Makasih juga karena lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, and i need to learn buat mulai lihat dari pov orang lain`,
                 `At the end of the day, gua belajar kalau ikhlas itu jauh lebih indah`,
                 `If we're truly meant to cross paths again, we'll find our way back to each other`,
                 `Kalaupun bukan takdirnya, it's okay, maybe we only met to learn from each other. So, we don't need to be afraid to walk away anymore`,
@@ -2990,10 +3063,10 @@
 
             /* petunjuk di atas gambar */
             const ART_HINTS = {
-                1: 'Ketuk lilinnya, lalu buat satu harapan 🕯️',
-                2: 'Ketuk bukunya untuk membukanya 📖',
+                1: 'Ketuk lilinnya, lalu buat satu harapan',
+                2: 'Ketuk bukunya untuk membukanya',
                 8: 'Tahan perahunya... sampai ia siap berlayar',
-                10: 'Ketuk balonnya untuk melepas keduanya 🎈'
+                10: 'Ketuk balonnya untuk melepas keduanya'
             };
 
             /* petunjuk: tinggi tetap supaya layout tidak melompat saat teksnya berganti */
