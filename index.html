@@ -1215,6 +1215,18 @@
         .sb-date { font-size: 0.9rem; font-weight: 500; letter-spacing: 0.4px; color: #f6dc9c; margin-left: 10px; text-align: center; }
         .sb-date:empty, .sb-hint:empty { display: none; }
         .sb-hint { position: absolute; left: 0; right: 0; bottom: 30px; padding-left: 10px; text-align: center; font-size: 0.74rem; color: rgba(246, 220, 156, 0.7); animation: fadeOnly 1.6s ease both; }
+
+        /* ===== E. Tombol email, tombol tulisan hari ini, dan P.S. di Chapter 4 (kalimat email) ===== */
+        .act-row { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+        .act-btn {
+            display: block; text-align: center; text-decoration: none;
+            font-family: 'Poppins', sans-serif; font-size: 0.88rem; font-weight: 600;
+            padding: 10px 14px; border-radius: 24px;
+            border: 1.5px solid var(--btn-border); background: rgba(255,255,255,0.08); color: var(--btn-text);
+        }
+        html[data-theme="4"] .act-btn { color: #f6dc9c; border-color: rgba(242,201,107,0.6); background: rgba(242,201,107,0.12); }
+        .act-note { font-size: 0.85rem; color: var(--muted); text-align: center; margin-top: 4px; }
+        .act-ps { font-size: 0.78rem; line-height: 1.5; color: var(--muted); text-align: center; font-style: italic; }
     </style>
 </head>
 <body>
@@ -1774,6 +1786,21 @@
 
         /* Mode serius: satu kalimat per halaman, tanpa ilustrasi/animasi */
         const MAIL_RE = /(\S+@\S+\.\S+)/;
+
+        /* ----- Kontak & tautan (ubah di sini kalau ada yang berubah) -----
+           Alamat email tidak ditampilkan sebagai teks; hanya muncul sebagai tombol.
+           Tombol + P.S. ini muncul di kalimat email Chapter 4 (urutan ke-13, indeks 12). */
+        const RUNI_MAIL = 'karuniashavira@gmail.com';
+        const RUNI_TIKTOK = 'https://vt.tiktok.com/ZSb3cYr8C/';
+        const MAIL_IDX = 12;
+        const ACT_HTML = `
+            <div class="act-row">
+                <a class="act-btn" href="mailto:${RUNI_MAIL}" onclick="event.stopPropagation()">✉ Kirim email ke Runi</a>
+                <div class="act-note">Tulisan tentang hari ini ada di sini ya, Li</div>
+                <a class="act-btn" href="${RUNI_TIKTOK}" target="_blank" rel="noopener" onclick="event.stopPropagation()">Buka tulisan hari ini</a>
+                <div class="act-ps">P.S. Satu-satunya akun yang masih gua buka buat lu selama 2 hari ke depan.</div>
+            </div>`;
+
         function plainChapter(id) {
             const body = $('chBody'), d = sectionsData[id], n = d.length;
             let plainT = null;
@@ -1786,8 +1813,9 @@
                 const hold = id === 4 && k === 8;
                 const lock = hold ? Date.now() + KEY_HOLD : 0;
                 const sign = (id === 4 && last) ? '<div class="plain-sign">— Runi</div>' : '';
+                const extra = (id === 4 && k === MAIL_IDX) ? ACT_HTML : '';
                 const text = d[k].replace(MAIL_RE, '<a class="mail-link" href="mailto:$1" onclick="event.stopPropagation()">$1</a>');
-                body.innerHTML = `<div class="plain-page${isKey ? ' key' : ''}"><div class="plain-orn"></div>${text}${sign}</div>`;
+                body.innerHTML = `<div class="plain-page${isKey ? ' key' : ''}"><div class="plain-orn"></div>${text}${extra}${sign}</div>`;
                 if (id === 1 || id === 4) setResume(id, k);
                 setCounter(`${k + 1} / ${n}`);
                 setPrev(k > 0, () => show(k - 1));
@@ -2179,14 +2207,14 @@
                 `Oh, and i bought u that book u wanted to read (Semoga lu belum beli sendiri ya, kalau udah, anggap aja jadi koleksi tambahan)`,
                 `Lewat tulisan ini, gua beneran mau pamit. Thanks for everything, terutama buat pertemanan kita selama setengah tahun`,
                 `Makasih udah ngasih ruang buat gua pamit, jadi gua bisa pergi dengan lebih tenang`,
-                `Di titik ini, sejujurnya, ada hal yang ga pernah bener-bener selesai di dalam diri gua, Li. Berkali-kali gua cape, berkali-kali gua coba pergi, dan berkali-kali juga hati gua nemu jalan balik ke lu. Seumur hidup, baru dua kali hati gua memilih dengan sendirinya, dan lu salah satunya. Dari situ gua sadar kalau gua ga bisa murni jadi temen lu, kalau gua paksa, gua akan terus-terusan nyakitin kita berdua.`,
+                `Di titik ini, sejujurnya, ada hal yang ga pernah bener-bener selesai di dalam diri gua, Li. Berkali-kali gua cape, berkali-kali gua coba pergi, dan berkali-kali juga hati gua nemu jalan balik ke lu. Dari situ gua sadar kalau gua ga bisa murni jadi temen lu, kalau gua paksa, gua akan terus-terusan nyakitin kita berdua.`,
                 `Selain itu, dari evaluasi gua belakangan, i realized komunikasi kita sering ga sejalan dan gua masih punya banyak hal yang harus diperbaiki dalam diri ini, termasuk cara pandang gua yang sering kejebak di ego sendiri`,
                 `Makasih juga karena lu pernah jelasin tentang ego gua, gua rasa itu bener. Selama ini tulisan gua selalu dari pov gua aja, and i need to learn buat mulai lihat dari pov orang lain`,
                 `At the end of the day, gua belajar kalau ikhlas itu jauh lebih indah`,
                 `If we're truly meant to cross paths again, we'll find our way back to each other`,
                 `Kalaupun bukan takdirnya, it's okay, maybe we only met to learn from each other. So, we don't need to be afraid to walk away anymore`,
                 `When u finish reading this note, I've already blocked u. I'm so sorry. Gua ga bermaksud untuk mutus silaturahim, but i need to take my own time dan fokus ke diri sendiri`,
-                `Tapi, kalau ada hal penting or feedback yang pengen lu sampein, u can send it to my email at karuniashavira@gmail.com`,
+                `Tapi, kalau ada hal penting or feedback yang pengen lu sampein, u can send it to my email`,
                 `Thanks for everything, and i truly wish the best for both of us`
             ]
         };
@@ -2405,7 +2433,11 @@
                 c.moveTo(P.W / 2 - 34, 160); c.lineTo(P.W / 2 + 34, 160); c.stroke(); c.globalAlpha = 1;
                 y = 196;
                 const keys = PLAIN_KEYS[id] || [];
-                sectionsData[id].forEach((txt, i) => para(txt, keys.includes(i)));
+                sectionsData[id].forEach((txt, i) => {
+                    /* di PDF tidak ada tombol, jadi alamat email ditulis kembali (tetap bisa diketuk) */
+                    if (id === 4 && i === MAIL_IDX) txt = txt.replace(/\.$/, '') + ' at ' + RUNI_MAIL;
+                    para(txt, keys.includes(i));
+                });
                 if (id === 4) {
                     ensure(56);
                     const cc = cur.c, tt = cur.t;
@@ -2996,6 +3028,7 @@
              kalimat 9  : perahu -> TAHAN untuk melepaskan, berlayar pergi dengan tenang
              kalimat 11 : balon  -> dua balon dilepas, naik pelan lalu terbang berpisah arah
            Hanya lilin yang bercahaya; yang lain dibuat tenang.
+           Kalimat 13 (email): tombol email + tombol tulisan hari ini + P.S.
            ===================================================== */
         chapters[4] = function () {
             const d = sectionsData[4], n = d.length;
@@ -3332,11 +3365,8 @@
                     target.addEventListener('click', e => e.stopPropagation());
                     if (ACT4[idx]) ACT4[idx](target);
                 }
-                /* alamat email jadi tautan yang bisa diketuk */
-                const mm = d[idx].match(MAIL_RE);
-                $('mailRow').innerHTML = mm
-                    ? `<a class="mail-link" href="mailto:${mm[1]}" onclick="event.stopPropagation()">Kirim email ke Runi</a>`
-                    : '';
+                /* kalimat email: tombol email, tombol tulisan hari ini, dan P.S. */
+                $('mailRow').innerHTML = idx === MAIL_IDX ? ACT_HTML : '';
                 /* musik ikut bernapas: merendah di kalimat kunci, hening di kalimat terakhir */
                 if (idx === KEY4) { fadeVolume(35, 2500); buzz(35); }
                 else if (idx === n - 1) { fadeVolume(0, 7000); buzz([30, 90, 30]); }
